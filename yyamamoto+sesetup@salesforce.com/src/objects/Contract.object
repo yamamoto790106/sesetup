@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Activate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Terminate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>AccountId</fullName>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ActivatedById</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ActivatedDate</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>BillingAddress</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CompanySignedDate</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CompanySignedId</fullName>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContractTerm</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CurrencyIsoCode</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CustomerSignedDate</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CustomerSignedId</fullName>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CustomerSignedTitle</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>EndDate</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Field1__c</fullName>
+        <externalId>false</externalId>
+        <label>契約種別</label>
+        <picklist>
+            <picklistValues>
+                <fullName>法人顧問契約</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>受任契約</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Field2__c</fullName>
+        <externalId>false</externalId>
+        <label>月額顧問契約料金</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field3__c</fullName>
+        <externalId>false</externalId>
+        <label>顧問契約初期費用</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field4__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>商談</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>契約</relationshipLabel>
+        <relationshipName>Vzz</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Field5__c</fullName>
+        <externalId>false</externalId>
+        <label>案件割引率</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>OwnerExpirationNotice</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Pricebook2Id</fullName>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ShippingAddress</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>SpecialTerms</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>StartDate</fullName>
+        <trackHistory>true</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>承認処理中</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>有効</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ドラフト</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <listViews>
+        <fullName>x01</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CONTRACT.STATUS_CODE</field>
+            <operation>equals</operation>
+            <value>A</value>
+        </filters>
+        <label>01. すべての有効契約</label>
+    </listViews>
+    <listViews>
+        <fullName>x02</fullName>
+        <filterScope>Everything</filterScope>
+        <label>02. すべての契約</label>
+    </listViews>
+    <listViews>
+        <fullName>x03</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CONTRACT.STATUS_CODE</field>
+            <operation>equals</operation>
+            <value>D</value>
+        </filters>
+        <label>03. すべてのドラフト契約</label>
+    </listViews>
+    <listViews>
+        <fullName>x04</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CONTRACT.STATUS_CODE</field>
+            <operation>equals</operation>
+            <value>P</value>
+        </filters>
+        <label>04. すべての承認処理中契約</label>
+    </listViews>
+    <listViews>
+        <fullName>x05</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CONTRACT.STATUS_CODE</field>
+            <operation>equals</operation>
+            <value>A</value>
+        </filters>
+        <label>05. 私の有効契約</label>
+    </listViews>
+    <listViews>
+        <fullName>x06</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CONTRACT.STATUS_CODE</field>
+            <operation>equals</operation>
+            <value>D</value>
+        </filters>
+        <label>06. 私のドラフト契約</label>
+    </listViews>
+    <listViews>
+        <fullName>x07</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CONTRACT.STATUS_CODE</field>
+            <operation>equals</operation>
+            <value>P</value>
+        </filters>
+        <label>07. 私の承認処理中契約</label>
+    </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>CONTRACT.CONTRACT_NUMBER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CONTRACT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>SALES.ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CONTRACT.STATUS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CONTRACT.START_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CONTRACT.END_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field1__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CONTRACT.CONTRACT_NUMBER</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CONTRACT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>SALES.ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CONTRACT.START_DATE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CONTRACT.END_DATE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field1__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTRACT.CONTRACT_NUMBER</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CONTRACT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.ALIAS</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>CONTRACT.CONTRACT_NUMBER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTRACT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>SALES.ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTRACT.START_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CONTRACT.END_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field1__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>CustomLink1</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>新規契約</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>https://ap2.salesforce.com/800/e?retURL=%2F{!Opportunity.Id}&amp;accid={!Account.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CustomLink2</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>契約登録</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>https://ap2.salesforce.com/800/e?CF00N280000039NCo={!Opportunity.Name}&amp;CF00N280000039NCo_lkid={!Opportunity.Id}&amp;accid={!Opportunity.AccountId}&amp;retURL=%2F{!Opportunity.Id}&amp;ctrc5={!Today}&amp;ctrc40=12&amp;CurrencyIsoCode={!Account.CurrencyIsoCode}&amp;ctrc13=15&amp;00N280000039L92=法人顧問契約&amp;00N28000003AMnd=20&amp;00N280000039L9z=100000&amp;00N280000039L9u=50000</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CustomLink4</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>顧問契約書作成</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>// これは、OPROARTS Live サーバで生成された OPROARTS Live - Force.com API の利用サンプルです。
+//
+// OPROARTS Live - Force.com API の情報は、https://www2.opro.net/jp_arts/support.html からご覧になれます。
+// Visualforce の情報は、http://www.salesforce.com/us/developer/docs/pages/index.htm (Salesforce.com) からご覧になれます。
+
+
+// ---- BEGIN  ----
+{!REQUIRESCRIPT(&quot;https://s.oproarts.com/js/live_ff-1.00.js&quot;)}
+OPROARTS.Live.fF.action({
+	// tp: 配備済みテンプレートの名称を指定します。複数指定することもできます。
+	// このパラメータを省略することはできません。
+	tp:[
+		&apos;arts20150614231925276&apos;
+	],
+
+	// フォントの埋め込むかどうかを指定します。true もしくは false で指定します。
+	// fm パラメータが&apos;PDF&apos;の場合に有効です。また、テンプレートで埋め込み可能なフォントが使用されている必要があります。
+	fe:false,
+
+	// joinDocuments: 作成するドキュメントを結合するかどうかを指定します。true もしくは false で指定します。
+	// このパラメータと createsAttach パラメータが true で、かつ objectIdパラメータで指定されたオブジェクトが複数の場合、
+	// - オブジェクト毎のドキュメント(添付用)
+	// - 結合されたオブジェクト
+	// の両方が作成され、両方が料金としてカウントされます。
+	joinDocuments:false,
+
+	// createsAttach: 作成されたドキュメントをオブジェクトに添付するかどうかを指定します。true もしくは false で指定します。
+	// 添付できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	createsAttach:true,
+
+
+	// createsTask: 作成されたドキュメントを活動履歴に登録するかどうかを指定します。true もしくは false で指定します。
+	// 活動履歴に登録できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	// このパラメータに true を指定した場合、次の追加パラメータを指定することができます。
+	// - taskSubject: 活動履歴の件名
+	// - taskComment: 活動履歴のコメント
+	// 無指定の場合は、システムの初期値が適用されます。
+	createsTask:true,
+
+	// title: 添付・活動履歴へ登録するとき使われる名称を指定します。
+	title:&apos;\u9867\u554F\u5951\u7D04\u66F8&apos;,
+
+	// objectId: 帳票オブジェクトのIDを指定します。
+	objectId:{!GETRECORDIDS($ObjectType.Contract)},
+
+	// OPROARTS Live - Force.com API に必要な諸パラメータです。
+	// このパラメータを編集しないでください。
+	api:[&apos;{!JSENCODE($Organization.Id)}&apos;,&apos;{!JSENCODE($User.Id)}&apos;,&apos;{!JSENCODE($Api.Session_ID)}&apos;,&apos;{!JSENCODE($Api.Partner_Server_URL_220)}&apos;]
+}).url(&quot;https://www.oproarts.com/liveffb/action&quot;).pdf();
+// 作成するドキュメントの形式のメソッドを呼び出します。&apos;pdf()&apos;,&apos;opr()&apos;,&apos;print()&apos;を指定します。
+// &apos;opr()&apos;,&apos;print()&apos;を使用する場合、OPRO X Browser をクライアントPCにインストールしてください。
+// ---- END ----</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CustomLink5</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>顧問契約書作成</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>// これは、OPROARTS Live サーバで生成された OPROARTS Live - Force.com API の利用サンプルです。
+//
+// OPROARTS Live - Force.com API の情報は、https://www2.opro.net/jp_arts/support.html からご覧になれます。
+// Visualforce の情報は、http://www.salesforce.com/us/developer/docs/pages/index.htm (Salesforce.com) からご覧になれます。
+
+
+// ---- BEGIN  ----
+{!REQUIRESCRIPT(&quot;https://s.oproarts.com/js/live_ff-1.00.js&quot;)}
+OPROARTS.Live.fF.action({
+	// tp: 配備済みテンプレートの名称を指定します。複数指定することもできます。
+	// このパラメータを省略することはできません。
+	tp:[
+		&apos;arts20150614231925276&apos;
+	],
+
+	// フォントの埋め込むかどうかを指定します。true もしくは false で指定します。
+	// fm パラメータが&apos;PDF&apos;の場合に有効です。また、テンプレートで埋め込み可能なフォントが使用されている必要があります。
+	fe:false,
+
+	// createsAttach: 作成されたドキュメントをオブジェクトに添付するかどうかを指定します。true もしくは false で指定します。
+	// 添付できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	createsAttach:true,
+
+	// createsTask: 作成されたドキュメントを活動履歴に登録するかどうかを指定します。true もしくは false で指定します。
+	// 活動履歴に登録できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	// このパラメータに true を指定した場合、次の追加パラメータを指定することができます。
+	// - taskSubject: 活動履歴の件名
+	// - taskComment: 活動履歴のコメント
+	// 無指定の場合は、システムの初期値が適用されます。
+	createsTask:true,
+
+	// title: ダウンロード・添付・活動履歴のファイル名を指定します。
+	title:&apos;\u9867\u554F\u5951\u7D04\u66F8&apos;,
+
+	// objectId: 帳票オブジェクトのIDを指定します。
+	objectId:&apos;{!JSENCODE(Contract.Id)}&apos;,
+
+	// OPROARTS Live - Force.com API に必要な諸パラメータです。
+	// このパラメータを編集しないでください。
+	api:[&apos;{!JSENCODE($Organization.Id)}&apos;,&apos;{!JSENCODE($User.Id)}&apos;,&apos;{!JSENCODE($Api.Session_ID)}&apos;,&apos;{!JSENCODE($Api.Partner_Server_URL_220)}&apos;]
+}).url(&quot;https://www.oproarts.com/liveffb/action&quot;).pdf();
+// 作成するドキュメントの形式のメソッドを呼び出します。&apos;pdf()&apos;,&apos;opr()&apos;,&apos;print()&apos;を指定します。
+// &apos;opr()&apos;,&apos;print()&apos;を使用する場合、OPRO X Browser をクライアントPCにインストールしてください。
+// ---- END ----</url>
+    </webLinks>
+</CustomObject>

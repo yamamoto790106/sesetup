@@ -1,0 +1,51 @@
+<apex:page showHeader="false">
+
+<a href="/001?fcf=00B28000001ttPK" target="_brank">
+<span class="Apple-style-span" style="font-size: large;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+<span class="Apple-style-span" style="background-color: rgb(255, 255, 255);">
+
+◇顧客リスト</span></span></span></span></a> 【顧客リスト表示】<br>
+
+<a href="/006?fcf=00B28000001ttPL" target="_brank">
+<span class="Apple-style-span" style="font-size: large;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+<span class="Apple-style-span" style="background-color: rgb(255, 255, 255);">
+
+◇商談リスト</span></span></span></span></a><span class="Apple-style-span" style="color: rgb(51, 102, 255);"> </span>【商談リスト表示】<br>
+
+<a href="/00O28000001tpnO" target="_brank">
+<span class="Apple-style-span" style="font-size: large;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+<span class="Apple-style-span" style="background-color: rgb(255, 255, 255);">
+
+◇活動結果入力</span></span></span></span></a><span class="Apple-style-span" style="color: rgb(51, 51, 255);"></span>【活動結果を入力】<br>
+
+<a href="/01Z28000000Jwv4" target="_brank">
+<span class="Apple-style-span" style="font-size: large;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+<span class="Apple-style-span" style="background-color: rgb(255, 255, 255);">
+
+◇ダッシュボード：商談系</span></span></span></span></a><span class="Apple-style-span" style="color: rgb(51, 51, 255);"></span>【商談分析】<br>
+
+<a href="/01Z28000000JwvA" target="_brank">
+<span class="Apple-style-span" style="font-size: large;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+<span class="Apple-style-span" style="background-color: rgb(255, 255, 255);">
+
+◇ダッシュボード：活動系</span></span></span></span></a><span class="Apple-style-span" style="color: rgb(51, 51, 255);"></span>【活動分析】<br>
+
+<a href="/01Z28000000Jwv9" target="_brank">
+<span class="Apple-style-span" style="font-size: large;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+<span class="Apple-style-span" style="background-color: rgb(255, 255, 255);">
+
+◇ダッシュボード：エラー系</span></span></span></span></a><span class="Apple-style-span" style="color: rgb(51, 51, 255);"></span>【エラーデータ分析】<br>
+
+</apex:page>

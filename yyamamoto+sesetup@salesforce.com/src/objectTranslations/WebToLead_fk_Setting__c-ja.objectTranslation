@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>WebToLead_fk_Setting</value>
+    </caseValues>
+    <fields>
+        <label><!-- BodyBackgroundColor --></label>
+        <name>BodyBackgroundColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- HeaderBorderColor --></label>
+        <name>HeaderBorderColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- LabelColor --></label>
+        <name>LabelColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- LogoSRName --></label>
+        <name>LogoSRName__c</name>
+    </fields>
+    <fields>
+        <label><!-- PanelBackgroundColor --></label>
+        <name>PanelBackgroundColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- PanelBorderColor --></label>
+        <name>PanelBorderColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- PanelInsideBackgroundColor --></label>
+        <name>PanelInsideBackgroundColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- PanelLabelColor --></label>
+        <name>PanelLabelColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- PanelTitle --></label>
+        <name>PanelTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabActiveBackgroundColor --></label>
+        <name>TabActiveBackgroundColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabActiveColor --></label>
+        <name>TabActiveColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabActiveLabelColor --></label>
+        <name>TabActiveLabelColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabBackgroundColor --></label>
+        <name>TabBackgroundColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabLabelColor --></label>
+        <name>TabLabelColor__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabTitle --></label>
+        <name>TabTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- ThanksMsg --></label>
+        <name>ThanksMsg__c</name>
+    </fields>
+</CustomObjectTranslation>

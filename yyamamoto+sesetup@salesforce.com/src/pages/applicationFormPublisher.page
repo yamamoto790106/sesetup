@@ -1,0 +1,279 @@
+<apex:page standardController="Opportunity" extensions="ApplicationFormPublisherController" 
+    showHeader="false" docType="html-5.0" standardStylesheets="false" sidebar="false">
+    <apex:stylesheet value="{!URLFOR($Resource.MobileDesignTemplate_ApplicationFormPublisher, 'common/css/app.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.MobileDesignTemplate_ApplicationFormPublisher, 'common/js/jQuery2.0.2.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.MobileDesignTemplate_ApplicationFormPublisher, 'common/js/jquery.touchwipe.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.MobileDesignTemplate_ApplicationFormPublisher, 'common/js/main.min.js')}"/>
+    <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+    <apex:includeScript value="{!URLFOR($Resource.SignaturePad, 'jquery.signaturepad.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.SignaturePad, 'assets/jquery.signaturepad.css')}"/>
+
+    <style>
+        /* Default S1 color styles */
+        .list-view-header, .data-capture-buttons a {
+            background: -webkit-linear-gradient(#2a93d5,#107abb);
+            background: linear-gradient(#2a93d5,#107abb);
+            box-shadow: 0 1px 3px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.21);
+            color: white;
+            font-weight: bold;
+        }
+        .formTable, .signatureTable{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .formTable{
+            margin-top: 10px;
+        }
+        .formTable td{
+            padding: 4px 1%;
+            width: 30%;
+        }
+        .formTable .labelRow td{
+            padding: 15px 1% 4px 1%;
+            width: 30%;
+        }
+        .signatureTable td{
+            width: 23%;
+            padding: 2px 1%;
+        }
+        .signatureTable textarea{
+            height: 120px;
+        }
+        .labelRow{
+            background: #eee;
+            padding: 10px;
+        }
+        .valueRow{
+            background: #ccc;
+        }
+        .input-width98{
+            width: 98% ;
+        }
+        .input-width100{
+            width: 100% ;
+        }
+        .checkboxLabel{
+            padding-left: 5px;
+            margin-bottom: 5px;
+        }
+        .smallFont{
+            font-size: 12px;
+        }
+        .alignRight{
+            text-align: right;
+        }
+
+        #signArea{
+            margin: 0px auto;
+        }
+        .signNav{
+            float: right;
+            margin-top: -30px;
+        }
+        .signPad {
+            margin: 0;
+            padding: 0;
+        }
+        .signWrapper {
+            clear: both;
+            border: 1px solid #ccc;
+        }
+        #message{
+            display: none;
+            padding: 10px 5px;
+            color: #A30000;
+            background: #ddd;
+            margin-bottom: 20px;
+        }
+        #submit-application{
+            margin-top: 5px;
+            background: green;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 10px;
+            padding-top: 10px;    
+        }
+        @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  {
+            #submit-application{
+                display: none;
+            }
+        }
+        @media only screen and (min-device-width: 320px) and (max-device-width: 480px){
+            #submit-application{
+                display: none;
+            }
+        }
+    </style>    
+    <script>
+    var SignPadTestApi;
+    function closeDialog() {
+        Sfdc.canvas.publisher.publish({name: "publisher.close", payload:{ refresh:"true"}});
+    }
+    function initSignaturePad(){
+        var formHeight = 120;
+        var formWidth = 240;
+        $(".pad").attr({width: formWidth-2, Height: formHeight});
+        //signature setting
+        SignPadTestApi = $('.signPad').signaturePad({
+            drawOnly: true, 
+            penWidth: 1,
+            penColour: '#000000', 
+            lineTop: formHeight*3/4}); 
+        $('#signArea').css('width', formWidth + 1);  
+        $('.signPad').css('width', formWidth);  
+        $('.signWrapper').css('height', formHeight);             
+    }
+    function saveForm(){
+        console.log($('#iAgree').prop('checked'));
+        if(!$('#iAgree').prop('checked')){
+            showMessage('Please agree to the terms and conditions.');
+            return;
+        }
+        
+        if(SignPadTestApi.getSignatureString().length!=2){
+                var signData = SignPadTestApi.getSignatureImage();
+                var opportunity ={
+                    Id : $('#opportunity-id').val(),
+                    StageName : '成立',
+                };
+                console.log(opportunity);
+                var account = {
+                    Id : $('#account-id').val(),
+                    Name : $('#entryform-accountName').val(),
+                    AccountNumber: $('#entryform-accountNumber').val(),
+                    Phone : $('#entryform-accountPhone').val(),
+                    BillingPostalCode : $('#entryform-accountBillingPostalCode').val(),
+                    BillingState : $('#entryform-accountBillingState').val(),
+                    BillingCity : $('#entryform-accountBillingCity').val(),
+                    BillingStreet : $('#entryform-accountBillingStreet').val(),
+                };
+                console.log(account);
+                var contact = {
+                    Id : $('#contact-id').val() ? $('#contact-id').val() : null,
+                    Email : $('#entryform-contactEmail').val() ? $('#entryform-contactEmail').val() : null,
+                };
+                console.log(contact);
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ApplicationFormPublisherController.createApplicationForm}',
+                    signData, opportunity, account, contact,
+                    function(result, event){
+                        if (event.status) {
+                            console.log(result);
+                            emailPDF(result);
+                        } else if (event.type === 'exception') {
+                            //exception case code
+                        } else {
+                        }
+                    }, {escape: true}
+                );
+        }else{
+            showMessage('Please sign the form.');
+            return;
+        }
+    }
+    
+    function showMessage(message){
+        $('#message').text(message);
+        $('#message').fadeIn();
+    }
+
+    function emailPDF(parameters){
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ApplicationFormPublisherController.emailPDF}',
+            parameters[0], parameters[1], $('#entryform-contactEmail').val(),
+            function(result, event){
+                if (event.status) {
+                    console.log('success!');
+                    closeDialog();
+                 } else if (event.type === 'exception') {
+                        //exception case code
+                 } else {
+                 }
+            }, {escape: true}
+        );
+    }
+    $( document ).ready(function(){
+        initSignaturePad();
+        setTimeout(function(){
+            Sfdc.canvas.publisher.publish({name: 'publisher.setValidForSubmit', payload:'true'});
+        },3000); 
+        Sfdc.canvas.publisher.subscribe({name: "publisher.post", 
+            onData:function(e) {
+                saveForm();
+            }
+        }); 
+        $('#submit-application').on('click', function(){
+            console.log('clicked');
+            saveForm();
+        });
+    });    
+    </script>
+
+    <div id="formDiv">
+        <div id="message"></div>
+        <!-- <input type="button" value="Submit" id="tempButton" /> -->
+        <apex:form >
+        <input type="hidden" value="{!Opportunity.Id}" id="opportunity-id"/>
+        <input type="hidden" value="{!mainContact.Id}" id="contact-id"/>
+        <input type="hidden" value="{!Opportunity.Account.Id}" id="account-id"/>
+        <table class="formTable">
+            <tr class="labelRow">
+                <td>お客様名</td>
+                <td>お客様番号</td>
+                <td>電話番号</td>
+            </tr>
+            <tr class="valueRow">
+                <td><input type="text" id="entryform-accountName" value="{!Opportunity.Account.Name}" class="input-width98" /></td>
+                <td><input type="text" id="entryform-accountNumber" value="{!Opportunity.Account.AccountNumber}" class="input-width98" /></td>
+                <td><input type="text" id="entryform-accountPhone" value="{!Opportunity.Account.Phone}" class="input-width98" /></td>
+            </tr> 
+            <tr class="labelRow">
+                <td>ご担当者様名</td>
+                <td>メールアドレス</td>
+                <td></td>
+            </tr>
+            <tr class="valueRow">
+                <td><input type="text" id="entryform-contactName" value="{!mainContact.Name}" class="input-width98" readonly="true"/></td>
+                <td colspan="2"><input type="text" id="entryform-contactEmail" value="{!mainContact.Email}" class="input-width98"/></td>
+            </tr>
+            <tr class="labelRow">
+                <td colspan="3">ご住所</td>
+            </tr>
+            <tr class="valueRow">
+                <td><input type="text" id="entryform-accountBillingPostalCode" class="input-width98" value="{!Opportunity.Account.BillingPostalCode}" /></td>
+                <td colspan="2"><input type="text" id="entryform-accountBillingState" class="input-width98" value="{!Opportunity.Account.BillingState}" /></td>
+            </tr>
+            <tr class="valueRow">
+                <td><input type="text" id="entryform-accountBillingCity" class="input-width98" value="{!Opportunity.Account.BillingCity}" /></td>
+                <td colspan="2"><input type="text" id="entryform-accountBillingStreet" class="input-width98" value="{!Opportunity.Account.BillingStreet}" /></td>
+            </tr>
+        </table>
+        <br />
+        </apex:form>
+        <br /><br />
+        <table class="signatureTable">
+            <tr>
+                <td><span class="smallFont">契約条件</span></td>
+                <td class="alignRight"><input type="checkbox" id="iAgree" /><label class="checkboxLabel smallFont">確認済み</label></td>
+                <td class="smallFont" >ご署名</td>
+                <td></td>  
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea rows="10" readonly="true">{!contract}</textarea>
+                </td>
+                <td colspan="2">
+                    <div id="signArea"> 
+                        <div class="signPad">
+                            <ul class="signNav"><li class="clearButton smallFont"><a href="#clear">消去</a></li></ul>
+                            <div class="sign signWrapper">
+                                <canvas class="pad"/>
+                                <input type="hidden" name="output" class="output"/>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div><input type="button" id="submit-application" value="Submit Application" /></div>
+    </div>
+</apex:page>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data Creator for SE Client</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <namespacePrefix>skay_dcc</namespacePrefix>
+    <types>
+        <members>DataCreatorController</members>
+        <members>DataCreatorException</members>
+        <members>DataSet</members>
+        <members>DataSets</members>
+        <members>FieldContainer</members>
+        <members>PickList</members>
+        <members>UnitTest</members>
+        <members>UsageUtil</members>
+        <members>UtilitySObject</members>
+        <members>UtilitySObjectTest</members>
+        <members>sObjectWrapper</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>DataCreator</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Data_Creator</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Contribute_to_Data_Set</members>
+        <members>Data_Creator</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>skayDataCreatorForSE</members>
+        <members>skayDataCreatorForSEAnalytics</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+    <version>33.0</version>
+</Package>

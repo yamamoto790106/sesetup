@@ -1,0 +1,4 @@
+<apex:page standardController="OPROARTS050__QuoteLine__c" extensions="OPROARTS050.QuoteLineSplit" action="{!move}" recordSetVar="QuteLines">
+    <apex:variable var="quoteId" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Quote__c}"/>
+    <apex:pageMessages id="m1"/>
+</apex:page>

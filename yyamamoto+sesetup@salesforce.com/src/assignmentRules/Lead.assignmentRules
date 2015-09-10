@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>自動担当割り当て</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>yyamamoto+sesetupxu08@salesforce.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>東京都,神奈川県,千葉県,埼玉県</value>
+            </criteriaItems>
+            <template>unfiled$public/EmailTemplate</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>yyamamoto+sesetupxu08@salesforce.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>notEqual</operation>
+                <value>東京都,神奈川県,千葉県,埼玉県</value>
+            </criteriaItems>
+            <template>unfiled$public/EmailTemplate</template>
+        </ruleEntry>
+    </assignmentRule>
+</AssignmentRules>

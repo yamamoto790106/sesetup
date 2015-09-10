@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>タイムシート</value>
+    </caseValues>
+    <fields>
+        <label><!-- 通信費 --></label>
+        <name>Field10__c</name>
+    </fields>
+    <fields>
+        <label><!-- 宿泊料 --></label>
+        <name>Field11__c</name>
+    </fields>
+    <fields>
+        <label><!-- 保管金 --></label>
+        <name>Field12__c</name>
+    </fields>
+    <fields>
+        <label><!-- 供託金 --></label>
+        <name>Field13__c</name>
+    </fields>
+    <fields>
+        <label><!-- 保証金 --></label>
+        <name>Field14__c</name>
+    </fields>
+    <fields>
+        <label><!-- 収入印紙代備考 --></label>
+        <name>Field15__c</name>
+    </fields>
+    <fields>
+        <label><!-- 予納郵券代備考 --></label>
+        <name>Field16__c</name>
+    </fields>
+    <fields>
+        <label><!-- 記録謄写費用備考 --></label>
+        <name>Field17__c</name>
+    </fields>
+    <fields>
+        <label><!-- コピー代備考 --></label>
+        <name>Field18__c</name>
+    </fields>
+    <fields>
+        <label><!-- 交通費備考 --></label>
+        <name>Field19__c</name>
+    </fields>
+    <fields>
+        <label><!-- 通信費備考 --></label>
+        <name>Field20__c</name>
+    </fields>
+    <fields>
+        <label><!-- 宿泊料備考 --></label>
+        <name>Field21__c</name>
+    </fields>
+    <fields>
+        <label><!-- 保管金備考 --></label>
+        <name>Field22__c</name>
+    </fields>
+    <fields>
+        <label><!-- 供託金備考 --></label>
+        <name>Field23__c</name>
+    </fields>
+    <fields>
+        <label><!-- 保証金備考 --></label>
+        <name>Field24__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ請求フラグ --></label>
+        <name>Field25__c</name>
+    </fields>
+    <fields>
+        <label><!-- 収入印紙代（請求フラグ） --></label>
+        <name>Field26__c</name>
+    </fields>
+    <fields>
+        <label><!-- 予納郵券代（請求フラグ） --></label>
+        <name>Field27__c</name>
+    </fields>
+    <fields>
+        <label><!-- 記録謄写費用（請求フラグ） --></label>
+        <name>Field28__c</name>
+    </fields>
+    <fields>
+        <label><!-- コピー代（請求フラグ） --></label>
+        <name>Field29__c</name>
+    </fields>
+    <fields>
+        <label><!-- 活動種別 --></label>
+        <name>Field2__c</name>
+        <picklistValues>
+            <masterLabel>その他</masterLabel>
+            <translation><!-- その他 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約書チェック</masterLabel>
+            <translation><!-- 契約書チェック --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約書レビュー</masterLabel>
+            <translation><!-- 契約書レビュー --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約書作成</masterLabel>
+            <translation><!-- 契約書作成 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>意見書作成</masterLabel>
+            <translation><!-- 意見書作成 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>打ち合わせ</masterLabel>
+            <translation><!-- 打ち合わせ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>接見</masterLabel>
+            <translation><!-- 接見 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>法令・判例調査</masterLabel>
+            <translation><!-- 法令・判例調査 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>法律相談</masterLabel>
+            <translation><!-- 法律相談 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>訴訟対応</masterLabel>
+            <translation><!-- 訴訟対応 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 交通費（請求フラグ） --></label>
+        <name>Field30__c</name>
+    </fields>
+    <fields>
+        <label><!-- 通信費（請求フラグ） --></label>
+        <name>Field31__c</name>
+    </fields>
+    <fields>
+        <label><!-- 宿泊料（請求フラグ） --></label>
+        <name>Field32__c</name>
+    </fields>
+    <fields>
+        <label><!-- 保管金（請求フラグ） --></label>
+        <name>Field33__c</name>
+    </fields>
+    <fields>
+        <label><!-- 供託金（請求フラグ） --></label>
+        <name>Field34__c</name>
+    </fields>
+    <fields>
+        <label><!-- 保証金（請求フラグ） --></label>
+        <name>Field35__c</name>
+    </fields>
+    <fields>
+        <label><!-- その他 --></label>
+        <name>Field36__c</name>
+    </fields>
+    <fields>
+        <label><!-- その他備考 --></label>
+        <name>Field37__c</name>
+    </fields>
+    <fields>
+        <label><!-- その他（請求フラグ） --></label>
+        <name>Field38__c</name>
+    </fields>
+    <fields>
+        <label><!-- 案件 --></label>
+        <name>Field39__c</name>
+        <relationshipLabel><!-- タイムシート --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 開始日時 --></label>
+        <name>Field3__c</name>
+    </fields>
+    <fields>
+        <label><!-- ユーザ --></label>
+        <name>Field40__c</name>
+        <relationshipLabel><!-- タイムシート --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ金額（税抜き） --></label>
+        <name>Field44__c</name>
+    </fields>
+    <fields>
+        <label><!-- 諸経費合計 --></label>
+        <name>Field45__c</name>
+    </fields>
+    <fields>
+        <label><!-- 請求対象実費合計 --></label>
+        <name>Field46__c</name>
+    </fields>
+    <fields>
+        <label><!-- 終了日時 --></label>
+        <name>Field48__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ実稼働時間 --></label>
+        <name>Field4__c</name>
+    </fields>
+    <fields>
+        <label><!-- 開始状態 --></label>
+        <name>Field51__c</name>
+    </fields>
+    <fields>
+        <label><!-- 時間単価 --></label>
+        <name>Field52__c</name>
+    </fields>
+    <fields>
+        <label><!-- 作業者職位 --></label>
+        <name>Field53__c</name>
+        <picklistValues>
+            <masterLabel>アシスタント</masterLabel>
+            <translation><!-- アシスタント --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>アソシエイツ</masterLabel>
+            <translation><!-- アソシエイツ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>パートナー</masterLabel>
+            <translation><!-- パートナー --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 活動ステータス --></label>
+        <name>Field54__c</name>
+        <picklistValues>
+            <masterLabel>予定</masterLabel>
+            <translation><!-- 予定 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>完了</masterLabel>
+            <translation><!-- 完了 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 完了 --></label>
+        <name>Field55__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ請求稼動時間 --></label>
+        <name>Field56__c</name>
+    </fields>
+    <fields>
+        <label><!-- 収入印紙代 --></label>
+        <name>Field5__c</name>
+    </fields>
+    <fields>
+        <label><!-- 予納郵券代 --></label>
+        <name>Field6__c</name>
+    </fields>
+    <fields>
+        <label><!-- 記録謄写費用 --></label>
+        <name>Field7__c</name>
+    </fields>
+    <fields>
+        <label><!-- コピー代 --></label>
+        <name>Field8__c</name>
+    </fields>
+    <fields>
+        <label><!-- 交通費 --></label>
+        <name>Field9__c</name>
+    </fields>
+    <fields>
+        <label><!-- TASKID --></label>
+        <name>TASKID__c</name>
+    </fields>
+    <layouts>
+        <layout>活動レイアウト</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- タイムチャージ --></label>
+            <section>タイムチャージ</section>
+        </sections>
+        <sections>
+            <label><!-- 実費清算 --></label>
+            <section>実費清算</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label><!-- CustomLink1 --></label>
+        <name>CustomLink1</name>
+    </webLinks>
+</CustomObjectTranslation>

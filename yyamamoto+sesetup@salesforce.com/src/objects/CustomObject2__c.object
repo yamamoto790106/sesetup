@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Field10__c</fullName>
+        <externalId>false</externalId>
+        <label>見積ステータス</label>
+        <picklist>
+            <picklistValues>
+                <fullName>未発行</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>発行済み</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Field1__c</fullName>
+        <externalId>false</externalId>
+        <label>案件</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Estimates</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Field2__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <externalId>false</externalId>
+        <label>見積作成日時</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Field3__c</fullName>
+        <externalId>false</externalId>
+        <label>明細合計金額（税抜き）</label>
+        <summarizedField>CustomObject3__c.Field7__c</summarizedField>
+        <summaryForeignKey>CustomObject3__c.Field1__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Field4__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field1__r.Account.Field24__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>消費税込フラグ</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Field5__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field1__r.Account.Field25__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>消費税率</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Field6__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field3__c + ROUND(Field3__c *  Field5__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>明細合計金額（税込）</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field7__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field6__c -  Field3__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>消費税金額</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field8__c</fullName>
+        <externalId>false</externalId>
+        <label>見積備考</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Field9__c</fullName>
+        <externalId>false</externalId>
+        <label>見積有効期限</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>見積り</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>すべて選択</label>
+    </listViews>
+    <nameField>
+        <displayFormat>E{YYYY}{MM}{DD}{00000}</displayFormat>
+        <label>見積番号</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <searchLayouts>
+        <customTabListAdditionalFields>Field2__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field3__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field7__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LAST_UPDATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Field1__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field2__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field6__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>OBJECT_ID</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field1__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field6__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Field1__c</searchFilterFields>
+        <searchFilterFields>Field2__c</searchFilterFields>
+        <searchResultsAdditionalFields>Field2__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field6__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LAST_UPDATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>CustomLink1</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>見積書発行</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>// これは、OPROARTS Live サーバで生成された OPROARTS Live - Force.com API の利用サンプルです。
+//
+// OPROARTS Live - Force.com API の情報は、https://www2.opro.net/jp_arts/support.html からご覧になれます。
+// Visualforce の情報は、http://www.salesforce.com/us/developer/docs/pages/index.htm (Salesforce.com) からご覧になれます。
+
+
+// ---- BEGIN  ----
+{!REQUIRESCRIPT(&quot;https://s.oproarts.com/js/live_ff-1.00.js&quot;)}
+OPROARTS.Live.fF.action({
+	// tp: 配備済みテンプレートの名称を指定します。複数指定することもできます。
+	// このパラメータを省略することはできません。
+	tp:[
+		&apos;arts20150614221013060&apos;
+	],
+
+	// フォントの埋め込むかどうかを指定します。true もしくは false で指定します。
+	// fm パラメータが&apos;PDF&apos;の場合に有効です。また、テンプレートで埋め込み可能なフォントが使用されている必要があります。
+	fe:false,
+
+	// joinDocuments: 作成するドキュメントを結合するかどうかを指定します。true もしくは false で指定します。
+	// このパラメータと createsAttach パラメータが true で、かつ objectIdパラメータで指定されたオブジェクトが複数の場合、
+	// - オブジェクト毎のドキュメント(添付用)
+	// - 結合されたオブジェクト
+	// の両方が作成され、両方が料金としてカウントされます。
+	joinDocuments:false,
+
+	// createsAttach: 作成されたドキュメントをオブジェクトに添付するかどうかを指定します。true もしくは false で指定します。
+	// 添付できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	createsAttach:true,
+
+
+	// createsTask: 作成されたドキュメントを活動履歴に登録するかどうかを指定します。true もしくは false で指定します。
+	// 活動履歴に登録できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	// このパラメータに true を指定した場合、次の追加パラメータを指定することができます。
+	// - taskSubject: 活動履歴の件名
+	// - taskComment: 活動履歴のコメント
+	// 無指定の場合は、システムの初期値が適用されます。
+	createsTask:true,
+
+	// title: 添付・活動履歴へ登録するとき使われる名称を指定します。
+	title:&apos;\u898B\u7A4D\u66F8&apos;,
+
+	// objectId: 帳票オブジェクトのIDを指定します。
+	objectId:{!GETRECORDIDS($ObjectType.CustomObject2__c)},
+
+	// OPROARTS Live - Force.com API に必要な諸パラメータです。
+	// このパラメータを編集しないでください。
+	api:[&apos;{!JSENCODE($Organization.Id)}&apos;,&apos;{!JSENCODE($User.Id)}&apos;,&apos;{!JSENCODE($Api.Session_ID)}&apos;,&apos;{!JSENCODE($Api.Partner_Server_URL_220)}&apos;]
+}).url(&quot;https://www.oproarts.com/liveffb/action&quot;).pdf();
+// 作成するドキュメントの形式のメソッドを呼び出します。&apos;pdf()&apos;,&apos;opr()&apos;,&apos;print()&apos;を指定します。
+// &apos;opr()&apos;,&apos;print()&apos;を使用する場合、OPRO X Browser をクライアントPCにインストールしてください。
+// ---- END ----</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CustomLink2</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>見積書発行</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>// これは、OPROARTS Live サーバで生成された OPROARTS Live - Force.com API の利用サンプルです。
+//
+// OPROARTS Live - Force.com API の情報は、https://www2.opro.net/jp_arts/support.html からご覧になれます。
+// Visualforce の情報は、http://www.salesforce.com/us/developer/docs/pages/index.htm (Salesforce.com) からご覧になれます。
+
+
+// ---- BEGIN  ----
+{!REQUIRESCRIPT(&quot;https://s.oproarts.com/js/live_ff-1.00.js&quot;)}
+OPROARTS.Live.fF.action({
+	// tp: 配備済みテンプレートの名称を指定します。複数指定することもできます。
+	// このパラメータを省略することはできません。
+	tp:[
+		&apos;arts20150614221013060&apos;
+	],
+
+	// フォントの埋め込むかどうかを指定します。true もしくは false で指定します。
+	// fm パラメータが&apos;PDF&apos;の場合に有効です。また、テンプレートで埋め込み可能なフォントが使用されている必要があります。
+	fe:false,
+
+	// createsAttach: 作成されたドキュメントをオブジェクトに添付するかどうかを指定します。true もしくは false で指定します。
+	// 添付できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	createsAttach:true,
+
+	// createsTask: 作成されたドキュメントを活動履歴に登録するかどうかを指定します。true もしくは false で指定します。
+	// 活動履歴に登録できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	// このパラメータに true を指定した場合、次の追加パラメータを指定することができます。
+	// - taskSubject: 活動履歴の件名
+	// - taskComment: 活動履歴のコメント
+	// 無指定の場合は、システムの初期値が適用されます。
+	createsTask:true,
+
+	// title: ダウンロード・添付・活動履歴のファイル名を指定します。
+	title:&apos;\u898B\u7A4D\u66F8&apos;,
+
+	// objectId: 帳票オブジェクトのIDを指定します。
+	objectId:&apos;{!JSENCODE(CustomObject2__c.Id)}&apos;,
+
+	// OPROARTS Live - Force.com API に必要な諸パラメータです。
+	// このパラメータを編集しないでください。
+	api:[&apos;{!JSENCODE($Organization.Id)}&apos;,&apos;{!JSENCODE($User.Id)}&apos;,&apos;{!JSENCODE($Api.Session_ID)}&apos;,&apos;{!JSENCODE($Api.Partner_Server_URL_220)}&apos;]
+}).url(&quot;https://www.oproarts.com/liveffb/action&quot;).pdf();
+// 作成するドキュメントの形式のメソッドを呼び出します。&apos;pdf()&apos;,&apos;opr()&apos;,&apos;print()&apos;を指定します。
+// &apos;opr()&apos;,&apos;print()&apos;を使用する場合、OPRO X Browser をクライアントPCにインストールしてください。
+// ---- END ----</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CustomLink3</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>見積作成</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0K/e?CF00N280000039Vfy={!Opportunity.Name}&amp;CF00N280000039Vfy_lkid={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&amp;00N28000003AgaY=未発行&amp;00N28000003AOOn={!TODAY()}&amp;CurrencyIsoCode={!Account.CurrencyIsoCode}</url>
+    </webLinks>
+</CustomObject>

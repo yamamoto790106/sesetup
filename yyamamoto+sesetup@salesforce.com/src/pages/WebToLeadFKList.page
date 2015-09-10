@@ -1,0 +1,183 @@
+<!-- Created by Fusako Kato (fkato@salesforce.com) 3/30/2015 -->
+<apex:page controller="WebToLeadFKList" sidebar="false" title="Web to Lead 一覧">
+<apex:includeScript value="/soap/ajax/30.0/connection.js" />
+<apex:includeScript value="/support/console/30.0/integration.js"/>
+<apex:includeScript value="//code.jquery.com/jquery-1.11.2.js"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.4.1/jsforce.min.js"></script>
+<script>
+    $(function(){
+    });
+    
+    function openNewNameForm(){
+        $('#newNameForm').css('display','block');
+        $('#overlay').css('display','block');
+    }
+    function closeNewNameForm(){
+        $('#newNameForm').css('display','none');
+        $('#overlay').css('display','none');
+    }
+    function gotoSettingPage(){
+        var letters = /^[A-Za-z]+$/;
+        if(!$('#inputNewName').val()){
+            $('#errMsg').text('新規W2L名を入力してください。');
+        }else if(!$('#inputNewName').val().match(letters)){
+            $('#errMsg').text('W2L名はアルファベットのみでご指摘ください');
+        }else{
+            if(isSettingExist()){
+                $('#errMsg').text('その名前の画面は存在します。他の名前を入力してください。');
+            }else{
+                if(createSetting()){
+                    if(!isStaticResourceExist()){
+                        if(!createStaticResource()){
+                            alert('新規静的リソース作成に失敗しました。管理者にお問い合わせください。');
+                        }
+                    }
+                    window.open('/apex/WebToLeadFKSetting?settingName='+$('#inputNewName').val());
+                    location.reload();
+                }else{
+                    alert('新規W2L作成に失敗しました。管理者にお問い合わせください。');
+                }
+            }
+        }
+    }
+    function isSettingExist(){
+        sforce.connection.sessionId = "{!$Api.Session_ID}"; 
+        var query = "Select Name, Id from WebToLead_fk_Setting__c Where Name = '"+$('#inputNewName').val()+"'";
+        var result = sforce.connection.query(query);
+        var records = result.getArray("records");
+        for(i=0;i<records.length;i++){
+            alert(records[i]);
+        }
+        if(records.length>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function isStaticResourceExist(){
+        sforce.connection.sessionId = "{!$Api.Session_ID}"; 
+        var query = "Select Name, Id from StaticResource Where Name = 'WebToLeadFKLogo_"+$('#inputNewName').val()+"'";
+        var result = sforce.connection.query(query);
+        var records = result.getArray("records");
+        if(records.length>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function createStaticResource(){
+        var conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' });
+        var metadata = [{
+          fullName: 'WebToLeadFKLogo_'+$('#inputNewName').val(),
+          contentType: 'image/png',
+          cacheControl: 'private',
+          content: 'test'
+        }];
+        conn.metadata.create('StaticResource', metadata, function(err, results) {
+          if (err) { console.debug(err);alert(err); return false;}
+          for (var i=0; i < results.length; i++) {
+            var result = results[i];
+            console.debug(result);
+            console.log('success ? : ' + result.success);
+            console.log('fullName : ' + result.fullName);
+          }
+        });
+        return true;
+    }
+    function createSetting(){
+        sforce.connection.sessionId = "{!$Api.Session_ID}"; 
+        var setting = new sforce.SObject("WebToLead_fk_Setting__c");
+        setting.name = $('#inputNewName').val();
+        setting.LogoSRName__c = 'WebToLeadFKLogo_'+$('#inputNewName').val();
+        var result = sforce.connection.create([setting]);
+        if (result[0].getBoolean("success")) {
+            console.debug("ブランディング設定を作成しました。");
+            return true;
+        }else{
+            console.debug("ブランディング設定の作成に失敗しました。");
+            return false;
+        }
+    }
+    function deleteSettingJS(settingId){
+        if(confirm('選択したW2L画面を削除しますか？')){
+            deleteSettingAF(settingId);
+        }else{
+            return false;
+        }
+    }
+</script>
+<style>
+.mini{
+    -moz-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+#newNameForm{
+    display: none;
+    width: 400px;
+    position: fixed;
+    top: 40%;
+    right: 40%;
+    z-index: 2002;
+}
+#overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1001;
+    background-color: rgba(33, 33,33,0.5);
+}
+#errMsg{
+    color: red;
+}
+</style>
+    <apex:form >
+        <apex:pageBlock title="Web2Lead設定レコード一覧" id="pageBlock">
+            <apex:pageBlockButtons >
+                <input type="button" value="新しい画面を作成する" class="btn" onclick="openNewNameForm();return false;"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!settings}" var="item">
+                <apex:column headerValue="アクション">
+                    <apex:commandLink value="W2L画面を開く" onclick="window.open('/apex/WebToLeadFK?settingName={!item.Name}');"/>
+                </apex:column>
+                <apex:column headerValue="アクション">
+                    <apex:commandLink value="設定画面を開く" onclick="window.open('/apex/WebToLeadFKSetting?settingName={!item.Name}');"/>
+                </apex:column>
+                <apex:column headerValue="アクション">
+                    <apex:commandLink value="削除" onclick="deleteSettingJS('{!item.Id}');return false;" reRender="pageBlock" />
+                </apex:column>
+                <apex:column value="{!item.Name}" headerValue="設定名"/>
+                <apex:column headerValue="画面イメージ">
+                    <div class="mini">
+                        <apex:iframe src="/apex/WebToLeadFK?settingName={!item.Name}" height="100" width="800" />
+                    </div>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:actionFunction action="{!deleteSetting}" name="deleteSettingAF" reRender="pageBlock" >
+            <apex:param name="param1" assignTo="{!settingId}" value="" id="param1"/>
+        </apex:actionFunction>
+    </apex:form>
+    <div id="newNameForm">
+        <apex:form >
+            <apex:pageBlock title="新規作成">
+                <apex:pageBlockButtons location="bottom">
+                    <input type="button" value="設定画面に行く" class="btn" onclick="gotoSettingPage();return false;"/>
+                    <input type="button" value="キャンセル" class="btn" onclick="closeNewNameForm();return false;"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="新規W2L画面名" for="inputNewName"/>
+                        <input value="{!newSettingName}" id="inputNewName" /> 
+                    </apex:pageBlockSectionItem>
+                    <span id="errMsg"></span>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+    </div>
+    <div id="overlay">
+    </div>
+</apex:page>

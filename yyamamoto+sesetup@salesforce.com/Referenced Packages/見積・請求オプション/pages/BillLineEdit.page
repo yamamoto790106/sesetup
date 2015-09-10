@@ -1,0 +1,4 @@
+<apex:page standardController="OPROARTS050__BillLine__c" id="billLine">
+    <apex:pageMessage severity="info" strength="1" summary="{!$Label.oproarts050__Message_BillLineEdit_Disabled}"/>
+    <apex:detail subject="{!OPROARTS050__BillLine__c.Id}" relatedList="false" rendered="{!NOT(ISBLANK(OPROARTS050__BillLine__c.Id))}"/>
+</apex:page>

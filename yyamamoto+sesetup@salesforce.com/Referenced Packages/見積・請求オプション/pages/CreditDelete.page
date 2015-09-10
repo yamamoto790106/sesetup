@@ -1,0 +1,5 @@
+<apex:page standardController="OPROARTS050__Credit__c" extensions="OPROARTS050.CreditDelete" action="{!move}" id="credit">
+    <apex:variable var="accountId" value="{!OPROARTS050__Credit__c.OPROARTS050__Account__c}"/>
+    <apex:variable var="billId" value="{!OPROARTS050__Credit__c.OPROARTS050__Bill__c}"/>
+    <apex:pageMessages id="m1"/>
+</apex:page>

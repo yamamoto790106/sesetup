@@ -1,0 +1,47 @@
+<apex:page standardController="OPROARTS050__Quote__c" extensions="OPROARTS050.QuoteAccountEdit" id="Quote"
+        sidebar="false" title="{!$Label.oproarts050__QuoteAccountEdit_Title}: {!OPROARTS050__Quote__c.Name}">
+<apex:stylesheet value="{!URLFOR($Resource.OPROARTS050__QBStatic,'css/oqbo-v1.css')}"/>
+<apex:sectionHeader title="{!$Label.oproarts050__QuoteAccountEdit_Title}" subtitle="{!OPROARTS050__Quote__c.Name}"/>
+<apex:includeScript value="{!URLFOR($Resource.OPROARTS050__QBStatic,'js/oqbo-v1.js')}"/>
+<script type="text/javascript">function setFocusOnLoad() {}</script>
+<apex:form id="f1">
+<apex:pageBlock id="pb1" mode="edit" title="{!$Label.oproarts050__QuoteAccountEdit_Title}" rendered="{!NOT(isAccountEditable)}">
+    <apex:pageMessage severity="warn" strength="1" summary="{!$Label.oproarts050__Message_QuoteAccountNotEditable}"/>
+</apex:pageBlock>
+<apex:pageBlock id="pb2" mode="edit" title="{!$Label.oproarts050__QuoteAccountEdit_Title}" rendered="{!isAccountEditable}">
+    <apex:pageMessages id="m1"/>
+    <apex:pageBlockButtons location="top">
+        <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!saveAccountEdit}"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancelAccountEdit}" immediate="true"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection columns="2" title="{!$Label.oproarts050__Section_Information}">
+        <apex:outputField value="{!OPROARTS050__Quote__c.OPROARTS050__Subject__c}"/>
+        <apex:outputField value="{!OPROARTS050__Quote__c.OPROARTS050__Account__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2" title="{!$Label.oproarts050__QuoteAccountEdit_Section}">
+        <apex:pageBlockSectionItem id="pbsi21">
+            <apex:outputLabel value="{!$ObjectType.Account.Fields.OPROARTS050__PriceRate__c.Label}"/>
+            <apex:inputText value="{!quoteAccount.priceRate}"/>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem id="pbsi22">
+            <apex:outputLabel value="{!$ObjectType.Account.Fields.OPROARTS050__CloseDay__c.Label}"/>
+            <apex:selectList size="1" value="{!quoteAccount.closeDay.value}">
+                <apex:selectOptions value="{!quoteAccount.closeDay.options}"/>
+            </apex:selectList>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem id="pbsi23">
+            <apex:outputLabel value="{!$ObjectType.Account.Fields.OPROARTS050__PaymentMonth__c.Label}"/>
+            <apex:selectList size="1" value="{!quoteAccount.paymentMonth.value}">
+                <apex:selectOptions value="{!quoteAccount.paymentMonth.options}"/>
+            </apex:selectList>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem id="pbsi24">
+            <apex:outputLabel value="{!$ObjectType.Account.Fields.OPROARTS050__PaymentDay__c.Label}"/>
+            <apex:selectList size="1" value="{!quoteAccount.paymentDay.value}">
+                <apex:selectOptions value="{!quoteAccount.paymentDay.options}"/>
+            </apex:selectList>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

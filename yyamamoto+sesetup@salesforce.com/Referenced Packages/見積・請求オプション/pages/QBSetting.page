@@ -1,0 +1,194 @@
+<apex:page controller="OPROARTS050.QBSetting" tabStyle="OPROARTS050__Quote__c" id="qbsetting"
+        showHeader="false" sidebar="false" title="{!$Label.oproarts050__QBSetting_Title}: {!$Label.oproarts050__QBSetting_Subtitle}">
+<apex:stylesheet value="{!URLFOR($Resource.OPROARTS050__QBStatic,'css/oqbo-v1.css')}"/>
+<apex:sectionHeader title="{!$Label.oproarts050__QBSetting_Title}" subtitle="{!$Label.oproarts050__QBSetting_Subtitle}"/>
+<apex:includeScript value="{!URLFOR($Resource.OPROARTS050__QBStatic,'js/oqbo-v1.js')}"/>
+<script type="text/javascript">
+</script>
+<apex:tabPanel id="tabs1" height="100%">
+<apex:tab name="help" label="{!$Label.oproarts050__QBSetting_Tab_Help}">
+    <apex:iframe src="{!$Label.oproarts050__URL_Help}" height="640px" scrolling="true"/>
+</apex:tab>
+<apex:tab name="setting" label="{!$Label.oproarts050__QBSetting_Tab_Setting}" style="font-size: 100%;" rendered="{!isViewable}">
+    <apex:form id="f1">
+    <apex:variable value="{!organizationSetting}" var="os"/>
+    <apex:pageBlock id="pb1" title="{!$Label.oproarts050__QBSetting_OrganizationView}" mode="maindetail"
+            rendered="{!NOT(OR(editMode,editUsersMode))}">
+        <apex:pageMessages id="m1"/>
+        <apex:pageBlockButtons location="both">
+            <apex:commandButton value="{!$Label.oproarts050__Button_Edit}" action="{!edit}" rendered="{!isEditable}"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection id="pbs1" title="{!$Label.oproarts050__QBSetting_Section_NumberDefaultValue}" columns="1">
+            <apex:pageBlockSectionItem id="pbsi1">
+                <apex:outputLabel value="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__DefaultTaxRate__c.Label}"/>
+                <apex:outputText value="{!taxRate}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsi2">
+                <apex:outputLabel value="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__DefaultTaxRoundingMode__c.Label}"/>
+                <apex:outputText value="{!taxRoundingMode.text}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsi3">
+                <apex:outputLabel value="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__DefaultPriceRoundingMode__c.Label}"/>
+                <apex:outputText value="{!priceRoundingMode.text}"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="pbs2" title="{!$Label.oproarts050__QBSetting_Section_TextDefaultValue}" columns="1">
+            <apex:outputField value="{!os.OPROARTS050__DefaultQuoteExpiry__c}"/>
+            <apex:outputField value="{!os.OPROARTS050__DefaultDeliveryTerm__c}"/>
+            <apex:outputField value="{!os.OPROARTS050__DefaultDeliveryPlace__c}"/>
+            <apex:outputField value="{!os.OPROARTS050__DefaultTransaction__c}"/>
+            <apex:outputField value="{!os.OPROARTS050__DefaultPaymentMethod__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="pbs3" title="{!$Label.oproarts050__QBSetting_Section_Image}" columns="2">
+            <apex:outputField value="{!os.OPROARTS050__LogoImageId__c}"/>
+            <apex:outputField value="{!os.OPROARTS050__SealImageId__c}"/>
+            <apex:pageBlockSectionItem id="pbsi3">
+                <apex:outputLabel value="{!SUBSTITUTE($ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__LogoImageId__c.Label,'ID','')}"/>
+                <apex:image value="{!'/servlet/servlet.FileDownload?file='&os.OPROARTS050__LogoImageId__c}"
+                        styleClass="settingImage" rendered="{!NOT(ISBLANK(os.OPROARTS050__LogoImageId__c))}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsi4">
+                <apex:outputLabel value="{!SUBSTITUTE($ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__SealImageId__c.Label,'ID','')}"/>
+                <apex:image value="{!'/servlet/servlet.FileDownload?file='&os.OPROARTS050__SealImageId__c}"
+                        styleClass="settingImage" rendered="{!NOT(ISBLANK(os.OPROARTS050__SealImageId__c))}"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock id="pb2" title="{!$Label.oproarts050__QBSetting_UsersView}" mode="maindetail"
+            rendered="{!NOT(OR(editMode,editUsersMode))}">
+        <apex:pageMessages id="m1"/>
+        <apex:pageBlockButtons location="both">
+            <apex:commandButton value="{!$Label.oproarts050__Button_Edit}" action="{!editUsers}" rendered="{!isEditable}"/>
+        </apex:pageBlockButtons>
+        <apex:outputPanel layout="block" styleClass="moreButtons">
+            <apex:outputPanel rendered="{!OR(hasPreviousPage,hasNextPage)}">
+                &nbsp;&nbsp;[&nbsp;<apex:commandLink action="{!previousPage}" rendered="{!hasPreviousPage}"
+                    reRender="pb2"><apex:outputText value="{!$Label.oproarts050__QBSetting_PreviousPage}"/></apex:commandLink>
+                <apex:outputPanel rendered="{!AND(hasPreviousPage,hasNextPage)}">&nbsp;|&nbsp;</apex:outputPanel>
+                <apex:commandLink action="{!nextPage}" rendered="{!hasNextPage}"
+                    reRender="pb2"><apex:outputText value="{!$Label.oproarts050__QBSetting_NextPage}"/></apex:commandLink>&nbsp;]
+                &nbsp;(<apex:outputText value="{!pageTitle}"/>)&nbsp;
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:pageBlockTable value="{!pageUserSettings}" var="us" id="userSettingTable">
+            <apex:column style="width: 20%;"
+                    headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.SetupOwnerId.Label}">
+                <apex:outputField id="setupOwnerId" value="{!us.so.SetupOwnerId}"/>
+            </apex:column>
+            <apex:column style="width: 20%;"
+                    headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__UserSealImageId__c.Label}">
+                <apex:outputField id="userSealImageId" value="{!us.so.OPROARTS050__UserSealImageId__c}"/>
+            </apex:column>
+            <apex:column headerClass="lineTable" headerValue="{!SUBSTITUTE($ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__UserSealImageId__c.Label,'ID','')}">
+                <apex:image value="{!'/servlet/servlet.FileDownload?file='&us.so.OPROARTS050__UserSealImageId__c}"
+                        styleClass="settingImage" rendered="{!NOT(ISBLANK(us.so.OPROARTS050__UserSealImageId__c))}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock id="pb3" title="{!$Label.oproarts050__QBSetting_OrganizationEdit}" mode="edit"
+            rendered="{!editMode}">
+        <apex:pageMessages id="m1"/>
+        <apex:pageBlockButtons location="both">
+            <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!save}" rendered="{!isEditable}"/>
+            <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancel}" immediate="true"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection id="pbs1" title="{!$Label.oproarts050__QBSetting_Section_NumberDefaultValue}" columns="1">
+            <apex:pageBlockSectionItem id="pbsi1">
+                <apex:outputLabel value="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__DefaultTaxRate__c.Label}"/>
+                <apex:inputText value="{!taxRate}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsi2">
+                <apex:outputLabel value="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__DefaultTaxRoundingMode__c.Label}"/>
+                <apex:selectList size="1" value="{!taxRoundingMode.value}">
+                    <apex:selectOptions value="{!taxRoundingMode.options}"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsi3">
+                <apex:outputLabel value="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__DefaultPriceRoundingMode__c.Label}"/>
+                <apex:selectList size="1" value="{!priceRoundingMode.value}">
+                    <apex:selectOptions value="{!priceRoundingMode.options}"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="pbs2" title="{!$Label.oproarts050__QBSetting_Section_TextDefaultValue}" columns="1">
+            <apex:inputField value="{!os.OPROARTS050__DefaultQuoteExpiry__c}" style="width: 30em;"/>
+            <apex:inputField value="{!os.OPROARTS050__DefaultDeliveryTerm__c}" style="width: 30em;"/>
+            <apex:inputField value="{!os.OPROARTS050__DefaultDeliveryPlace__c}" style="width: 30em;"/>
+            <apex:inputField value="{!os.OPROARTS050__DefaultTransaction__c}" style="width: 30em;"/>
+            <apex:inputField value="{!os.OPROARTS050__DefaultPaymentMethod__c}" style="width: 30em;"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="pbs3" title="{!$Label.oproarts050__QBSetting_Section_Image}" columns="2">
+            <apex:inputField value="{!os.OPROARTS050__LogoImageId__c}">
+                <apex:actionSupport event="onchange" reRender="pbs3"/>
+            </apex:inputField>
+            <apex:inputField value="{!os.OPROARTS050__SealImageId__c}">
+                <apex:actionSupport event="onchange" reRender="pbs3"/>
+            </apex:inputField>
+            <apex:pageBlockSectionItem id="pbsi3">
+                <apex:outputLabel value="{!SUBSTITUTE($ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__LogoImageId__c.Label,'ID','')}"/>
+                <apex:outputPanel id="logoImage">
+                    <apex:image value="{!'/servlet/servlet.FileDownload?file='&os.OPROARTS050__LogoImageId__c}"
+                            styleClass="settingImage" rendered="{!NOT(ISBLANK(os.OPROARTS050__LogoImageId__c))}"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsi4">
+                <apex:outputLabel value="{!SUBSTITUTE($ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__SealImageId__c.Label,'ID','')}"/>
+                <apex:outputPanel id="sealImage">
+                    <apex:image value="{!'/servlet/servlet.FileDownload?file='&os.OPROARTS050__SealImageId__c}"
+                            styleClass="settingImage" rendered="{!NOT(ISBLANK(os.OPROARTS050__SealImageId__c))}"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="pbs4" title="{!$Label.oproarts050__QBSetting_Section_ExtensionClass}" columns="2">
+            <apex:inputField value="{!os.OPROARTS050__ManagerNamespace__c}"/>
+            <apex:inputField value="{!os.OPROARTS050__ManagerClassName__c}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock id="pb4" title="{!$Label.oproarts050__QBSetting_UsersEdit}" mode="edit"
+            rendered="{!editUsersMode}">
+        <apex:pageMessages id="m1"/>
+        <apex:pageBlockButtons location="both">
+            <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!saveUsers}" rendered="{!isEditable}"/>
+            <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancel}" immediate="true"/>
+        </apex:pageBlockButtons>
+        <apex:outputPanel layout="block" styleClass="moreButtons">
+            <apex:commandButton value="{!$Label.oproarts050__Button_Delete}" action="{!deleteUsers}" rendered="{!isEditable}"
+                    onclick="return confirm('{!$Label.oproarts050__Message_ConfirmDeleteUserSettings}');"/>
+            <apex:commandButton value="{!$Label.oproarts050__Button_Add}" action="{!addNewUser}" rendered="{!isEditable}"/>
+            <apex:outputPanel rendered="{!OR(hasPreviousPage,hasNextPage)}">
+                &nbsp;&nbsp;[&nbsp;<apex:commandLink action="{!previousPage}" rendered="{!hasPreviousPage}"
+                    reRender="pb4"><apex:outputText value="{!$Label.oproarts050__QBSetting_PreviousPage}"/></apex:commandLink>
+                <apex:outputPanel rendered="{!AND(hasPreviousPage,hasNextPage)}">&nbsp;|&nbsp;</apex:outputPanel>
+                <apex:commandLink action="{!nextPage}" rendered="{!hasNextPage}"
+                    reRender="pb4"><apex:outputText value="{!$Label.oproarts050__QBSetting_NextPage}"/></apex:commandLink>
+                &nbsp;]&nbsp;(<apex:outputText value="{!pageTitle}"/>)
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:pageBlockTable value="{!pageUserSettings}" var="us" id="userSettingTable">
+            <apex:column style="width: 2em;" styleClass="inputCheck"
+                    headerClass="lineTable inputCheck" headerValue="{!$Label.oproarts050__Column_Select}">
+                <apex:inputCheckbox id="selectCheck" value="{!us.selected}"/>
+            </apex:column>
+            <apex:column style="width: 20%;"
+                    headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.SetupOwnerId.Label}">
+                <apex:outputField value="{!us.so.SetupOwnerId}" rendered="{!NOT(ISBLANK(us.so.Id))}"/>
+                <apex:inputField value="{!us.so.SetupOwnerId}" rendered="{!ISBLANK(us.so.Id)}"/>
+            </apex:column>
+            <apex:column style="width: 20%;"
+                    headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__UserSealImageId__c.Label}">
+                <apex:inputField id="userSealImageId" value="{!us.so.OPROARTS050__UserSealImageId__c}">
+                    <apex:actionSupport event="onchange" reRender="userSealImage"/>
+                </apex:inputField>
+            </apex:column>
+            <apex:column headerClass="lineTable" headerValue="{!SUBSTITUTE($ObjectType.OPROARTS050__QBSetting__c.Fields.OPROARTS050__UserSealImageId__c.Label,'ID','')}">
+                <apex:outputPanel id="userSealImage">
+                    <apex:image value="{!'/servlet/servlet.FileDownload?file='&us.so.OPROARTS050__UserSealImageId__c}"
+                            styleClass="settingImage" rendered="{!NOT(ISBLANK(us.so.OPROARTS050__UserSealImageId__c))}"/>
+                </apex:outputPanel>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    </apex:form>
+</apex:tab>
+</apex:tabPanel>
+</apex:page>

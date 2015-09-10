@@ -1,0 +1,9 @@
+<apex:page standardController="OPROARTS050__QuoteLine__c" extensions="OPROARTS050.QuoteLineDelete" action="{!move}" id="quoteline">
+    <apex:variable var="quoteId" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Quote__c}"/>
+    <apex:variable var="purchaseId" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Purchase__c}"/>
+    <apex:variable var="deliveryId" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Delivery__c}"/>
+    <apex:variable var="purchaseAccountId" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__PurchaseAcount__c}"/>
+    <apex:variable var="productId" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Product__c}"/>
+    <apex:variable var="pricebookId" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Pricebook__c}"/>
+    <apex:pageMessages id="m1"/>
+</apex:page>

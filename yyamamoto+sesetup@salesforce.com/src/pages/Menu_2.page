@@ -1,0 +1,35 @@
+<apex:page showHeader="false">
+
+<a href="/001?fcf=00B28000001ttPK" target="_brank">
+<span class="Apple-style-span" style="font-size: 90%;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+
+<img src="/servlet/servlet.FileDownload?file=01528000000K94d" border="0" height="55" width="55" />
+顧客リスト</span></span></span></a><br/>
+
+<a href="/006?fcf=00B28000001ttPL" target="_brank">
+<span class="Apple-style-span" style="font-size: 90%;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+
+<img src="/servlet/servlet.FileDownload?file=01528000000K94e" border="0" height="55" width="55" />
+商談リスト</span></span></span></a><br/>
+
+<a href="/00O28000001tpnN" target="_brank">
+<span class="Apple-style-span" style="font-size: 90%;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+
+<img src="/servlet/servlet.FileDownload?file=01528000000K94f" border="0" height="55" width="55" />
+活動履歴登録</span></span></span></a><br/>
+
+<a href="/00O28000001tpnO" target="_brank">
+<span class="Apple-style-span" style="font-size: 90%;">
+<span class="Apple-style-span" style="color: rgb(51, 51, 255);">
+<span class="Apple-style-span" style="font-weight: bold;">
+
+<img src="/servlet/servlet.FileDownload?file=01528000000K94g" border="0" height="55" width="55" />
+日報</span></span></span></a>
+
+</apex:page>

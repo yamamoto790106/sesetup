@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>メニュー情報</value>
+    </caseValues>
+    <fields>
+        <label><!-- アイコンの選択 --></label>
+        <name>ChooseIcon__c</name>
+    </fields>
+    <fields>
+        <help><!-- メニュースタイルに&quot;カスタムスタイル&quot;を選択した場合は必須入力となります。
+Visualforceページで作成したスタイルシートページ名を指定してください。 --></help>
+        <label><!-- カスタムスタイル --></label>
+        <name>CustomMenuStyle__c</name>
+    </fields>
+    <fields>
+        <label><!-- 説明 --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- ガイド --></label>
+        <name>Guide__c</name>
+    </fields>
+    <fields>
+        <label><!-- ヘッダ --></label>
+        <name>Header__c</name>
+        <picklistValues>
+            <masterLabel>表示</masterLabel>
+            <translation><!-- 表示 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>非表示</masterLabel>
+            <translation><!-- 非表示 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- アイコンID --></label>
+        <name>IconID__c</name>
+    </fields>
+    <fields>
+        <label><!-- アイコンイメージ --></label>
+        <name>IconImage__c</name>
+    </fields>
+    <fields>
+        <label><!-- メニュースタイル表示 --></label>
+        <name>ItemMenuStyle__c</name>
+    </fields>
+    <fields>
+        <label><!-- アイテムの表示順序 --></label>
+        <name>ItemOrder__c</name>
+    </fields>
+    <fields>
+        <label><!-- ヘッダ表示 --></label>
+        <name>ItemShowHeader__c</name>
+    </fields>
+    <fields>
+        <label><!-- サイドバー表示 --></label>
+        <name>ItemSideBar__c</name>
+    </fields>
+    <fields>
+        <label><!-- アイテム名 --></label>
+        <name>ItemTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- 遷移先リンク --></label>
+        <name>Link__c</name>
+    </fields>
+    <fields>
+        <label><!-- 所属メニュー名 --></label>
+        <name>MenuRefTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- 所属メニュー --></label>
+        <name>MenuRef__c</name>
+        <relationshipLabel><!-- セクション --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- メニュースタイル --></label>
+        <name>MenuStyle__c</name>
+        <picklistValues>
+            <masterLabel>カスタムスタイル</masterLabel>
+            <translation><!-- カスタムスタイル --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>シンプル</masterLabel>
+            <translation><!-- シンプル --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>タイル</masterLabel>
+            <translation><!-- タイル --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>タイル（小）</masterLabel>
+            <translation><!-- タイル（小） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>タイル（小）（枠無し）</masterLabel>
+            <translation><!-- タイル（小）（枠無し） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>タイル（枠無し）</masterLabel>
+            <translation><!-- タイル（枠無し） --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- メニュータブID --></label>
+        <name>MenuTabId__c</name>
+    </fields>
+    <fields>
+        <label><!-- メニュー名 --></label>
+        <name>MenuTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- セクションメニュータブID --></label>
+        <name>SectionMenuTabId__c</name>
+    </fields>
+    <fields>
+        <label><!-- セクションの表示順序 --></label>
+        <name>SectionOrder__c</name>
+    </fields>
+    <fields>
+        <label><!-- 所属メニュー名 --></label>
+        <name>SectionRefMenuTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- 所属メニュー --></label>
+        <name>SectionRefMenu__c</name>
+    </fields>
+    <fields>
+        <label><!-- 所属セクションの表示順序 --></label>
+        <name>SectionRefOrder__c</name>
+    </fields>
+    <fields>
+        <label><!-- 所属セクション名 --></label>
+        <name>SectionRefTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- 所属セクション --></label>
+        <name>SectionRef__c</name>
+        <relationshipLabel><!-- アイテム --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- セクション名 --></label>
+        <name>SectionTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- サイドバー --></label>
+        <name>SideBar__c</name>
+        <picklistValues>
+            <masterLabel>表示</masterLabel>
+            <translation><!-- 表示 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>非表示</masterLabel>
+            <translation><!-- 非表示 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- タブID --></label>
+        <name>TabId__c</name>
+    </fields>
+    <fields>
+        <label><!-- 遷移先ウィンドウ名 --></label>
+        <name>TargetWindowName__c</name>
+    </fields>
+    <fields>
+        <label><!-- 遷移先ウィンドウ --></label>
+        <name>TargetWindow__c</name>
+        <picklistValues>
+            <masterLabel>新規ウィンドウ</masterLabel>
+            <translation><!-- 新規ウィンドウ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>自ウィンドウ</masterLabel>
+            <translation><!-- 自ウィンドウ --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>アイテム</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- 説明 --></label>
+            <section>説明</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>セクション</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- 説明 --></label>
+            <section>説明</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>メニュー</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- 説明 --></label>
+            <section>説明</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- アイテム --></label>
+        <name>Item</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- メニュー --></label>
+        <name>Menu</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- セクション --></label>
+        <name>Section</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- メニュースタイルに&quot;カスタムスタイル&quot;を指定した場合は、「カスタムスタイル」項目に、スタイルシートが記述されているVisualforceページ名を入力してください。 --></errorMessage>
+        <name>chkMenuStyle</name>
+    </validationRules>
+</CustomObjectTranslation>

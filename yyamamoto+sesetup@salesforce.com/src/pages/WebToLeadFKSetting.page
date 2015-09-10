@@ -1,0 +1,521 @@
+<!-- Created by Fusako Kato (fkato@salesforce.com) 3/30/2015 -->
+<apex:page controller="WebToLeadFKSettingController" showHeader="false" standardStylesheets="false">
+    <html>
+        <head>
+            <meta charset="UTF-8"/>
+            <title>Web to Lead Setting</title>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <apex:includeScript value="/soap/ajax/30.0/connection.js" />
+            <script src="{!URLFOR($Resource.JSColor, 'jscolor/jscolor.js')}"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.4.1/jsforce.min.js"></script>
+            <script>
+            $(function(){
+                if(!'{!setting}'){
+                    $('#body').html('<div>URLパラメータに指定されたsettingNameは存在しません。</div></br><a href="/apex/WebToLeadFKList">W2L一覧画面に行く</a>');
+                }
+                $('.color').on('change', function(){
+                    if($(this).data('attribute')=='background-color'){
+                        $($(this).data('target')).css({'background-color' : '#'+$(this).val()});
+                    }else if($(this).data('attribute')=='color'){
+                        $($(this).data('target')).css({'color' : '#'+$(this).val()});
+                    }else if($(this).data('attribute')=='border-color'){
+                        $($(this).data('target')).css({'border-color' : '#'+$(this).val()});
+                    }
+                });
+                $('.custom_title').on('change', function(){
+                    $($(this).data('target')).text($(this).val());
+                });
+                $('#inputImg').on('change', function(){
+                    readURL(this);
+                });
+                $('.saveButton').on('click', function(){
+                    updateSetting();
+                    updateStaticResource();
+                });
+                $('#openW2LButton').on('click', function(){
+                    window.open('/apex/WebToLeadFK?settingName={!setting.Name}');
+                });
+            });
+            function updateSetting(){
+                    sforce.connection.sessionId = "{!$Api.Session_ID}"; 
+                    //WebToLead_fk_Setting__cのレコードを更新
+                    var setting = new sforce.SObject("WebToLead_fk_Setting__c");
+                    setting.id = "{!settingId}";
+                    setting.TabTitle__c = $('#TabTitle').val();
+                    setting.PanelTitle__c = $('#PanelTitle').val();
+                    setting.ThanksMsg__c = $('#ThanksMsg').val();
+                    setting.TabBackgroundColor__c = $('#HeaderBackgroundColor').val();
+                    setting.TabActiveColor__c = $('#ActiveTabBackgroundColor').val();
+                    setting.PanelBackgroundColor__c = $('#PanelBackgroundColor').val();
+                    setting.TabLabelColor__c = $('#TabLabelColor').val();
+                    setting.PanelBorderColor__c = $('#PanelBorderColor').val();
+                    setting.TabActiveLabelColor__c = $('#ActiveTabLabelColor').val();
+                    setting.PanelLabelColor__c = $('#PanelLabelColor').val();
+                    setting.LabelColor__c = $('#labelColor').val();
+                    setting.BodyBackgroundColor__c = $('#BodyBackgroundColor').val();
+                    setting.HeaderBorderColor__c = $('#HeaderBorderColor').val();
+                    setting.PanelInsideBackgroundColor__c = $('#FormBackgroundColor').val();
+                    setting.ThanksMsg__c = $('#thanksMsg').val();
+                    if(binaryData){
+                        setting.LogoSRName__c = '{!staticResourceLogoName}';
+                    }
+                    
+                    var result = sforce.connection.update([setting]);
+                    if (result[0].getBoolean("success")) {
+                        alert("ブランディング設定を保存しました。");
+                    }else{
+                        alert("ブランディング設定の登録に失敗しました。");
+                    }
+            }
+            function updateStaticResource(){
+                if(binaryData){
+                    //静的リソースに保存しているロゴを更新
+                    var sr = new sforce.SObject("StaticResource");
+                    sr.id = "{!logoId}";
+                    sr.Body = binaryData;
+                    sr.contentType = $('#companyImg').attr('src').split(';')[0].replace('data:','');
+                    var result2 = sforce.connection.update([sr]);
+                    if (result2[0].getBoolean("success")) {
+                        console.debug("ロゴの登録に成功しました。");
+                    }else{
+                        alert("ロゴの登録に失敗しました。");
+                    }
+                }
+            }
+            function createStaticResource(){
+                if(!'{!logoId}'){
+                    var conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' });
+                    var metadata = [{
+                      fullName: '{!staticResourceLogoName}',
+                      contentType: 'text',
+                      cacheControl: 'private',
+                      content: 'test'
+                    }];
+                    conn.metadata.create('StaticResource', metadata, function(err, results) {
+                      if (err) { console.debug(err); }
+                      for (var i=0; i < results.length; i++) {
+                        var result = results[i];
+                        sr.id = result.id;
+                        console.debug(result);
+                        console.log('success ? : ' + result.success);
+                        console.log('fullName : ' + result.fullName);
+                      }
+                    });
+                }
+                return true;
+            }
+            var binaryData;
+            var imageType;
+            function readURL(input){
+                if (input.files && input.files[0]){
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#companyImg').attr('src', e.target.result);
+                        imageType
+                        console.debug('reader'+e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                    
+                    
+                    var reader2 = new FileReader();
+                    reader2.onload = function (e) {
+                        binaryData = new sforce.Base64Binary(e.target.result);
+                    }
+                    reader2.readAsBinaryString(input.files[0]);
+                }
+            }
+            </script>
+            <style>
+            
+        body {
+            //padding-top: 120px;//Setting
+        }
+        #WebToLead .nav>li>a {
+            padding: 16px 25px;
+        }
+        .navbar-default .navbar-nav>.custom_active>a, .navbar-default .navbar-nav>.open>a {
+            font-weight: bold;
+        }
+        .navbar-nav{
+            padding: 20px;
+        }
+        a.navbar-brand img{
+            height: 62px;
+        }
+        .submitButtonDiv{
+            text-align: center;
+        }
+        .errorMsgDiv{
+            margin-top: 50px;
+            color: red;
+        }
+        .submitButtonDiv button{
+            min-width: 120px;
+            height: 40px;
+            font-size: 120%;
+        }
+        @media only screen and (min-width: 768px){
+            .form-group{
+                padding: 17px 0px;
+            }
+        }
+        #WebToLead li{
+            cursor: pointer;
+        }
+        
+        
+        /* ↓Update Setting VF */
+        #WebToLead .navbar-fixed-bottom, #WebToLead .navbar-fixed-top {
+            position: relative;
+        }
+        #WebToLead{
+            border: 1px solid #ddd;
+            width: 100%;
+            margin-top: -71px;
+            -moz-transform: scale(0.7);
+            -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+        }
+        #contents{
+            width: 100%;
+            padding-top: 20px;
+        }
+        #WebToLead .navbar {
+            margin-bottom: 0px; 
+        }
+        #setting{
+            padding: 23px 0px 0px 23px;
+        }
+        #openW2LButton{
+            position: absolute;
+            left: 57%;
+            top: 10px;
+        }
+        #rightTitle{
+            position: absolute;
+            left: 57%;
+            top: 47px;
+        }
+        #setting .form-group{
+            //padding: 12px 0px;
+            margin-bottom: 3px;
+        }
+        .color{
+            width: 160px;
+        }
+        #saveButton2{
+            margin-top: 2px;
+        }
+        /* ↑Update Setting VF */
+        
+        /* ↓Setting */
+        #WebToLead .navbar-default{
+            background-color: #{!setting.TabBackgroundColor__c};
+            color: #{!setting.TabLabelColor__c};
+        }
+        #WebToLead #submitButton{
+            background-color: #{!setting.PanelBackgroundColor__c};
+            color: #{!setting.PanelLabelColor__c};
+            border-color: #{!setting.PanelBorderColor__c};
+        }
+        #WebToLead .panel-default>.panel-heading{
+            background-color: #{!setting.PanelBackgroundColor__c};
+            color: #{!setting.PanelLabelColor__c};
+            border-color: #{!setting.PanelBorderColor__c};
+        }
+        #WebToLead .panel-title{
+            color: #{!setting.PanelLabelColor__c};
+        }
+        #WebToLead .panel-default{
+            border-color: #{!setting.PanelBorderColor__c};
+        }
+        #WebToLead .panel-body{
+            color: #{!setting.LabelColor__c};
+            background-color: #{!setting.PanelInsideBackgroundColor__c};
+        }
+        #WebToLead .navbar-default .navbar-nav>li>a {
+          color: #{!setting.TabLabelColor__c};
+        }
+        body{
+            //background-color: #{!setting.BodyBackgroundColor__c};//setting
+        }
+        #contents{
+            background-color: #{!setting.BodyBackgroundColor__c};
+        }
+        #WebToLead .navbar-default .navbar-nav>.active>a{
+            background-color: #{!setting.TabActiveBackgroundColor__c};
+            color: #{!setting.TabActiveLabelColor__c};
+        }
+        /* ↑Setting */
+        
+        </style>
+        </head>
+        <body id="body">
+        <div style="width:50%;float:left;">
+            <div id="setting">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            ブランディング設定（{!setting.Name}）
+                        </h3>
+                    </div>
+                    <div class="col-sm-12 submitButtonDiv">
+                        <button type="button" id="saveButton2" class="btn btn-success saveButton" >保存</button>
+                        <br/>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizonal" role="form">
+                            <div class="form-group">
+                                <label for="CustomLogo" class="col-sm-7 control-label">左上のロゴ（縦:62px 背景透明の画像推奨）</label>
+                                <div class="col-sm-5">
+                                    <input id="inputImg" name="inputImg" type="file" data-target="" data-attribute=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="BodyBackgroundColor" class="col-sm-7 control-label">全体のバックグランドの色</label>
+                                <div class="col-sm-5">
+                                    <input id="BodyBackgroundColor" type="text" class="color form-control" value="{!setting.BodyBackgroundColor__c}" data-target="#WebToLead #contents" data-attribute="background-color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="HeaderBackgroundColor" class="col-sm-7 control-label">ヘッダーのバックグランドの色</label>
+                                <div class="col-sm-5">
+                                    <input id="HeaderBackgroundColor" class="color form-control" value="{!setting.TabBackgroundColor__c}" data-target=".navbar-default" data-attribute="background-color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="HeaderBorderColor" class="col-sm-7 control-label">ヘッダーのボーダーの色</label>
+                                <div class="col-sm-5">
+                                    <input id="HeaderBorderColor" class="color form-control" value="{!setting.HeaderBorderColor__c}" data-target=".navbar-default" data-attribute="border-color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="TabTitle" class="col-sm-7 control-label">タブのタイトル</label>
+                                <div class="col-sm-5">
+                                    <input id="TabTitle" class="custom_title form-control" value="{!setting.TabTitle__c}" data-target="#tabTitle" data-attribute=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="TabLabelColor" class="col-sm-7 control-label">タブのラベルの色</label>
+                                <div class="col-sm-5">
+                                    <input id="TabLabelColor" class="color form-control" value="{!setting.TablabelColor__c}" data-target=".navbar-default .navbar-nav>li.inActive>a" data-attribute="color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ActiveTabBackgroundColor" class="col-sm-7 control-label">選択されたタブの背景色</label>
+                                <div class="col-sm-5">
+                                    <input id="ActiveTabBackgroundColor" class="color form-control" value="{!setting.TabActiveBackgroundColor__c}" data-target=".navbar-default .navbar-nav>.active>a" data-attribute="background-color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ActiveTabLabelColor" class="col-sm-7 control-label">選択されたタブのラベルの色</label>
+                                <div class="col-sm-5">
+                                    <input id="ActiveTabLabelColor" class="color form-control" value="{!setting.TabActivelabelColor__c}" data-target=".navbar-default .navbar-nav>.active>a" data-attribute="color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PanelTitle" class="col-sm-7 control-label">パネルのタイトル</label>
+                                <div class="col-sm-5">
+                                    <input id="PanelTitle" class="custom_title form-control" value="{!setting.PanelTitle__c}" data-target="#panelTitle" data-attribute=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PanelBackgroundColor" class="col-sm-7 control-label">パネルタイトルのバックグラウンドの色</label>
+                                <div class="col-sm-5">
+                                    <input id="PanelBackgroundColor" class="color form-control" value="{!setting.PanelBackgroundColor__c}" data-target=".panel-heading, #submitButton" data-attribute="background-color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PanelLabelColor" class="col-sm-7 control-label">パネルタイトルのラベルの色</label>
+                                <div class="col-sm-5">
+                                    <input id="PanelLabelColor" class="color form-control" value="{!setting.PanelLabelColor__c}" data-target=".panel-title, #submitButton" data-attribute="color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PanelBorderColor" class="col-sm-7 control-label">パネルのボーダーの色</label>
+                                <div class="col-sm-5">
+                                    <input id="PanelBorderColor" class="color form-control" value="{!setting.PanelBorderColor__c}" data-target=".panel-default, .panel-default>.panel-heading, #submitButton" data-attribute="border-color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="labelColor" class="col-sm-7 control-label">項目名のラベルの色</label>
+                                <div class="col-sm-5">
+                                    <input id="labelColor" class="color form-control" value="{!setting.LabelColor__c}" data-target=".control-label" data-attribute="color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PanelBackgroundColor" class="col-sm-7 control-label">フォームのバックグラウンドの色</label>
+                                <div class="col-sm-5">
+                                    <input id="FormBackgroundColor" class="color form-control" value="{!setting.PanelInsideBackgroundColor__c}" data-target="#WebToLead .panel-body" data-attribute="background-color"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="thanksMsg" class="col-sm-7 control-label">完了メッセージ</label>
+                                <div class="col-sm-5">
+                                    <textarea id="thanksMsg" class="form-control" data-target="" data-attribute="" rows="3">{!setting.thanksMsg__c}</textarea>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-sm-12 submitButtonDiv">
+                            <br/>
+                            <button type="button" id="saveButton" class="btn btn-success saveButton" >保存</button>
+                        </div>
+                     </div>
+                </div>
+            </div><!-- setting -->
+        </div>
+        
+        
+        <div style="width:50%;float:left;">
+        <button type="button" id="openW2LButton" class="btn btn-success" >W2L画面を開く</button>
+        <div id="rightTitle">完成イメージ</div>
+        <div id="WebToLead">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">
+                            <img id="companyImg" src="{!$Resource[setting.LogoSRName__c]}" alt="会社ロゴ" class="CompanyLogo" />
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="inActive"><a href="#home">ホーム</a></li>
+                            <li class="inActive"><a href="#product">製品</a></li>
+                            <li class="active"><a id="tabTitle" href="#contact">{!setting.TabTitle__c}</a></li>
+                            <li class="inActive"><a href="#about">会社概要</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div id="contents" class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 
+                                    <span id="panelTitle">{!setting.PanelTitle__c}</span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizonal" role="form">
+                                    <div class="form-group">
+                                        <label for="inputLastName" class="col-sm-3 control-label">姓</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputLastName" placeholder="姓" />
+                                        </div>
+                                        <label for="inputFirstName" class="col-sm-1 control-label">名</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputFirstName" placeholder="名" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputCompanyName" class="col-sm-3 control-label">会社名</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputCompanyName" placeholder="会社名" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputRoleName" class="col-sm-3 control-label">役職</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputRoleName" placeholder="役職" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputTel" class="col-sm-3 control-label">電話番号</label>
+                                        <div class="col-sm-9">
+                                            <input type="tel" class="form-control" id="inputTel" placeholder="電話番号" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-3 control-label">メールアドレス</label>
+                                        <div class="col-sm-9">
+                                            <input type="email" class="form-control" id="inputEmail" placeholder="メールアドレス" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputZip" class="col-sm-3 control-label">郵便番号</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputZip" placeholder="郵便番号" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputState" class="col-sm-3 control-label">都道府県</label>
+                                        <div class="col-sm-9">
+                                            <div class="btn-group">
+                                                <button id="inputState" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    都道府県 <span class="caret"></span>
+                                                </button>
+                                                <ul id="inputStateUL" class="dropdown-menu" role="menu" target-id="inputState">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputCity" class="col-sm-3 control-label">市区町村</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputCity" placeholder="市区町村" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputStreet" class="col-sm-3 control-label">町名番地</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputStreet" placeholder="町名番地" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputCampaign" class="col-sm-3 control-label">キャンペーン</label>
+                                        <div class="col-sm-9">                                        
+                                            <div class="btn-group">
+                                                <button id="inputCampaign" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    キャンペーン <span class="caret"></span>
+                                                </button>
+                                                <ul id="inputCampaignUL" class="dropdown-menu" role="menu" target-id="inputCampaign">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputLeadSource" class="col-sm-3 control-label">リードソース</label>
+                                        <div class="col-sm-9">                                                                                  
+                                            <div class="btn-group">
+                                                <button id="inputLeadSource" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    リードソース <span class="caret"></span>
+                                                </button>
+                                                <ul id="inputLeadSourceUL" class="dropdown-menu" role="menu" target-id="inputLeadSource">
+                                                </ul>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDescription" class="col-sm-3 control-label">ご連絡事項</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" rows="3" id="inputDescription" placeholder="ご連絡事項" ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 errorMsgDiv">
+                                        <div id="errorMsg"></div>
+                                    </div>
+                                    <div class="col-sm-12 submitButtonDiv">
+                                        <button type="button" id="submitButton" class="btn btn-default" >送信</button>
+                                        <button type="button" id="clearButton" class="btn btn-default" >フォームをクリア</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/container-->
+        </div>
+        </div>
+        </body>
+    </html>
+</apex:page>

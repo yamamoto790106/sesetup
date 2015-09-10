@@ -1,0 +1,103 @@
+<apex:page showHeader="false" sidebar="false">
+    <style type="text/css">
+        div.mnucontainer{
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        div.imgCellBox {
+        }
+
+        div.imgCellBox ul {
+            display: block;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-align: left;
+            clear: both;
+            width:800px;
+        }
+
+        div.imgCellBox p {
+            display: block;
+            border: none;
+            margin: 15px 10px 10px 10px;
+            padding: 0;
+            font-weight: bold;
+            color: #0000ff;
+            font-size: 120%;
+            float: left;
+            clear: both;
+        }
+
+        div.imgCellBox li {
+            display: block;
+            padding: 3px 1px; /* 項目のパディング（上下、左右） */
+            background-color: #f9f9f9; /* 項目の背景色 */
+            border-top: 1px #c0c0c0 dotted; /* 最上部の境界線 */
+            border-bottom: 1px #c0c0c0 dotted; /* 項目の下境界線 */
+            width:378px;
+            float:left;
+        }
+
+        div.imgCellBox li a {
+            display: block;
+            position: relative; /* IE6用 */
+            padding: 8px 10px; /* リンクエリアのパディング（上下、左右） */
+            border-left: 4px #ffcc66 solid; /* リンクエリアの左境界線 */
+            text-decoration: none; /* テキストの下線（なし） */
+            font-size: large;
+            font-weight: bold;
+            white-space:normal;
+        }
+
+        div.imgCellBox li a:hover{
+            border-left-color: #ff9900; /* ポイント時の左境界線色 */
+        }
+
+        div.imgCellBox li img{
+            -ms-interpolation-mode: bicubic;
+            width:24px;
+            margin-right:10px;
+        }
+        
+        div.openChatterBlock{
+            clear: both;
+            padding-top:20px;
+            padding-left:20px;
+        }
+
+        div.openChatterBlock input {
+            display: none;
+        }
+
+        div.openChatterBlock label {
+            cursor: pointer;
+            padding: 5px 10px;
+            float: left;
+            border: solid 1px #aaa;
+            margin-left: -1px;
+            background: #eee;
+            background-image: -moz-linear-gradient(top, #F6F6F6, #ccc);
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#F6F6F6), to(#ccc));
+            -moz-box-shadow: 2px 2px 6px #ddd;
+            -webkit-box-shadow: 2px 2px 6px #ddd;
+            text-shadow: 1px 1px 0px #fff;
+        }
+
+        div.openChatterBlock label.checked {
+            color: #fff;
+            background: #C3C3C3;
+            background-image: -moz-linear-gradient(top, #C3C3C3, #DBDBDB);
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#C3C3C3), to(#DBDBDB));
+            text-shadow: 0px 0px 0px #fff;
+        }
+
+        div.chatterFeedBlock {
+            clear: both;
+            padding-top:10px;
+            padding-left:20px;
+            display:none;
+        }
+    </style>
+</apex:page>

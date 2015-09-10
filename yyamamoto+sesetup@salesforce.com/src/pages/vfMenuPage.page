@@ -1,0 +1,30 @@
+<apex:page controller="clsMenuControl" showHeader="{!ShowHeader}" sidebar="{!ShowSideBar}">
+<html>
+<head>
+<!-- StyleSheet -->
+    <apex:include pageName="{!MenuStyle}"/>
+    <apex:include pageName="vfMenuChatterBlockCss"/>
+</head>
+<body>
+    <apex:composition template="vfMenuTemplate">
+        <apex:define name="menuBody">
+            <apex:repeat value="{!MenuKeys}" var="section">
+                <p>{!section}</p>
+                <ul>
+                    <apex:repeat value="{!MenuLists[section]}" var="item">
+                        <li><a href="#" onClick="gotoPage('{!item.Link}', '{!item.Target}'); return false;">
+                                <apex:image url="/servlet/servlet.ImageServer?id={!item.IconID}&oid={!$Organization.Id}"/>
+                                <apex:outputText value="{!item.ItemTitle}" /> 
+                            </a>
+                        </li>
+                    </apex:repeat>
+                </ul>
+            </apex:repeat>
+        </apex:define>
+        <apex:define name="chatterFeed">
+            <chatter:newsfeed />
+        </apex:define>
+    </apex:composition>
+</body>
+</html>
+</apex:page>

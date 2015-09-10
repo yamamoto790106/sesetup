@@ -1,0 +1,76 @@
+<apex:page showHeader="false">
+
+<br>
+<font size="2"><span style="color: rgb(0, 102, 0); font-weight: bold;">< 入力メニュー > </span></font>
+<br>                                                   　　                      
+
+<table><tbody>
+<tr>
+    <td style="text-align: center;" width="130">
+    <a href="/001?fcf=00B28000001ttPK" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94d" border="0"></a></td>
+
+    <td style="text-align: center;" width="130">
+    <a href="/006?fcf=00B28000001ttPL" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94e" border="0"></></a></td>
+
+    <td style="text-align: center;" width="130">
+    <a href="/00O28000001tpnN" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94f" border="0"></></a></td>
+
+    <td style="text-align: center;" width="130">
+    <a href="/00O28000001tpnO" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94g" border="0"></></a></td>
+</tr>
+<tr>
+    <td style="color: rgb(0, 0, 102); font-weight: bold; text-align: center;">
+    <a href="/001?fcf=00B28000001ttPK" target="_brank"><font size="2">顧客リスト</font></a></td>
+    
+    <td style="font-weight: bold; color: rgb(0, 0, 102); text-align: center;">
+    <a href="/006?fcf=00B28000001ttPL" target="_brank"><font size="2">商談リスト</font></a></td>
+    
+    <td style="font-weight: bold; color: rgb(0, 0, 102); text-align: center;">
+    <a href="/00O28000001tpnN" target="_brank"><font size="2">活動履歴登録</font></a></td>
+
+    <td style="color: rgb(0, 0, 102); font-weight: bold; text-align: center;">
+    <a href="/00O28000001tpnO" target="_brank"><font size="2">日報</font></a></td>
+</tr></tbody></table>
+<br>
+
+<font size="2"><span style="color: rgb(0, 102, 0); font-weight: bold;">< 分析メニュー ><br><br></span></font>
+
+<table><tbody>
+<tr>
+    <td style="text-align: center;" width="130">
+    <a href="/01Z28000000JwvB" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94w" border="0"></></a></td>
+
+    <td style="text-align: center;" width="130">
+    <a href="/01Z28000000Jwv4" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94t" border="0"></></a></td>
+
+    <td style="text-align: center;" width="130">
+    <a href="/01Z28000000JwvA" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94u" border="0"></></a></td>
+
+    <td style="text-align: center;" width="130">
+    <a href="/01Z28000000Jwv9" target="_brank">
+    <img src="/servlet/servlet.FileDownload?file=01528000000K94v" border="0"></></a></td>
+
+</tr>
+<tr>
+    <td style="color: rgb(0, 0, 102); font-weight: bold; text-align: center;">
+    <a href="/01Z28000000JwvB" target="_brank"><font size="2">ターゲット分析</font></a></td>
+
+    <td style="font-weight: bold; color: rgb(0, 0, 102); text-align: center;"><font size="2">
+    <a href="/01Z28000000Jwv4" target="_brank">商談分析</a></font></td>
+
+    <td style="font-weight: bold; color: rgb(0, 0, 102); text-align: center;"><font size="2">
+    <a href="/01Z28000000JwvA" target="_brank">活動分析</a></font></td>
+
+    <td style="text-align: center; font-weight: bold; color: rgb(0, 0, 102);">
+    <a href="/01Z28000000Jwv9" target="_brank"><font size="2">エラー分析</font></a></td>
+
+</tr></tbody></table><br><br>
+
+</apex:page>

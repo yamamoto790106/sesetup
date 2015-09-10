@@ -1,0 +1,21 @@
+<apex:page standardController="Account">
+<script>
+    function reloadAndClose() {
+        var iframe = document.getElementById('iframe');
+        var urlbase = 'https://ap2.salesforce.com';
+        iframe.src = urlbase + '{!URLFOR($Resource.OpenerReload)}';
+    }
+    function onFrameLoad() {
+        var iframe = document.getElementById('iframe');
+        if (iframe.src != 'about:blank') {
+        
+            window.close();
+        }
+    }
+    
+    window.onload = reloadAndClose;
+
+</script>
+
+<iframe src="about:blank" id="iframe" onLoad="onFrameLoad();" style="display:none;"></iframe>
+</apex:page>

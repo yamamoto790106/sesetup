@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>QuoteAmount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>見積・受注の合計</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>QuoteStageName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CASE(QuoteStage__c, 0, &apos;新規&apos;,
+10, &apos;見積&apos;, 20, &apos;受注&apos;,
+30, &apos;発注 (一部)&apos;, 40, &apos;発注 (全部)&apos;,
+50, &apos;納品 (一部)&apos;, 60, &apos;納品 (全部)&apos;,
+70, &apos;請求 (一部)&apos;, 80, &apos;請求 (全部)&apos;,
+90, &apos;入金 (一部)&apos;, 100, &apos;入金 (全部)&apos;,
+&apos;未定義&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>見積・受注の段階</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuoteStage__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>見積・受注の段階値</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+</CustomObject>

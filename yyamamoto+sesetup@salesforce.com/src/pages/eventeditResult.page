@@ -1,0 +1,6 @@
+<apex:page standardController="event">
+  <table>
+    <tr><td> <apex:detail />  </td></tr>
+    <tr><td>  <apex:detail subject="{!event.whatId}" relatedList="false" title="false"/>  </td></tr>
+  </table>
+</apex:page>

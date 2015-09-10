@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Field10__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>顧客</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>請求</relationshipLabel>
+        <relationshipName>Billings</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Field11__c</fullName>
+        <externalId>false</externalId>
+        <label>請求締日</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Field12__c</fullName>
+        <externalId>false</externalId>
+        <label>支払期日</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Field13__c</fullName>
+        <externalId>false</externalId>
+        <label>支払方法</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Field14__c</fullName>
+        <externalId>false</externalId>
+        <label>請求ステータス</label>
+        <picklist>
+            <picklistValues>
+                <fullName>未請求</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>請求済み</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>削除</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Field15__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( and(ispickval(Field14__c,&quot;請求済み&quot;) , Field9__c == 0),
+
+HYPERLINK(&quot;/a0R/e?CF00N280000039xsR=&quot; &amp; Field10__r.Name &amp; &quot;&amp;CF00N280000039xsR_lkid=&quot; &amp; Field10__r.Id &amp; &quot;&amp;retURL=%2F&quot; &amp; Field10__r.Id &amp; &quot;&amp;00N280000039vuV=&quot; &amp;  TEXT( YEAR( TODAY() ) ) &amp; &quot;/&quot; &amp; TEXT( MONTH( TODAY() ) ) &amp; &quot;/&quot; &amp; TEXT( DAY( TODAY() )) &amp; &quot;&amp;CF00N280000039vuL=&quot; &amp;  Name &amp; &quot;&amp;CF00N280000039vuL_lkid=&quot; &amp;  Id &amp; &quot;&amp;CF00N28000003AHNM=&quot; &amp;  Field1__r.Name &amp; &quot;&amp;CF00N28000003AHNM_lkid=&quot; &amp;  Field1__r.Id &amp; &quot;&amp;CurrencyIsoCode=&quot; &amp;  text(Field10__r.CurrencyIsoCode), IMAGE(&quot;/resource/1434456233000/nyukin&quot;,&quot;ボタン&quot;))
+,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>入金登録</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field16__c</fullName>
+        <externalId>false</externalId>
+        <label>備考</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Field17__c</fullName>
+        <externalId>false</externalId>
+        <label>値引き金額</label>
+        <summarizedField>CustomObject7__c.Field9__c</summarizedField>
+        <summaryForeignKey>CustomObject7__c.Field1__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Field18__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND((Field6__c - Field17__c) *  Field5__c, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>消費税</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field19__c</fullName>
+        <externalId>false</externalId>
+        <formula>if ( Field6__c &gt; 1000000, (Field6__c - 1000000) * 0.2042 + (Field6__c * 0.121), Field6__c * 0.121)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>支払金額　100万円以下： 支払金額　×　10.21％
+支払金額　100万円超　 ： （支払金額　-　100万円）×20.42％＋102,100円</inlineHelpText>
+        <label>源泉税</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field1__c</fullName>
+        <externalId>false</externalId>
+        <label>案件</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>請求</relationshipLabel>
+        <relationshipName>Billings</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Field20__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field6__c - Field17__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>合計</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field2__c</fullName>
+        <displayFormat>S{YYYY}{MM}{DD}{00000}</displayFormat>
+        <externalId>false</externalId>
+        <label>請求書番号</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Field4__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field1__r.Account.Field24__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>消費税込フラグ</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Field5__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field1__r.Account.Field25__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>消費税率</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Field6__c</fullName>
+        <externalId>false</externalId>
+        <label>明細合計金額（税抜き）</label>
+        <summarizedField>CustomObject7__c.Field7__c</summarizedField>
+        <summaryForeignKey>CustomObject7__c.Field1__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Field7__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND(Field6__c - Field17__c + Field18__c +  Field19__c , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>請求金額（税込）</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field8__c</fullName>
+        <externalId>false</externalId>
+        <label>入金済み金額</label>
+        <summarizedField>CustomObject8__c.Field2__c</summarizedField>
+        <summaryForeignKey>CustomObject8__c.Field1__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Field9__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field7__c -  Field8__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>未入金残額</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>test__c</fullName>
+        <externalId>false</externalId>
+        <formula>text(ROUND(  (Field6__c*(1-Field10__r.Field22__c))  +   ((Field6__c*(1-Field10__r.Field22__c)) *  Field5__c), 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>test</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>請求</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>すべて選択</label>
+    </listViews>
+    <nameField>
+        <displayFormat>B{YYYY}{MM}{00000}</displayFormat>
+        <label>請求番号</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <searchLayouts>
+        <customTabListAdditionalFields>Field10__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field11__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field12__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field7__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field8__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field14__c</customTabListAdditionalFields>
+        <listViewButtons>CustomLink1</listViewButtons>
+        <lookupDialogsAdditionalFields>Field10__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field1__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field11__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field12__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field7__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field8__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field14__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Field10__c</searchFilterFields>
+        <searchFilterFields>Field1__c</searchFilterFields>
+        <searchFilterFields>Field14__c</searchFilterFields>
+        <searchResultsAdditionalFields>Field10__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field11__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field12__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field7__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field8__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field14__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>CustomLink1</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>請求情報登録</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>https://ap2.salesforce.com/a0P/e?CF00N280000039xjE={!Account.Name}&amp;CF00N280000039xjE_lkid={!Account.Id}&amp;00N28000003AER5=未請求&amp;CF00N280000039Vii={!Opportunity.Name}&amp;CF00N280000039Vii_lkid={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&amp;CurrencyIsoCode={!Account.CurrencyIsoCode}&amp;00N280000039xpI={!Opportunity.Field65__c}&amp;00N280000039xp3={!Opportunity.Field67__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CustomLink2</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>請求書作成</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>// これは、OPROARTS Live サーバで生成された OPROARTS Live - Force.com API の利用サンプルです。
+//
+// OPROARTS Live - Force.com API の情報は、https://www2.opro.net/jp_arts/support.html からご覧になれます。
+// Visualforce の情報は、http://www.salesforce.com/us/developer/docs/pages/index.htm (Salesforce.com) からご覧になれます。
+
+
+// ---- BEGIN  ----
+{!REQUIRESCRIPT(&quot;https://s.oproarts.com/js/live_ff-1.00.js&quot;)}
+OPROARTS.Live.fF.action({
+	// tp: 配備済みテンプレートの名称を指定します。複数指定することもできます。
+	// このパラメータを省略することはできません。
+	tp:[
+		&apos;arts20150615012611979&apos;
+	],
+
+	// フォントの埋め込むかどうかを指定します。true もしくは false で指定します。
+	// fm パラメータが&apos;PDF&apos;の場合に有効です。また、テンプレートで埋め込み可能なフォントが使用されている必要があります。
+	fe:false,
+
+	// joinDocuments: 作成するドキュメントを結合するかどうかを指定します。true もしくは false で指定します。
+	// このパラメータと createsAttach パラメータが true で、かつ objectIdパラメータで指定されたオブジェクトが複数の場合、
+	// - オブジェクト毎のドキュメント(添付用)
+	// - 結合されたオブジェクト
+	// の両方が作成され、両方が料金としてカウントされます。
+	joinDocuments:false,
+
+	// createsAttach: 作成されたドキュメントをオブジェクトに添付するかどうかを指定します。true もしくは false で指定します。
+	// 添付できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	createsAttach:true,
+
+
+	// createsTask: 作成されたドキュメントを活動履歴に登録するかどうかを指定します。true もしくは false で指定します。
+	// 活動履歴に登録できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	// このパラメータに true を指定した場合、次の追加パラメータを指定することができます。
+	// - taskSubject: 活動履歴の件名
+	// - taskComment: 活動履歴のコメント
+	// 無指定の場合は、システムの初期値が適用されます。
+	createsTask:true,
+
+	// title: 添付・活動履歴へ登録するとき使われる名称を指定します。
+	title:&apos;\u8ACB\u6C42\u66F8&apos;,
+
+	// objectId: 帳票オブジェクトのIDを指定します。
+	objectId:{!GETRECORDIDS($ObjectType.CustomObject6__c)},
+
+	// OPROARTS Live - Force.com API に必要な諸パラメータです。
+	// このパラメータを編集しないでください。
+	api:[&apos;{!JSENCODE($Organization.Id)}&apos;,&apos;{!JSENCODE($User.Id)}&apos;,&apos;{!JSENCODE($Api.Session_ID)}&apos;,&apos;{!JSENCODE($Api.Partner_Server_URL_220)}&apos;]
+}).url(&quot;https://www.oproarts.com/liveffb/action&quot;).pdf();
+// 作成するドキュメントの形式のメソッドを呼び出します。&apos;pdf()&apos;,&apos;opr()&apos;,&apos;print()&apos;を指定します。
+// &apos;opr()&apos;,&apos;print()&apos;を使用する場合、OPRO X Browser をクライアントPCにインストールしてください。
+// ---- END ----</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CustomLink3</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>請求書作成</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>// これは、OPROARTS Live サーバで生成された OPROARTS Live - Force.com API の利用サンプルです。
+//
+// OPROARTS Live - Force.com API の情報は、https://www2.opro.net/jp_arts/support.html からご覧になれます。
+// Visualforce の情報は、http://www.salesforce.com/us/developer/docs/pages/index.htm (Salesforce.com) からご覧になれます。
+
+
+// ---- BEGIN  ----
+{!REQUIRESCRIPT(&quot;https://s.oproarts.com/js/live_ff-1.00.js&quot;)}
+OPROARTS.Live.fF.action({
+	// tp: 配備済みテンプレートの名称を指定します。複数指定することもできます。
+	// このパラメータを省略することはできません。
+	tp:[
+		&apos;arts20150615012611979&apos;
+	],
+
+	// フォントの埋め込むかどうかを指定します。true もしくは false で指定します。
+	// fm パラメータが&apos;PDF&apos;の場合に有効です。また、テンプレートで埋め込み可能なフォントが使用されている必要があります。
+	fe:false,
+
+	// createsAttach: 作成されたドキュメントをオブジェクトに添付するかどうかを指定します。true もしくは false で指定します。
+	// 添付できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	createsAttach:true,
+
+	// createsTask: 作成されたドキュメントを活動履歴に登録するかどうかを指定します。true もしくは false で指定します。
+	// 活動履歴に登録できないオブジェクトの場合、このパラメータを true で指定しないでください。
+	// このパラメータに true を指定した場合、次の追加パラメータを指定することができます。
+	// - taskSubject: 活動履歴の件名
+	// - taskComment: 活動履歴のコメント
+	// 無指定の場合は、システムの初期値が適用されます。
+	createsTask:true,
+
+	// title: ダウンロード・添付・活動履歴のファイル名を指定します。
+	title:&apos;\u8ACB\u6C42\u66F8&apos;,
+
+	// objectId: 帳票オブジェクトのIDを指定します。
+	objectId:&apos;{!JSENCODE(CustomObject6__c.Id)}&apos;,
+
+	// OPROARTS Live - Force.com API に必要な諸パラメータです。
+	// このパラメータを編集しないでください。
+	api:[&apos;{!JSENCODE($Organization.Id)}&apos;,&apos;{!JSENCODE($User.Id)}&apos;,&apos;{!JSENCODE($Api.Session_ID)}&apos;,&apos;{!JSENCODE($Api.Partner_Server_URL_220)}&apos;]
+}).url(&quot;https://www.oproarts.com/liveffb/action&quot;).pdf();
+// 作成するドキュメントの形式のメソッドを呼び出します。&apos;pdf()&apos;,&apos;opr()&apos;,&apos;print()&apos;を指定します。
+// &apos;opr()&apos;,&apos;print()&apos;を使用する場合、OPRO X Browser をクライアントPCにインストールしてください。
+// ---- END ----</url>
+    </webLinks>
+</CustomObject>

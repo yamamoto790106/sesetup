@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>実費</value>
+    </caseValues>
+    <fields>
+        <label><!-- 案件 --></label>
+        <name>Field2__c</name>
+        <relationshipLabel><!-- 実費 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 経費科目 --></label>
+        <name>Field3__c</name>
+        <picklistValues>
+            <masterLabel>その他</masterLabel>
+            <translation><!-- その他 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>コピー代</masterLabel>
+            <translation><!-- コピー代 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>予納郵券代</masterLabel>
+            <translation><!-- 予納郵券代 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>交通費</masterLabel>
+            <translation><!-- 交通費 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>供託金</masterLabel>
+            <translation><!-- 供託金 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>保管金</masterLabel>
+            <translation><!-- 保管金 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>保証金</masterLabel>
+            <translation><!-- 保証金 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>収入印紙代</masterLabel>
+            <translation><!-- 収入印紙代 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>宿泊料</masterLabel>
+            <translation><!-- 宿泊料 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>記録謄写費用</masterLabel>
+            <translation><!-- 記録謄写費用 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>通信費</masterLabel>
+            <translation><!-- 通信費 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 金額 --></label>
+        <name>Field4__c</name>
+    </fields>
+    <fields>
+        <label><!-- 備考 --></label>
+        <name>Field5__c</name>
+    </fields>
+    <fields>
+        <label><!-- 請求フラグ --></label>
+        <name>Field6__c</name>
+    </fields>
+    <fields>
+        <label><!-- 承認ステータス --></label>
+        <name>Field7__c</name>
+        <picklistValues>
+            <masterLabel>却下</masterLabel>
+            <translation><!-- 却下 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>承認済み</masterLabel>
+            <translation><!-- 承認済み --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>新規</masterLabel>
+            <translation><!-- 新規 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>申請中</masterLabel>
+            <translation><!-- 申請中 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>請求書作成済み</masterLabel>
+            <translation><!-- 請求書作成済み --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 領収書チェック --></label>
+        <name>Field8__c</name>
+    </fields>
+    <fields>
+        <label><!-- 活動ID --></label>
+        <name>TASKID__c</name>
+    </fields>
+    <layouts>
+        <layout>経費レイアウト</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>

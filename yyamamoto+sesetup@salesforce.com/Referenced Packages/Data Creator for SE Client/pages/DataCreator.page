@@ -1,0 +1,600 @@
+<apex:page controller="skay_dcc.DataCreatorController" docType="html-5.0" id="page">
+
+<style>
+    div.fieldContainer{
+        padding:10px;
+        margin-top: 20px;
+        background-color: #FFF;
+        border-radius: 5px;
+        box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 6px 1px;
+    }
+    div.field_panel_hidden{
+        display:none;
+    }
+    .instruction{
+        color: #EF2B2D;
+    }
+
+    .myTable{
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .myTable th{
+        padding: 6px;
+        text-align: left;
+        vertical-align: top;
+        color: #333;
+        background-color: #eee;
+        border: 1px solid #b9b9b9;
+    }
+    .myTable td{
+        padding: 6px;
+        background-color: #fff;
+        border: 1px solid #b9b9b9;
+    }
+    .myTable ul{
+        padding-left:20px;
+    }
+    .hiddendiv{
+        display:none;
+    }
+
+
+    .cellContainerContainer{
+        padding:30px;
+        display: inline-block;
+        //background:red;
+        z-index: 1;
+        background: #EEE;
+        border: solid 1px #AAA;
+    }
+
+    .cellContainer{
+        //border: solid 1px #AAA;
+        display: inline-block;
+        background:white;
+        z-index: 10;
+        //border-spacing:0px;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+    }
+    .cellRow{
+        padding:0px;
+        margin:0px;
+        border-spacing:0px;
+
+    }
+    .cell{
+        border: solid 1px #EEE;
+        background: #FFF;
+        height: 4px;
+        width: 4px;
+        display:table-cell;
+        margin:0px;
+        border-spacing:0px;
+        border-collapse:collapse;
+    }
+    .selected{
+        background: #666;
+    }
+        
+    div.tooltip {
+        width: 20px;
+        //float: right;
+        display: inline-block;
+    }
+
+    div.tooltip span {
+        display: none;
+        font-weight:normal;
+        text-align:left;
+        padding: 3px 5px;
+        margin-left: 8px;
+        width: 250px;
+    }
+
+    div.tooltip:hover span {
+        display: inline-block;
+        position: absolute;
+        border: 1px solid #cccccc;
+        background: #FFC;
+        color: #000000;
+        z-index:10000;
+    }
+
+    
+
+</style>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/cupertino/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+    j$ = jQuery.noConflict();
+
+    var sIdField = "";
+
+    function toggleDisplay( sId , element){
+        j$("#"+sId+"_hidden").toggleClass("field_panel_hidden");
+    }
+
+    
+    function dialogOpen(){
+        j$( "#dialog-message" ).dialog( "open" );
+    }
+
+    function showDataSets( elem ){
+        sIdField = elem;
+        af_showDataSets();
+    }
+    function selectDataSet( dataSetId, dataSetTitle ){
+        j$( "#field_"+sIdField ).find( ".dataSetId" ).val( dataSetId );
+        j$( "#field_label_"+sIdField ).val( dataSetTitle );
+
+    }
+    function toggleDiv( fieldName ){
+        j$("#field_dataset_"+fieldName).toggle();
+        j$("#field_manual_"+fieldName).toggle();
+
+    }
+    
+    j$(function() {
+        j$( "#dialog-message" ).dialog({
+            modal: true,
+            autoOpen: false,
+            width: 900,
+            height: 600,
+            buttons: {
+                Ok: function() {
+                    j$( this ).dialog( "close" );
+                }
+            }
+        });
+    });
+
+
+    var isDrawing = false;
+
+    function draw( fieldName, column, row ){
+        if( isDrawing ){
+            j$("."+fieldName+"_column"+column+".selected").removeClass("selected");
+            j$("#"+fieldName+"_cell"+column+"-"+row).addClass( "selected" );            
+        }
+    }
+
+
+    var XRANGE = {!X_RANGE};
+    var YRANGE = {!Y_RANGE};
+        
+    function drawGrid( fieldName, checkbox ){
+        if( checkbox.checked ){
+            j$("#"+fieldName+"_tred_div").show();
+        }
+        else{
+            j$("#"+fieldName+"_tred_div").hide();
+        }
+
+        var tmp = j$("#"+fieldName+"_cellContainer").html();
+        if( tmp == ""){
+            for( var i = YRANGE; i > 0; i--){
+                j$row = j$("<div>").addClass("cellRow").attr("id",fieldName+"_row"+i);
+                j$("#"+fieldName+"_cellContainer").append( j$row );
+                for( var j = 0; j < XRANGE; j++){
+                    var cellId = fieldName+"_cell"+j+"-"+i;
+                    j$cell = j$("<div>")
+                            .addClass("cell")
+                            .addClass(fieldName+"_column"+j)
+                            .attr("id",cellId)
+                            .attr("yVal",i)
+                            .attr("xVal",j)
+                            .attr("onmouseover","draw(\""+fieldName+"\",\""+j+"\",\""+i+"\")");
+                    if( i == Math.floor(YRANGE / 2) ){
+                        j$cell.addClass( "selected" );
+                    }
+
+                    j$("#"+fieldName+"_row"+i).append( j$cell );
+                }   
+            }
+            j$("#"+fieldName+"_cellContainerContainer").mouseleave(function(event){
+                event.stopPropagation();
+                isDrawing=false;
+                outputResult( fieldName );
+            });
+            outputResult( fieldName );
+        }
+    }
+
+    function outputResult( fieldName ){
+        var outputString = "";
+        for( var x = 0; x < XRANGE; x++){
+            j$selectedCell = j$("."+fieldName+"_column"+x+".selected");
+            var y = j$selectedCell.attr("yVal");
+            outputString += y+",";
+        }
+        j$("."+fieldName+"_manualCurveValue").val( outputString );
+    }
+
+    function xAxisSelectedPost(){
+        var FieldCategory4Trend = j$("#FieldCategory4Trend").val();
+        var fromIntegerX        = j$("#fromIntegerX").val();
+        var toIntegerX          = j$("#toIntegerX").val();
+        var FieldName4Trend     = j$("#FieldName4Trend").val();
+        var xAxis4Trend         = j$("#xAxis4Trend").val();
+        var fromDateX           = j$("input.fromDateX").val();
+        var toDateX             = j$("input.toDateX").val();
+        var xAxisUpdatable      = j$("#xAxisUpdatable").val() == "true";
+
+        j$("."+FieldName4Trend+'.fromIntegerX').val( fromIntegerX );
+        console.log("2");
+        j$("."+FieldName4Trend+'.toIntegerX')  .val( toIntegerX );
+        console.log("3");
+        
+        j$("."+FieldName4Trend+'.fromDateX').val( fromDateX );
+        console.log("4");
+        j$("."+FieldName4Trend+'.toDateX')  .val( toDateX );
+        console.log("5");
+        
+        if( FieldCategory4Trend == 'numerical' ){
+            j$("#"+ FieldName4Trend +"_integer_x").show();
+            j$("#"+ FieldName4Trend +"_date_x").hide();
+            j$("#"+ FieldName4Trend +"_update_x").show();
+        }
+        if( FieldCategory4Trend == 'calendar' ){
+            j$("#"+ FieldName4Trend +"_date_x").show();
+            j$("#"+ FieldName4Trend +"_integer_x").hide();
+            j$("#"+ FieldName4Trend +"_update_x").show();
+
+        }
+        j$("#"+ FieldName4Trend +"_x_vals").find("input").prop("readonly",!xAxisUpdatable);
+        j$("#"+ FieldName4Trend +"_update_x").find("input").prop("disabled",!xAxisUpdatable);
+        
+        
+    }
+
+
+</script>
+
+
+<apex:form id="form">
+    <apex:outputPanel id="xaxisconfig" style="display:none;">
+        FieldCategory4Trend: <input type="text" value="{!FieldCategory4Trend}" id="FieldCategory4Trend"/><br/>
+        fromIntegerX:        <input type="text" value="{!fromIntegerX}"        id="fromIntegerX"/><br/>
+        toIntegerX:          <input type="text" value="{!toIntegerX}"          id="toIntegerX"/><br/>
+        FieldName4Trend:     <input type="text" value="{!FieldName4Trend}"     id="FieldName4Trend" /><br/>
+        xAxis4Trend:         <input type="text" value="{!xAxis4Trend}"         id="xAxis4Trend"/><br/>
+        fromDateX:           <apex:input type="date" value="{!fromDateX}"      id="fromDateX" html-class="fromDateX"/><br/>
+        toDateX:             <apex:input type="date" value="{!toDateX}"        id="toDateX" html-class="toDateX"/><br/>
+        xAxisUpdatable       <input type="text" value="{!xAxisUpdatable}"      id="xAxisUpdatable" /> <br/>
+    
+    </apex:outputPanel>
+    <apex:actionFunction name="xAxisSelected" action="{!xAxisSelected}" reRender="pageMessagesbottom,pageMessagestop,pageMessagesdelete,xaxisconfig" oncomplete="xAxisSelectedPost();">
+        <apex:param name="FieldName4Trend" assignTo="{!FieldName4Trend}" value="" />
+        <apex:param name="xAxis4Trend" assignTo="{!xAxis4Trend}" value="" />
+    </apex:actionFunction>
+    <apex:actionFunction name="af_showDataSets" action="{!getDataSetPreview}" reRender="dataset_panel" oncomplete="dialogOpen();" />
+    <apex:sectionheader title="Demo Data Creator" />
+    
+    <apex:pageblock mode="edit" title="Please select object">
+        <apex:pageblocksection >
+            <apex:pageblocksectionitem >
+                <apex:selectList value="{!sSelectedObjectName}" size="10">
+                    <apex:selectOptions value="{!listObjectSelect}"/>
+                </apex:selectList>
+            </apex:pageblocksectionitem>
+
+            <apex:pageblocksectionitem >
+                <apex:outputlabel >Selected Object</apex:outputlabel>
+                <apex:outputtext id="sSelectedObjectName" value="{!sSelectedObjectName}" />
+            </apex:pageblocksectionitem>
+        </apex:pageblocksection>
+        
+        <apex:pageblockbuttons location="bottom">
+            <apex:commandButton value="Select" action="{!selectObject}" reRender="sSelectedObjectName,config_form_pgblock" />
+        </apex:pageblockbuttons>
+    </apex:pageblock>
+</apex:form>
+
+<apex:form id="config_form">
+    
+
+
+
+    <apex:tabPanel switchType="client">
+
+        <apex:tab label="INSERT/UPDATE">
+            <apex:pageBlock mode="edit" title="Data Creation Configuration" id="config_form_pgblock">
+                <apex:pageMessages id="pageMessagestop"/>
+                <apex:pageBlockSection title="Transaction mode">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >How many records?</apex:outputLabel>
+                        <apex:inputText value="{!iRecordCounts}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Update existing records only</apex:outputLabel>
+                        <apex:inputCheckbox value="{!isUpdateOnly}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Filter Conditions">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Record Type</apex:outputLabel>
+                        <apex:selectList value="{!selectedRecordTypeId}" size="1">
+                            <apex:selectOptions value="{!listRecordType}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Where Clause</apex:outputLabel>
+                        <apex:inputTextarea value="{!whereString}" style="height:50px;width:100%;" html-placeholder="Name LIKE 'salesforce.com'" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+
+                <apex:repeat value="{!listFields}" var="a">
+                    <apex:outputPanel rendered="{!a.isUpdateable}" id="config_form_pgblock_panel">
+                    <!--
+                    <apex:outputPanel rendered="true" id="config_form_pgblock_panel">
+                    -->
+                        <div class="fieldContainer">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:30px;border-right: solid 3px {!IF( a.isRequired, '#E8434E','#CCC' )};">
+                                        <apex:inputCheckbox value="{!a.isEnterRandomValue}" onClick="toggleDisplay('{!a.FieldName}',this)"/>
+                                    </td>
+                                    <td style="padding-left:10px;">
+                                        <div>
+                                            <span style="font-size:130%;font-weight:bold;color:#4A4A4A;">
+                                                {!a.FieldLabel} / {!a.FieldName}
+                                                <br/>
+                                            </span>
+                                            <span style="color:#AAA;">{!a.FieldType}</span>
+                                        </div>
+                                        <div class="field_panel_hidden" id="{!a.FieldName}_hidden" style="margin-top: 10px;padding-left:20px;">
+                                            <apex:outputPanel rendered="{!a.FieldType=='picklist'}">
+                                                Picklist Values:<br/>
+                                                <table style="100%;">
+                                                    <apex:repeat value="{!a.listPicklist}" var="b">
+                                                        <tr>
+                                                            <td style="text-align:right;font-weight:bold;">{!b.Value}:</td>
+                                                            <td><apex:inputText value="{!b.Occurance}"/></td>
+                                                        </tr>
+                                                    </apex:repeat>  
+                                                </table>
+                                                
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel rendered="{!a.FieldType=='multipicklist'}">
+                                                <div style="padding:10px;">
+                                                    How many values to select for each record: <br/>
+                                                    <apex:inputText value="{!a.multipickCount}"/>
+                                                </div>
+                                                <div style="padding:10px;">
+                                                    Picklist Values:<br/>
+                                                    <table style="100%;">
+                                                        <apex:repeat value="{!a.listPicklist}" var="b">
+                                                            <tr>
+                                                                <td style="text-align:right;font-weight:bold;">{!b.Value}:</td>
+                                                                <td><apex:inputText value="{!b.Occurance}"/></td>
+                                                            </tr>
+                                                        </apex:repeat>  
+                                                    </table>
+                                                </div>
+                                                
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel rendered="{!a.FieldType=='boolean'}">
+                                                True %: <apex:inputText value="{!a.boolTruePercentage}" />
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel rendered="{!OR(a.FieldType=='integer',a.FieldType=='currency',a.FieldType=='percent',a.FieldType=='double')}">
+                                                From: <apex:inputText value="{!a.FromInteger}"/>
+                                                - To: <apex:inputText value="{!a.ToInteger}"/>
+                                                <div>
+                                                    <p>Draw curve: <apex:inputCheckbox value="{!a.usesManualCurve}" onclick="drawGrid('{!a.FieldName}',this);"/> </p>
+                                                </div>
+                                                <div id="{!a.FieldName}_tred_div" style="display:none;">
+                                                    <div id="{!a.FieldName}_cellContainerContainer" class="cellContainerContainer" onmousedown="isDrawing=true;" onmouseup="isDrawing=false;outputResult('{!a.FieldName}');">
+                                                        <div id="{!a.FieldName}_cellContainer" class="cellContainer"></div>
+                                                    </div>   
+                                                    <div>
+                                                        <apex:inputHidden value="{!a.manualCurveValue}" html-class="{!a.FieldName}_manualCurveValue"/>
+                                                        <table style="100%;">
+                                                            <tr>
+                                                                <td style="text-align:right;font-weight:bold;">Distortion Level:</td>
+                                                                <td>
+                                                                    <apex:selectList value="{!a.selectedDistortionLevel}" size="1">
+                                                                        <apex:selectOptions value="{!a.distortionLevel}"/>
+                                                                    </apex:selectList>
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="text-align:right;font-weight:bold;">y-axis:</td>
+                                                                <td>{!a.FieldLabel}</td>
+                                                                <td></td>
+                                                                <td></td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="text-align:right;font-weight:bold;">x-axis:</td>
+                                                                <td>
+                                                                    <apex:selectList value="{!a.xAxisField}" size="1" onchange="xAxisSelected('{!a.FieldName}',this.value);">
+                                                                        <apex:selectOptions value="{!listSortableFields}"/>
+                                                                    </apex:selectList>
+                                                                </td>
+                                                                <td id="{!a.FieldName}_x_vals">
+                                                                    <div id="{!a.FieldName}_integer_x" style="display:none;">
+                                                                        From: <apex:inputText value="{!a.fromIntegerX}" html-class="fromIntegerX {!a.FieldName}"/>
+                                                                        - To: <apex:inputText value="{!a.toIntegerX}"   html-class="toIntegerX   {!a.FieldName}"/>
+                                                                    </div>
+                                                                    <div id="{!a.FieldName}_date_x" style="display:none;">
+                                                                        From: <apex:input type="date" value="{!a.fromDateX}" html-class="fromDateX {!a.FieldName}"/>
+                                                                        - To: <apex:input type="date" value="{!a.toDateX}"   html-class="toDateX   {!a.FieldName}"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div id="{!a.FieldName}_update_x" style="display:none;">
+                                                                        Force update x-axis value too: 
+                                                                        <div class="helpOrb tooltip" style="">
+                                                                            <span>
+                                                                               only check this if you are <u>NOT</u> getting the curve you expected
+                                                                            </span>
+                                                                        </div>
+                                                                        <apex:inputCheckbox value="{! a.updateXAxis }"/>
+                                                                    </div>
+                                                                    
+                                                                </td>
+
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel>
+                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            <apex:outputPanel rendered="{!OR(a.FieldType=='date',a.FieldType=='datetime')}">
+                                                From: <apex:input type="date" value="{!a.dFromDate}"/>
+                                                - To: <apex:input type="date" value="{!a.dToDate}"/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!a.FieldType=='reference'}">
+                                                <apex:selectRadio value="{!a.selectedReferenceInputMethod}" onchange="toggleDiv('{!a.FieldName}')">
+                                                    <apex:selectOptions value="{!a.referenceInputMethods}"/>
+                                                </apex:selectRadio>
+
+                                                <div style="" id="field_manual_{!a.FieldName}">
+                                                    <div>
+                                                        Random ID will be assigned
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div style="display:none;" id="field_dataset_{!a.FieldName}">
+                                                    <div class="instruction">
+                                                        Enter comma-delimited IDs
+                                                    </div>
+                                                    <apex:inputTextarea value="{!a.userInputRefereceId}" style="width:100%;" rows="10" html-placeholder="00128000002Y7xl,00128000002Y7yW,00128000002Y7xD"/>
+                                                </div>
+
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!OR(a.FieldType=='string',a.FieldType=='phone',a.FieldType=='textarea',a.FieldType=='email',a.FieldType=='url')}">
+                                                
+                                                <apex:selectRadio value="{!a.selectedStringInputMethod}" onchange="toggleDiv('{!a.FieldName}')">
+                                                    <apex:selectOptions value="{!a.stringInputMethods}"/>
+                                                </apex:selectRadio>
+                                                
+                                                <div style="" id="field_manual_{!a.FieldName}">
+                                                    <div class="instruction">
+                                                        Enter comma-delimited text. e.g. A,B,C
+                                                    </div>
+                                                    <apex:inputTextarea value="{!a.userInputStringPattern}" style="width:100%;" rows="10" />
+                                                </div>
+
+                                                <div style="display:none;" id="field_dataset_{!a.FieldName}">
+                                                    <div class="instruction">
+                                                        Selected data set:
+                                                    </div>
+                                                    <span id="field_{!a.FieldName}">
+                                                        <apex:inputHidden value="{!a.dataSetId}" html-class="dataSetId" />
+                                                        <input type="text" id="field_label_{!a.FieldName}"/>
+                                                    </span>
+                                                    <input type="button" class="btn" value="Use preset datasets" onclick="showDataSets('{!a.FieldName}');"/>
+                                                </div>
+
+
+                                                
+                                            </apex:outputPanel>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </apex:outputPanel>
+
+                        
+                </apex:repeat>  
+
+                <div style="height:20px;"></div>
+
+                <apex:pageMessages id="pageMessagesbottom"/>
+
+                <apex:pageblockbuttons >
+                    <apex:commandButton value="Save" action="{!saveRecords}" reRender="pageMessagesbottom,pageMessagestop" />
+                </apex:pageblockbuttons>
+
+            </apex:pageBlock>
+
+        </apex:tab>
+        <apex:tab label="DELETE">
+            <div style="border: 1px solid #AAA;padding: 30px;">
+                <span style="color:red; font-size:24px;">Clicking this will delete ALL records from selected object:</span><br/>
+                <apex:commandButton value="Delete all records" action="{!deleteAllRecords}" reRender="pageMessagesdelete" />
+                <apex:pageMessages id="pageMessagesdelete"/>
+            </div>
+
+        </apex:tab>
+
+    </apex:tabPanel>
+
+
+    <div id="dialog-message" title="Choose from data set">
+        <div style="padding:10px;text-align:center;">
+            <input type="button" value="Refresh" onclick="af_showDataSets();" class="btn" />
+        </div>
+        
+        <apex:outputPanel id="dataset_panel">
+            <table class="myTable" >
+                <tr>
+                    <th style="width:25px;">Select</th>
+                    <th style="width:200px;">Title</th>
+                    <th>Sample</th>
+                </tr>
+                <apex:repeat value="{!resultDataSets.listDataSet}" var="a">
+                    <tr>
+                        <td>
+                            <input type="radio" name="listDataSet" onclick="selectDataSet('{!a.Id}','{!a.title}')"/>
+                        </td>
+                        <td>{!a.title}</td>
+                        <td>
+                            <apex:repeat value="{!a.data}" var="b">
+                                <li>{!b}</li>
+                            </apex:repeat>
+                        </td>
+                    </tr>
+                    
+                </apex:repeat>  
+            </table>
+
+        </apex:outputPanel>
+    </div>
+
+
+
+
+</apex:form>
+</apex:page>

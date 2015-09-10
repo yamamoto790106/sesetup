@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>請求</value>
+    </caseValues>
+    <fields>
+        <label><!-- 顧客 --></label>
+        <name>Field10__c</name>
+        <relationshipLabel><!-- 請求 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 請求締日 --></label>
+        <name>Field11__c</name>
+    </fields>
+    <fields>
+        <label><!-- 支払期日 --></label>
+        <name>Field12__c</name>
+    </fields>
+    <fields>
+        <label><!-- 支払方法 --></label>
+        <name>Field13__c</name>
+    </fields>
+    <fields>
+        <label><!-- 請求ステータス --></label>
+        <name>Field14__c</name>
+        <picklistValues>
+            <masterLabel>削除</masterLabel>
+            <translation><!-- 削除 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>未請求</masterLabel>
+            <translation><!-- 未請求 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>請求済み</masterLabel>
+            <translation><!-- 請求済み --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 入金登録 --></label>
+        <name>Field15__c</name>
+    </fields>
+    <fields>
+        <label><!-- 備考 --></label>
+        <name>Field16__c</name>
+    </fields>
+    <fields>
+        <label><!-- 値引き金額 --></label>
+        <name>Field17__c</name>
+    </fields>
+    <fields>
+        <label><!-- 消費税 --></label>
+        <name>Field18__c</name>
+    </fields>
+    <fields>
+        <help><!-- 支払金額　100万円以下： 支払金額　×　10.21％
+支払金額　100万円超　 ： （支払金額　-　100万円）×20.42％＋102,100円 --></help>
+        <label><!-- 源泉税 --></label>
+        <name>Field19__c</name>
+    </fields>
+    <fields>
+        <label><!-- 案件 --></label>
+        <name>Field1__c</name>
+        <relationshipLabel><!-- 請求 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 合計 --></label>
+        <name>Field20__c</name>
+    </fields>
+    <fields>
+        <label><!-- 請求書番号 --></label>
+        <name>Field2__c</name>
+    </fields>
+    <fields>
+        <label><!-- 消費税込フラグ --></label>
+        <name>Field4__c</name>
+    </fields>
+    <fields>
+        <label><!-- 消費税率 --></label>
+        <name>Field5__c</name>
+    </fields>
+    <fields>
+        <label><!-- 明細合計金額（税抜き） --></label>
+        <name>Field6__c</name>
+    </fields>
+    <fields>
+        <label><!-- 請求金額（税込） --></label>
+        <name>Field7__c</name>
+    </fields>
+    <fields>
+        <label><!-- 入金済み金額 --></label>
+        <name>Field8__c</name>
+    </fields>
+    <fields>
+        <label><!-- 未入金残額 --></label>
+        <name>Field9__c</name>
+    </fields>
+    <fields>
+        <label><!-- test --></label>
+        <name>test__c</name>
+    </fields>
+    <layouts>
+        <layout>請求レイアウト</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label><!-- CustomLink1 --></label>
+        <name>CustomLink1</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink2 --></label>
+        <name>CustomLink2</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink3 --></label>
+        <name>CustomLink3</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>コール履歴</value>
+    </caseValues>
+    <fields>
+        <label><!-- コール日 --></label>
+        <name>CallDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- 申し送り事項 --></label>
+        <name>Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- 担当者名 --></label>
+        <name>Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- 早朝対応 --></label>
+        <name>IsEarly__c</name>
+        <picklistValues>
+            <masterLabel>いいえ</masterLabel>
+            <translation><!-- いいえ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>はい</masterLabel>
+            <translation><!-- はい --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 戻り予定 --></label>
+        <name>IsReturn__c</name>
+        <picklistValues>
+            <masterLabel>いいえ</masterLabel>
+            <translation><!-- いいえ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>はい</masterLabel>
+            <translation><!-- はい --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 訪問可否 --></label>
+        <name>IsVisit__c</name>
+        <picklistValues>
+            <masterLabel>いいえ</masterLabel>
+            <translation><!-- いいえ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>はい</masterLabel>
+            <translation><!-- はい --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 製品カテゴリ --></label>
+        <name>Product__c</name>
+        <picklistValues>
+            <masterLabel>PC</masterLabel>
+            <translation><!-- PC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>サプライ</masterLabel>
+            <translation><!-- サプライ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>サーバー</masterLabel>
+            <translation><!-- サーバー --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ネットワーク</masterLabel>
+            <translation><!-- ネットワーク --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 結果 --></label>
+        <name>Result__c</name>
+        <picklistValues>
+            <masterLabel>不在</masterLabel>
+            <translation><!-- 不在 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>折り返し</masterLabel>
+            <translation><!-- 折り返し --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>訪問日確定</masterLabel>
+            <translation><!-- 訪問日確定 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 戻り時間 --></label>
+        <name>ReturnTime__c</name>
+        <picklistValues>
+            <masterLabel>AM</masterLabel>
+            <translation><!-- AM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PM</masterLabel>
+            <translation><!-- PM --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 電話番号 --></label>
+        <name>Tel__c</name>
+    </fields>
+    <fields>
+        <label><!-- 種別 --></label>
+        <name>Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- 訪問日 --></label>
+        <name>VisitDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- 希望時間 --></label>
+        <name>VisitTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- 見込み客 --></label>
+        <name>Who__c</name>
+        <relationshipLabel><!-- コール履歴 --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>コール履歴レイアウト</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- 不在時 --></label>
+            <section>不在時</section>
+        </sections>
+        <sections>
+            <label><!-- 折り返し時 --></label>
+            <section>折り返し時</section>
+        </sections>
+        <sections>
+            <label><!-- 訪問予定 --></label>
+            <section>訪問予定</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- 標準コール履歴 --></label>
+        <name>RecordType</name>
+    </recordTypes>
+</CustomObjectTranslation>

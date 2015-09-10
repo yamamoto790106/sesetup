@@ -1,0 +1,362 @@
+<!-- Created by Fusako Kato (fkato@salesforce.com) 3/30/2015 -->
+<apex:page controller="WebToLeadFKController" showHeader="false" sidebar="false" standardStyleSheets="false" cache="false" docType="html-5.0" applyHtmlTag="false">
+    <html>
+        <head>
+            <meta charset="UTF-8"/>
+            <title>Web to Lead</title>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <apex:includeScript value="/soap/ajax/30.0/connection.js" />
+        </head>
+        <script>
+        $(function(){
+            if(!'{!setting}'){
+                $('#WebToLead').html('<div>URLパラメータに指定されたsettingNameは存在しません。</div></br><a href="/apex/WebToLeadFKList">W2L一覧画面に行く</a>');
+            }
+           $(".dropdown-menu").on('click', 'li a', function(){
+              id = $(this).parent().parent().attr("target-id");
+              $("#"+id).html($(this).text()+' <span class="caret"></span>');
+              $("#"+id).val($(this).data('id'));
+           });
+           $("#submitButton").on('click', function(){
+              saveLead();
+           });
+           $("#clearButton").on('click', function(){
+              $(this).closest('form').find("input[type=text], textarea").val("");
+           });
+           completePrefectureList();
+           completeCampaignList();
+           completeLeadSourceList();
+        
+        });
+        function completePrefectureList(){
+           $.getJSON("{!$Resource.PrefectureJson}" , function(data) {
+                var
+                  ulObj = $("#inputStateUL"),
+                  len = data.length;
+            
+                for(var i = 0; i < len; i++) {
+                  ulObj.append("<li><a>"+data[i].label+"</a></li>");
+                }
+           });
+        }
+        function completeCampaignList(){
+            sforce.connection.sessionId = "{!$Api.Session_ID}";
+            var result = sforce.connection.query("SELECT Id, Name, IsActive FROM Campaign Order by Name"); 
+            var records = result.getArray("records"); 
+            var ulObj = $("#inputCampaignUL");         
+            for(var i = 0; i < records.length; i++){
+               ulObj.append('<li><a data-id="'+records[i].Id+'">'+records[i].Name+'</a></li>');
+            }
+        }
+        function completeLeadSourceList(){
+          Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.WebToLeadFKController.getPicklistValues}',
+            'Lead', 
+            'LeadSource', 
+            function(result, event){
+                if (event.status) {
+                    var ulObj = $("#inputLeadSourceUL");         
+                    for(var i = 0; i < result.length; i++){
+                       ulObj.append("<li><a>"+result[i]+"</a></li>");
+                    }
+                        
+                } else if (event.type === 'exception') {
+                    $("#errorMsg").text = event.message;
+                } else {
+                    $("#errorMsg").text = event.message;
+                }
+            }, 
+            {escape: true}
+          );
+        }
+        function saveLead(){
+          if(!$("#inputLastName").val() || !$("#inputFirstName").val() || !$("#inputCompanyName").val()){
+              $("#errorMsg").text('必須項目が入力されていません');
+          }else{
+          Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.WebToLeadFKController.saveLead}',
+            $("#inputLastName").val(), 
+            $("#inputFirstName").val(), 
+            $("#inputCompanyName").val(), 
+            $("#inputRoleName").val(), 
+            $("#inputTel").val(), 
+            $("#inputEmail").val(), 
+            $("#inputZip").val(), 
+            $("#inputState").val(), 
+            $("#inputCity").val(), 
+            $("#inputStreet").val(), 
+            $("#inputCampaign").val(), 
+            $("#inputLeadSource").text(), 
+            $("#inputDescription").val(), 
+            function(result, event){
+                if (event.status) {
+                    if(result=='OK'){
+                        $('#contents').html('{!setting.ThanksMsg__c}');
+                    }else{
+                        alert(result);
+                    }
+                } else if (event.type === 'exception') {
+                    $("#errorMsg").text = event.message;
+                } else {
+                    $("#errorMsg").text = event.message;
+                }
+            }, 
+            {escape: true}
+          );
+          }
+        }
+        </script>
+        <style>
+        /* ↓Setting */
+        #WebToLead .navbar-default{
+            background-color: #{!setting.TabBackgroundColor__c};
+            color: #{!setting.TabLabelColor__c};
+        }
+        #WebToLead #submitButton{
+            background-color: #{!setting.PanelBackgroundColor__c};
+            color: #{!setting.PanelLabelColor__c};
+            border-color: #{!setting.PanelBorderColor__c};
+        }
+        #WebToLead .panel-default>.panel-heading{
+            background-color: #{!setting.PanelBackgroundColor__c};
+            color: #{!setting.PanelLabelColor__c};
+            border-color: #{!setting.PanelBorderColor__c};
+        }
+        #WebToLead .panel-title{
+            color: #{!setting.PanelLabelColor__c};
+        }
+        #WebToLead .panel-default{
+            border-color: #{!setting.PanelBorderColor__c};
+        }
+        #WebToLead .panel-body{
+            color: #{!setting.LabelColor__c};
+            background-color: #{!setting.PanelInsideBackgroundColor__c};
+        }
+        #WebToLead .navbar-default .navbar-nav>li>a {
+          color: #{!setting.TabLabelColor__c};
+        }
+        #WebToLead .navbar-default .navbar-nav>.active>a{
+            background-color: #{!setting.TabActiveBackgroundColor__c};
+            color: #{!setting.TabActiveLabelColor__c};
+        }
+        body{
+            background-color: #{!setting.BodyBackgroundColor__c};
+        }
+        /* ↑Setting */
+        
+        
+        #WebToLead .nav>li>a {
+            padding: 16px 25px;
+        }
+        .navbar-default .navbar-nav>.custom_active>a, .navbar-default .navbar-nav>.open>a {
+            font-weight: bold;
+        }
+        #WebToLead .navbar-default .navbar-toggle {
+          margin-top: 28px;
+        }
+        a.navbar-brand img{
+            height: 62px;
+        }
+        .submitButtonDiv{
+            text-align: center;
+        }
+        .errorMsgDiv{
+            margin-top: 50px;
+            color: red;
+        }
+        .submitButtonDiv button{
+            min-width: 120px;
+            height: 40px;
+            font-size: 120%;
+        }
+        .dropdown-toggle{
+            min-width: 150px;
+        }
+        @media only screen and (min-width: 768px){
+            .form-group{
+                padding: 15px 0px;
+            }
+            .navbar-nav{
+                padding: 20px;
+            }
+            body {
+                padding-top: 120px;
+            }
+        }
+        #WebToLead li{
+            cursor: pointer;
+        }
+        .form-group .control-label{
+            text-align: right;
+        }
+        #WebToLead input.form-control {
+          height: 32px;
+        }
+        @media (min-width: 992px){
+            .container {
+                width: 850px;
+            }
+        }
+        @media only screen and (max-width: 767px){
+            #WebToLead .navbar-brand {
+              padding: 5px 15px;
+            }
+            body {
+                padding-top: 90px;
+            }
+            
+        }
+            
+            
+        </style>
+        <body id="WebToLead">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">
+                            <img src="{!$Resource[setting.LogoSRName__c]}" alt="会社ロゴ" class="CompanyLogo" />
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#home">ホーム</a></li>
+                            <li><a href="#product">製品</a></li>
+                            <li class="active"><a href="#contact" id="TabTitle">{!setting.TabTitle__c}</a></li>
+                            <li><a href="#about">会社概要</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div id="contents" class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 
+                                    <span id="panelTitle">{!setting.PanelTitle__c}</span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizonal" role="form">
+                                    <div class="form-group">
+                                        <label for="inputLastName" class="col-sm-3 control-label">*姓</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputLastName" placeholder="姓" />
+                                        </div>
+                                        <label for="inputFirstName" class="col-sm-1 control-label">*名</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputFirstName" placeholder="名" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputCompanyName" class="col-sm-3 control-label">*会社名</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputCompanyName" placeholder="会社名" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputRoleName" class="col-sm-3 control-label">役職</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputRoleName" placeholder="役職" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputTel" class="col-sm-3 control-label">電話番号</label>
+                                        <div class="col-sm-9">
+                                            <input type="tel" class="form-control" id="inputTel" placeholder="電話番号" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-3 control-label">メールアドレス</label>
+                                        <div class="col-sm-9">
+                                            <input type="email" class="form-control" id="inputEmail" placeholder="メールアドレス" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputZip" class="col-sm-3 control-label">郵便番号</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputZip" placeholder="郵便番号" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputState" class="col-sm-3 control-label">都道府県</label>
+                                        <div class="col-sm-9">
+                                            <div class="btn-group">
+                                                <button id="inputState" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    -- 選択 -- <span class="caret"></span>
+                                                </button>
+                                                <ul id="inputStateUL" class="dropdown-menu" role="menu" target-id="inputState">
+                                                    <li><a data-id=""> -- 選択 -- </a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputCity" class="col-sm-3 control-label">市区町村</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputCity" placeholder="市区町村" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputStreet" class="col-sm-3 control-label">町名番地</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="inputStreet" placeholder="町名番地" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputCampaign" class="col-sm-3 control-label">キャンペーン</label>
+                                        <div class="col-sm-9">                                        
+                                            <div class="btn-group">
+                                                <button id="inputCampaign" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                     -- 選択 --  <span class="caret"></span>
+                                                </button>
+                                                <ul id="inputCampaignUL" class="dropdown-menu" role="menu" target-id="inputCampaign">
+                                                    <li><a data-id=""> -- 選択 -- </a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputLeadSource" class="col-sm-3 control-label">リードソース</label>
+                                        <div class="col-sm-9">                                                                                  
+                                            <div class="btn-group">
+                                                <button id="inputLeadSource" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                     -- 選択 --  <span class="caret"></span>
+                                                </button>
+                                                <ul id="inputLeadSourceUL" class="dropdown-menu" role="menu" target-id="inputLeadSource">
+                                                    <li><a data-id=""> -- 選択 -- </a></li>
+                                                </ul>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDescription" class="col-sm-3 control-label">ご連絡事項</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" rows="3" id="inputDescription" placeholder="ご連絡事項" ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 errorMsgDiv">
+                                        <div id="errorMsg"></div>
+                                    </div>
+                                    <div class="col-sm-12 submitButtonDiv">
+                                        <button type="button" id="submitButton" class="btn btn-default" >送信</button>
+                                        <button type="button" id="clearButton" class="btn btn-default" >フォームをクリア</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/container-->
+        </body>
+    </html>
+</apex:page>

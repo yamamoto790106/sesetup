@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>顧客責任者</value>
+    </caseValues>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者のアクセス権</value>
+        </caseValues>
+        <name>contact_access</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者のアクセス権</value>
+        </caseValues>
+        <name>contact_access_level</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 顧客</value>
+        </caseValues>
+        <name>contact_account</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 通貨</value>
+        </caseValues>
+        <name>contact_currency</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 説明</value>
+        </caseValues>
+        <name>contact_description</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 ディビジョン</value>
+        </caseValues>
+        <name>contact_division</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者の編集</value>
+        </caseValues>
+        <name>contact_edit</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 メール</value>
+        </caseValues>
+        <name>contact_email</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 Fax</value>
+        </caseValues>
+        <name>contact_fax</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者の項目</value>
+        </caseValues>
+        <name>contact_field</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者履歴</value>
+        </caseValues>
+        <name>contact_history</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者履歴レポート</value>
+        </caseValues>
+        <name>contact_history_report</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 ID</value>
+        </caseValues>
+        <name>contact_id</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者情報</value>
+        </caseValues>
+        <name>contact_information</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 携帯</value>
+        </caseValues>
+        <name>contact_mobile</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者名</value>
+        </caseValues>
+        <name>contact_name</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 メモ</value>
+        </caseValues>
+        <name>contact_note</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 番号</value>
+        </caseValues>
+        <name>contact_number</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 所有者</value>
+        </caseValues>
+        <name>contact_owner</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 所有者(別名)</value>
+        </caseValues>
+        <name>contact_owner_alias</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 電話</value>
+        </caseValues>
+        <name>contact_phone</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者レコード</value>
+        </caseValues>
+        <name>contact_record</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者レコードタイプ</value>
+        </caseValues>
+        <name>contact_record_type</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>上司の顧客責任者</value>
+        </caseValues>
+        <name>contact_reports_to</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者の役割</value>
+        </caseValues>
+        <name>contact_role</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者の役割 ID</value>
+        </caseValues>
+        <name>contact_role_id</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者の役割レポート</value>
+        </caseValues>
+        <name>contact_role_report</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者フェーズ ID</value>
+        </caseValues>
+        <name>contact_stage_id</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 状況</value>
+        </caseValues>
+        <name>contact_status</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者 種別</value>
+        </caseValues>
+        <name>contact_type</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>顧客責任者ビュー</value>
+        </caseValues>
+        <name>contact_view</name>
+    </fields>
+    <fields>
+        <label><!-- 性別 --></label>
+        <name>Field1__c</name>
+        <picklistValues>
+            <masterLabel>女性</masterLabel>
+            <translation><!-- 女性 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>男性</masterLabel>
+            <translation><!-- 男性 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 生年月日 --></label>
+        <name>Field2__c</name>
+    </fields>
+    <fields>
+        <label><!-- 相談者（姓カナ） --></label>
+        <name>Field3__c</name>
+    </fields>
+    <fields>
+        <label><!-- 相談者（名カナ） --></label>
+        <name>Field4__c</name>
+    </fields>
+    <fields>
+        <name>LeadSource</name>
+        <picklistValues>
+            <masterLabel>PWC（プライスウォーターハウス）</masterLabel>
+            <translation><!-- PWC（プライスウォーターハウス） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation><!-- Web --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>その他</masterLabel>
+            <translation><!-- その他 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>セミナー</masterLabel>
+            <translation><!-- セミナー --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>弁護士ドットコム</masterLabel>
+            <translation><!-- 弁護士ドットコム --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>紹介（従業員）</masterLabel>
+            <translation><!-- 紹介（従業員） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>雑誌広告/記事</masterLabel>
+            <translation><!-- 雑誌広告/記事 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>顧客紹介</masterLabel>
+            <translation><!-- 顧客紹介 --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>顧客担当者 レイアウト</layout>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+        <sections>
+            <label><!-- システム情報 --></label>
+            <section>システム情報</section>
+        </sections>
+        <sections>
+            <label><!-- 住所情報 --></label>
+            <section>住所情報</section>
+        </sections>
+        <sections>
+            <label><!-- 取引先責任者情報 --></label>
+            <section>取引先責任者情報</section>
+        </sections>
+        <sections>
+            <label><!-- 法人情報 --></label>
+            <section>法人情報</section>
+        </sections>
+        <sections>
+            <label><!-- 詳細情報 --></label>
+            <section>詳細情報</section>
+        </sections>
+        <sections>
+            <label><!-- 追加情報 --></label>
+            <section>追加情報</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label><!-- Yahoo --></label>
+        <name>Yahoo</name>
+    </webLinks>
+</CustomObjectTranslation>

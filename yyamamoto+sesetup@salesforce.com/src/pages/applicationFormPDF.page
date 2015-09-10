@@ -1,0 +1,122 @@
+<apex:page renderAs="pdf" showheader="false" controller="ApplicationFormPublisherController" action="{!initPDF}" applyBodyTag="false">
+    <head>
+        <style>
+             body { 
+                 font-family: Arial Unicode MS; 
+                 font-size: 12px;
+             }
+            .formTable, .signatureTable{
+                border-collapse: collapse;
+                width: 100%;
+            }
+            .formTable td{
+                padding: 5px 2%;
+                width: 28%;
+            }
+            .signatureTable td{
+                width: 20%;
+                padding: 5px 2%;
+            }
+            .labelRow td{
+                background: #eee;
+                font-weight: bold;
+                padding: 10px;
+                border: 1px solid #aaa;
+            }
+            .valueRow td{
+                background: #ccc;
+                padding: 10px;
+                border: 1px solid #aaa;
+            }
+            .width98{
+                width: 98% ;
+            }
+            .width100{
+                width: 100% ;
+            }
+            .checkboxLabel{
+                padding-left: 3px;
+                padding-right: 5px;
+            }
+            .smallFont{
+                font-size: 10px;
+            }
+            .alignRight{
+                text-align: right;
+            }
+            .textareaStyle{
+                border: 1px solid #eee;
+                width: 98%;
+                height: 170px;
+            }
+            .contractStyle{
+                padding: 0 1%;            
+            }
+            .centerAlign{
+                margin: 20px;
+            }
+            .header{
+                padding: 20px 30px;
+                border-bottom: 4px solid #aaa;
+                margin-bottom: 20px;
+            }
+        </style>  
+    </head>
+    <body>
+    <div class="header">
+        <img src="{!$Resource.applicationFormLogo}" />
+    </div>
+    <div>
+        <table class="formTable">
+            <tr class="labelRow">
+                <td>Account Name</td>
+                <td>Account Number</td>
+                <td>Phone Number</td>
+            </tr>
+            <tr class="valueRow">
+                <td><apex:outputText value="{!pdfOpportunity.Account.Name}" styleClass="width98" /></td>
+                <td><apex:outputText value="{!pdfOpportunity.Account.AccountNumber}" styleClass="width98" /></td>
+                <td><apex:outputText value="{!pdfOpportunity.Account.Phone}" styleClass="width98"/></td>
+            </tr>
+            <tr class="labelRow">
+                <td>Contact Name</td>
+                <td>Mail Address</td>
+                <td></td>
+            </tr>
+            <tr class="valueRow">
+                <td><apex:outputText value="{!mainContact.Name}" styleClass="width98"/></td>
+                <td><apex:outputText value="{!mainContact.Email}" styleClass="width98"/></td>
+                <td></td>
+            </tr>
+            <tr class="labelRow">
+                <td colspan="3">Billing Address</td>
+            </tr>
+            <tr class="valueRow">
+                <td colspan="3">
+                    <apex:outputText styleClass="width100" value="{!pdfOpportunity.Account.BillingPostalCode} {!pdfOpportunity.Account.BillingState} {!pdfOpportunity.Account.BillingCity} {!pdfOpportunity.Account.BillingStreet}" /><br />
+                </td>
+            </tr>
+        </table>
+        <br /><br />
+        <table class="signatureTable">
+            <tr>
+                <td><span class="">Terms and Conditions</span></td>
+                <td class="alignRight">
+                    <apex:image value="{!$Resource.pdf_checkMark}" height="15" />
+                    <label class="checkboxLabel">I agree</label>
+                </td>
+                <td class="" >Signature</td>
+                <td></td>  
+            </tr>
+            <tr>
+                <td colspan="2"><div class="contractStyle textareaStyle smallFont">{!contractForPDF1}<br />{!contractForPDF2}<br />{!contractForPDF3}</div></td>
+                <td colspan="2">
+                    <div class="textareaStyle">
+                    <img src="/servlet/servlet.FileDownload?file={!signatureId}" width="90%" class="centerAlign"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</apex:page>

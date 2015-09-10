@@ -1,0 +1,252 @@
+<apex:page standardController="OPROARTS050__Quote__c" extensions="OPROARTS050.QuoteLinesEdit" id="quote"
+        sidebar="false" title="{!$Label.oproarts050__QuoteLinesEdit_Title}: {!OPROARTS050__Quote__c.Name&' ('&OPROARTS050__Quote__c.OPROARTS050__Subject__c&')'}">
+<apex:stylesheet value="{!URLFOR($Resource.OPROARTS050__QBStatic,'css/oqbo-v1.css')}"/>
+<apex:sectionHeader title="{!$Label.oproarts050__QuoteLinesEdit_Title}" subtitle="{!OPROARTS050__Quote__c.Name&' ('&OPROARTS050__Quote__c.OPROARTS050__Subject__c&')'}"/>
+<apex:includeScript value="{!URLFOR($Resource.OPROARTS050__QBStatic,'js/oqbo-v1.js')}"/>
+<script type="text/javascript">
+OQBO.setComponents({ quoteLineTable: '{!$Component.f1.pb2.quoteLineTable}'});
+</script>
+<style type="text/css">
+span.dateFormat {display: none;}
+</style>
+<apex:form id="f1">
+<apex:actionFunction name="addProducts" action="{!addProducts}" reRender="quoteLineTable">
+    <apex:param name="param1" value="" assignTo="{!entryIdsToAdd}"/>
+</apex:actionFunction>
+<apex:pageBlock id="pb1" mode="edit" title="{!$Label.oproarts050__QuoteLinesEdit_Title}" rendered="{!NOT(isEditable)}">
+    <apex:pageMessage severity="warn" strength="1" summary="{!$Label.oproarts050__Message_QuoteLineNotEditable}"/>
+</apex:pageBlock>
+<apex:pageBlock id="pb2" mode="edit" title="{!IF(NOT(isSplitMode),$Label.oproarts050__QuoteLinesEdit_Title,$Label.oproarts050__QuoteLinesEdit_SplitLine)}" rendered="{!isEditable}">
+    <apex:pageMessages id="m1"/>
+    <apex:pageBlockButtons location="top">
+        <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!saveLinesEdit}" onclick="return confirm('{!$Label.oproarts050__Message_ConfirmSaveQuoteLines}');"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_SaveAndExit}" action="{!saveLinesEditAndExit}" onclick="return confirm('{!$Label.oproarts050__Message_ConfirmSaveQuoteLines}');"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_Exit}" action="{!exitLinesEdit}"/>
+    </apex:pageBlockButtons>
+    <apex:outputPanel layout="block" styleClass="moreButtons">
+        <apex:commandButton value="{!$Label.oproarts050__Button_DeleteLine}" action="{!deleteLines}"
+                onclick="return confirm('{!$Label.oproarts050__Message_ConfirmDeleteQuoteLines}');" rendered="{!NOT(isSplitMode)}"/>
+        <apex:outputPanel layout="inline" styleClass="sortButtons" rendered="{!NOT(isSplitMode)}">
+            <apex:outputText value="{!$Label.oproarts050__QuoteLinesEdit_Column_Sort}"/>
+            <button type="button" class="lineupdown" title="{!$Label.QuoteLinesEdit_LineUpUp}"
+                    onclick="OQBO.moveQuoteLines(-5);"><img alt="{!$Label.Button_LineUpUp}"
+                    src="{!URLFOR($Resource.QBStatic,'image/button/gs_uu.png')}"/></button>
+            <button type="button" class="lineupdown" title="{!$Label.QuoteLinesEdit_LineUp}"
+                    onclick="OQBO.moveQuoteLines(-1);"><img alt="{!$Label.Button_LineUp}"
+                    src="{!URLFOR($Resource.QBStatic,'image/button/gs_u.png')}"/></button>
+            <button type="button" class="lineupdown" title="{!$Label.QuoteLinesEdit_LineDown}"
+                    onclick="OQBO.moveQuoteLines(1);"><img alt="{!$Label.Button_LineDown}"
+                    src="{!URLFOR($Resource.QBStatic,'image/button/gs_d.png')}"/></button>
+            <button type="button" class="lineupdown" title="{!$Label.QuoteLinesEdit_LineDownDown}"
+                    onclick="OQBO.moveQuoteLines(5);"><img alt="{!$Label.Button_LineDownDown}"
+                    src="{!URLFOR($Resource.QBStatic,'image/button/gs_dd.png')}"/></button>
+        </apex:outputPanel>
+        <apex:outputPanel layout="inline" styleClass="actionButtons" rendered="{!NOT(isSplitMode)}">
+            <apex:commandButton value="{!$Label.oproarts050__ProductsView_ProductSelect}"
+                    onclick="OQBO.openProductsView('{!$Page.OPROARTS050__ProductsView}'); return false;"
+                    rendered="{!isProductAddable}"/>
+            <apex:commandButton value="{!$Label.oproarts050__QuoteLinesEdit_Button_AddEmptyLine}"
+                    action="{!addEmptyLine}" reRender="quoteLineTable,m1"/>
+            <!--<apex:commandButton value="{!$Label.oproarts050__QuoteLinesEdit_SplitLine}"
+                    action="{!moveSplitPage}"/>-->
+        </apex:outputPanel>
+        <apex:outputPanel layout="inline" styleClass="actionButtonsSplit" rendered="{!isSplitMode}">
+            <!--<apex:commandButton value="{!$Label.oproarts050__QuoteLinesEdit_Title}" action="{!moveEditPage}"/>-->
+            <apex:commandButton value="{!$Label.oproarts050__QuoteLinesEdit_SplitLine}"
+                    action="{!splitLine}"/>
+            <apex:commandButton value="{!$Label.oproarts050__Button_CancelSplit}" action="{!cancelSplit}"/>
+            <!--<apex:commandButton value="{!$Label.Button_Cancel}" action="{!cancelEdit}"/>-->
+        </apex:outputPanel>
+        <apex:outputPanel layout="inline" style="padding-left: 1em;">
+            <apex:inputCheckbox id="showAppointedDate" value="{!showAppointedDate}">
+                <apex:actionSupport event="onclick" reRender="quoteLineTable"/>
+            </apex:inputCheckbox>
+            <apex:outputLabel for="showAppointedDate" value="{!$Label.oproarts050__QuoteLinesEdit_ShowAppointedDate}"/>
+        </apex:outputPanel>
+        <apex:outputPanel layout="inline" style="padding-left: 1em;" rendered="{!NOT(isSplitMode)}">
+            <apex:inputCheckbox id="showPurchaseFields" value="{!showPurchaseFields}">
+                <apex:actionSupport event="onclick" reRender="quoteLineTable"/>
+            </apex:inputCheckbox>
+            <apex:outputLabel for="showPurchaseFields" value="{!$Label.oproarts050__QuoteLinesEdit_ShowPurchaseFields}"/>
+        </apex:outputPanel>
+        <apex:outputPanel layout="inline" style="padding-left: 1em;" rendered="{!NOT(isSplitMode)}">
+            <apex:inputCheckbox id="showMonthlyBill" value="{!showMonthlyBill}">
+                <apex:actionSupport event="onclick" reRender="quoteLineTable"/>
+            </apex:inputCheckbox>
+            <apex:outputLabel for="showMonthlyBill" value="{!$Label.oproarts050__QuoteLinesEdit_showMonthlyBill}"/>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <apex:pageBlockTable value="{!quoteLines}" var="quoteLine" id="quoteLineTable">
+        <apex:column style="width: 2em;{!IF(AND(NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))),isSplitMode),'background-color:#EBF4FA;','')}" styleClass="inputCheck "
+                headerClass="lineTable inputCheck" headerValue="{!$Label.oproarts050__Column_Select}">
+            <apex:inputCheckbox id="selectCheck" value="{!quoteLine.selected}" rendered="{!OR(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)),NOT(isSplitMode))}"/>
+            <apex:inputHidden id="sortOrder" value="{!quoteLine.order}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ProductFamily__c.Label}">
+            <apex:inputField id="productFamily" value="{!quoteLine.so.OPROARTS050__ProductFamily__c}" rendered="{!NOT(isSplitMode)}"/>
+            <apex:outputField id="productFamily_output" value="{!quoteLine.so.OPROARTS050__ProductFamily__c}" rendered="{!isSplitMode}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ProductCode__c.Label}">
+            <apex:inputField id="productCode" value="{!quoteLine.so.OPROARTS050__ProductCode__c}" rendered="{!NOT(isSplitMode)}"/>
+            <apex:outputField id="productCode_output" value="{!quoteLine.so.OPROARTS050__ProductCode__c}" rendered="{!isSplitMode}"/>
+        </apex:column>
+        <apex:column style="" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ProductName__c.Label}">
+            <apex:inputField id="productName" value="{!quoteLine.so.OPROARTS050__ProductName__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+            <apex:outputField id="productName_output" value="{!quoteLine.so.OPROARTS050__ProductName__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ContractStartDate__c.Label}" rendered="{!showMonthlyBill}">
+            <apex:inputField id="ContractStartDate" value="{!quoteLine.so.OPROARTS050__ContractStartDate__c}" rendered="{!AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}">
+                <apex:actionSupport event="onchange" reRender="numberOfMonths,firstMonthPrice"/>
+            </apex:inputField>
+            <apex:outputField id="ContractStartDate_output" value="{!quoteLine.so.OPROARTS050__ContractStartDate__c}" rendered="{!NOT(AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ContractEndDate__c.Label}" rendered="{!showMonthlyBill}">
+            <apex:inputField id="contractEndDate__c" value="{!quoteLine.so.OPROARTS050__ContractEndDate__c}" rendered="{!AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}">
+                <apex:actionSupport event="onchange" reRender="numberOfMonths,firstMonthPrice"/>
+            </apex:inputField>
+            <apex:outputField id="contractEndDate__c_output" value="{!quoteLine.so.OPROARTS050__ContractEndDate__c}" rendered="{!NOT(AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__BillSplitInterval__c.Label}" rendered="{!showMonthlyBill}">
+            <apex:inputField id="billSplitInterval" value="{!quoteLine.so.OPROARTS050__BillSplitInterval__c}" rendered="{!AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}">
+               <apex:actionSupport event="onchange" reRender="numberOfMonths,firstMonthPrice"/>
+            </apex:inputField>
+            <apex:outputField id="billSplitInterval_output" value="{!quoteLine.so.OPROARTS050__BillSplitInterval__c}" rendered="{!NOT(AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+        </apex:column>
+        <apex:column style="width: 3%;" styleClass="outputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__NumberOFMonths__c.Label}" rendered="{!showMonthlyBill}">
+            <apex:outputText id="numberOfMonths" value="{!quoteLine.numberOfMonths}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="outputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__FirstMonthPrice__c.Label}" rendered="{!showMonthlyBill}">
+            <apex:outputText id="firstMonthPrice" value="{0,number,integer}">
+                <apex:param value="{!quoteLine.firstMonthPrice}"/>
+            </apex:outputText>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="{!IF(AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)),'inputNumber','outputNumber')}"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__MonthlyPrice__c.Label}" rendered="{!showMonthlyBill}">
+            <apex:inputField id="monthlyPrice" value="{!quoteLine.so.OPROARTS050__MonthlyPrice__c}" rendered="{!AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}">
+                <apex:actionSupport event="onchange" reRender="firstMonthPrice"/>
+                <apex:actionSupport event="onclick" reRender="firstMonthPrice"/>
+            </apex:inputField>
+            <apex:outputText id="monthlyPrice_output" value="{0,number,integer}" rendered="{!NOT(AND(NOT(isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}">
+                <apex:param value="{!quoteLine.so.OPROARTS050__MonthlyPrice__c}"/>
+            </apex:outputText>
+        </apex:column>
+
+        <apex:column style="width: 6%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__BillDate__c.Label}" rendered="{!showMonthlyBill}">
+            <apex:inputField id="billDate" value="{!quoteLine.so.OPROARTS050__BillDate__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}">
+                <apex:actionSupport event="onchange" reRender="firstMonthPrice,numberOfMonths"/>
+            </apex:inputField>
+            <apex:outputField id="billDate_output" value="{!quoteLine.so.OPROARTS050__BillDate__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+        <apex:repeat value="{!$ObjectType.OPROARTS050__QuoteLine__c.FieldSets.OPROARTS050__CustomFieldsQuoteLine}" var="field">
+            <apex:column headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields[field].Label}" rendered="{!NOT(CONTAINS(field.fieldPath,'__r'))}">
+                <apex:inputField value="{!quoteLine.so[field]}" required="{!field.Required}"
+                    rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+                <apex:outputField value="{!quoteLine.so[field]}"
+                    rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+            </apex:column>
+        </apex:repeat>
+        <apex:column headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__AppointedDate__c.Label}"
+                rendered="{!showAppointedDate}">
+            <apex:inputField id="appointedDate" value="{!quoteLine.so.OPROARTS050__AppointedDate__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+            <apex:outputField id="appointedDate_output" value="{!quoteLine.so.OPROARTS050__AppointedDate__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+        <apex:column style="width: 4%;" styleClass="{!IF(NOT(isSplitMode),'inputNumber','outputNumber')}"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Quantity__c.Label}">
+            <apex:inputField id="quantity" value="{!quoteLine.so.OPROARTS050__Quantity__c}" rendered="{!NOT(isSplitMode)}">
+                <apex:actionSupport event="onchange" reRender="totalPrice,totalCost,m1"/>
+            </apex:inputField>
+            <apex:outputField id="quantity_output" value="{!quoteLine.so.OPROARTS050__Quantity__c}" rendered="{!isSplitMode}"/>
+        </apex:column>
+        <apex:column style="width: 3em;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Unit__c.Label}">
+            <apex:inputField id="unit" value="{!quoteLine.so.OPROARTS050__Unit__c}" rendered="{!NOT(isSplitMode)}"/>
+            <apex:outputField id="unit_output" value="{!quoteLine.so.OPROARTS050__Unit__c}" rendered="{!isSplitMode}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="{!IF(NOT(isSplitMode),'inputNumber','outputNumber')}"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ListPrice__c.Label}">
+            <apex:inputField id="listPrice" value="{!quoteLine.so.OPROARTS050__ListPrice__c}" rendered="{!NOT(isSplitMode)}">
+                <apex:actionSupport event="onchange" reRender="tdUnitPrice,totalPrice,m1"/>
+            </apex:inputField>
+            <apex:outputText id="listPrice_output" value="{0,number,integer}" rendered="{!isSplitMode}">
+                <apex:param value="{!quoteLine.so.OPROARTS050__ListPrice__c}"/>
+            </apex:outputText>
+        </apex:column>
+        <apex:column style="width: 4%;" styleClass="{!IF(NOT(isSplitMode),'inputNumber','outputNumber')}"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__PriceRate__c.Label}">
+            <apex:inputField id="priceRate" value="{!quoteLine.so.OPROARTS050__PriceRate__c}" rendered="{!NOT(isSplitMode)}">
+                <apex:actionSupport event="onchange" reRender="tdUnitPrice,unitPrice_output,totalPrice,totalPrice_output,m1"/>
+            </apex:inputField>
+            <apex:outputField id="priceRate_output" value="{!quoteLine.so.OPROARTS050__PriceRate__c}" rendered="{!isSplitMode}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="{!IF(NOT(isSplitMode),'inputNumber','outputNumber')}" id="tdUnitPrice"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__UnitPrice__c.Label}">
+            <apex:actionRegion id="unitPriceRegion">
+                <apex:inputText id="unitPrice" value="{!quoteLine.unitPriceString}" rendered="{!NOT(isSplitMode)}">
+                    <apex:actionSupport event="onchange" reRender="unitPrice,totalPrice,firstMonthPrice,m1"/>
+                </apex:inputText>
+                <apex:outputText id="unitPrice_output" value="{!quoteLine.unitPriceString}" rendered="{!isSplitMode}"/>
+                <script>document.getElementById('{!$Component.monthlyPrice}').click();</script>
+            </apex:actionRegion>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="outputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__TotalPrice__c.Label}">
+            <apex:outputText id="totalPrice" value="{0,number,integer}">
+                <apex:param value="{!quoteLine.totalPrice}"/>
+            </apex:outputText>
+        </apex:column>
+        <apex:column style="width: 2em;" styleClass="inputCheck"
+                headerClass="lineTable inputCheck" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Untaxable__c.Label}">
+            <apex:inputField id="untaxable" value="{!quoteLine.so.OPROARTS050__Untaxable__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+            <apex:outputField id="untaxable_output" value="{!quoteLine.so.OPROARTS050__Untaxable__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+        <apex:column style="width: 8%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Note__c.Label}">
+            <apex:inputField id="note" value="{!quoteLine.so.OPROARTS050__Note__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+            <apex:outputField id="note_output" value="{!quoteLine.so.OPROARTS050__Note__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="{!IF(NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))),'inputNumber','outputNumber')}"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__UnitCost__c.Label}"
+                rendered="{!showPurchaseFields}">
+            <apex:inputField id="unitCost" value="{!quoteLine.so.OPROARTS050__UnitCost__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}">
+                <apex:actionSupport event="onchange" reRender="totalCost,m1"/>
+            </apex:inputField>
+            <apex:outputField id="unitCost_output" value="{!quoteLine.so.OPROARTS050__UnitCost__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="outputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__TotalCost__c.Label}"
+                rendered="{!showPurchaseFields}">
+            <apex:outputText id="totalCost" value="{0,number,integer}">
+                <apex:param value="{!quoteLine.totalCost}"/>
+            </apex:outputText>
+        </apex:column>
+        <apex:column style="width: 8%;"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__PurchaseAcount__c.Label}"
+                rendered="{!showPurchaseFields}">
+            <apex:inputField id="purchaseAcount" value="{!quoteLine.so.OPROARTS050__PurchaseAcount__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+            <apex:outputField id="purchaseAcount_output" value="{!quoteLine.so.OPROARTS050__PurchaseAcount__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+        <apex:column style="width: 2em;" styleClass="inputCheck"
+                headerClass="lineTable inputCheck" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Purchasable__c.Label}"
+                rendered="{!showPurchaseFields}">
+            <apex:inputField id="purchasable" value="{!quoteLine.so.OPROARTS050__Purchasable__c}" rendered="{!NOT(AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c)))}"/>
+            <apex:outputField id="purchasable_output" value="{!quoteLine.so.OPROARTS050__Purchasable__c}" rendered="{!AND((isSplitMode),ISBLANK(quoteLine.so.OPROARTS050__ParentQuoteLine__c))}"/>
+        </apex:column>
+    </apex:pageBlockTable>
+</apex:pageBlock>
+
+</apex:form>
+<apex:variable var="quotePriceRate" value="{!OPROARTS050__Quote__c.OPROARTS050__PriceRate__c}"/>
+<apex:variable var="quotePriceRoundingMode" value="{!OPROARTS050__Quote__c.OPROARTS050__PriceRoundingMode__c}"/>
+<apex:variable var="quoteTaxRate" value="{!OPROARTS050__Quote__c.OPROARTS050__TaxRate__c}"/>
+<apex:variable var="quoteTaxRoundingMode" value="{!OPROARTS050__Quote__c.OPROARTS050__TaxRoundingMode__c}"/>
+
+</apex:page>

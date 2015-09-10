@@ -1,0 +1,71 @@
+<apex:page standardController="OPROARTS050__Quote__c" extensions="OPROARTS050.QuoteEdit" id="Quote"
+        sidebar="false" title="{!$Label.oproarts050__QuoteEdit_Title}: {!IF(ISBLANK(OPROARTS050__Quote__c.Name),$Label.oproarts050__QuoteNew_Subtitle,OPROARTS050__Quote__c.Name)}">
+<apex:stylesheet value="{!URLFOR($Resource.OPROARTS050__QBStatic,'css/oqbo-v1.css')}"/>
+<apex:sectionHeader title="{!$Label.oproarts050__QuoteEdit_Title}" subtitle="{!IF(ISBLANK(OPROARTS050__Quote__c.Name),$Label.oproarts050__QuoteNew_Subtitle,OPROARTS050__Quote__c.Name)}"/>
+<apex:includeScript value="{!URLFOR($Resource.OPROARTS050__QBStatic,'js/oqbo-v1.js')}"/>
+<script type="text/javascript">function setFocusOnLoad() {}</script>
+<apex:form id="f1">
+<apex:pageBlock id="pb1" mode="edit" title="{!$Label.oproarts050__QuoteEdit_Title}" rendered="{!NOT(isEditable)}">
+    <apex:pageMessage severity="warn" strength="1" summary="{!$Label.oproarts050__Message_QuoteNotEditable}"/>
+</apex:pageBlock>
+<apex:pageBlock id="pb2" mode="edit" title="{!$Label.oproarts050__QuoteEdit_Title}" rendered="{!isEditable}">
+    <apex:pageMessages id="m1"/>
+    <apex:pageBlockButtons location="top">
+        <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!saveEdit}"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancelEdit}" immediate="true"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Information}" columns="2">
+        <apex:outputField value="{!OPROARTS050__Quote__c.Name}" rendered="{!NOT(isNew)}"/>
+        <apex:outputField value="{!OPROARTS050__Quote__c.OwnerId}" rendered="{!NOT(isNew)}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__Subject__c}" required="true"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__IsActive__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__Account__c}" required="true"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__Opportunity__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__Contact__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__PriceRate__c}" rendered="{!NOT(isNew)}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Quote}" columns="2">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__QuoteDate__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__TaxRate__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__QuoteExpiry__c}"/>
+        <apex:pageBlockSectionItem id="pbsi31">
+            <apex:outputLabel value="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__TaxRoundingMode__c.Label}"/>
+            <apex:selectList size="1" value="{!taxRoundingMode.value}">
+                <apex:selectOptions value="{!taxRoundingMode.options}"/>
+            </apex:selectList>
+        </apex:pageBlockSectionItem>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__DeliveryTerm__c}"/>
+        <apex:pageBlockSectionItem id="pbsi32">
+            <apex:outputLabel value="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__PriceRoundingMode__c.Label}"/>
+            <apex:selectList size="1" value="{!priceRoundingMode.value}">
+                <apex:selectOptions value="{!priceRoundingMode.options}"/>
+            </apex:selectList>
+        </apex:pageBlockSectionItem>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__DeliveryPlace__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__Transaction__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__QuoteRemarks__c}" style="width: 30em;"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Order}" columns="2">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__OrderDate__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__OrderRemarks__c}" style="width: 30em;"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Additional}" columns="2"
+            rendered="{!hasAdditionalEditFields}">
+        <!-- <apex:repeat value="{!additionalEditFields}" var="field"> -->
+        <apex:repeat value="{!$ObjectType.OPROARTS050__Quote__c.FieldSets.OPROARTS050__CustomFields}" var="field">
+            <apex:inputField value="{!OPROARTS050__Quote__c[field]}" required="{!field.Required}" rendered="{!NOT(CONTAINS(field.fieldPath,'__r'))}"/>
+        </apex:repeat>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_DeliveryAndBill}" columns="2">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__DeliveryAccount__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__BillAccount__c}"/>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+<apex:variable var="quotePriceRoundingMode" value="{!OPROARTS050__Quote__c.OPROARTS050__PriceRoundingMode__c}"/>
+<apex:variable var="quoteTaxRoundingMode" value="{!OPROARTS050__Quote__c.OPROARTS050__TaxRoundingMode__c}"/>
+</apex:page>

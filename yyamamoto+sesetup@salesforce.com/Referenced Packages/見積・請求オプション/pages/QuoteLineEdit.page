@@ -1,0 +1,93 @@
+<apex:page standardController="OPROARTS050__QuoteLine__c" extensions="OPROARTS050.QuoteLineEdit" id="quoteline"
+        title="{!$Label.oproarts050__QuoteLinesEdit_Title}: {!OPROARTS050__QuoteLine__c.Name}">
+<apex:sectionHeader title="{!$Label.oproarts050__QuoteLinesEdit_Title}" subtitle="{!OPROARTS050__QuoteLine__c.Name}"/>
+<apex:form id="f1">
+<apex:pageBlock id="pb1" mode="edit" title="{!$Label.oproarts050__QuoteLinesEdit_Title}" rendered="{!NOT(isEditable)}">
+    <apex:pageMessage severity="warn" strength="1" summary="{!$Label.oproarts050__Message_QuoteLineNotEditable}"/>
+</apex:pageBlock>
+<apex:pageBlock id="pb2" mode="edit" title="{!$Label.oproarts050__QuoteLinesEdit_Title}" rendered="{!isEditable}">
+    <apex:pageMessages id="m1"/>
+    <apex:pageBlockButtons location="both">
+        <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!saveEdit}"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancelEdit}"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Information}" columns="2">
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.Name}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__SortOrder__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Quote__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Product__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__IsActive__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Editable}" columns="2">
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__ProductName__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Quantity__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__ProductCode__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Unit__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__ProductFamily__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Untaxable__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Note__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__AppointedDate__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Abstract__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__UnitCost__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__PurchaseAcount__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__PurchaseNote__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Purchasable__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__TaxRate__c}"/>
+        <apex:pageBlockSectionItem id="pbsi31">
+            <apex:outputLabel value="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__TaxRoundingMode__c.Label}"/>
+            <apex:selectList size="1" value="{!taxRoundingMode.value}">
+                <apex:selectOptions value="{!taxRoundingMode.options}"/>
+            </apex:selectList>
+        </apex:pageBlockSectionItem>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__CostTaxRate__c}"/>
+        <apex:pageBlockSectionItem id="pbsi32">
+            <apex:outputLabel value="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__PriceRoundingMode__c.Label}"/>
+            <apex:selectList size="1" value="{!priceRoundingMode.value}">
+                <apex:selectOptions value="{!priceRoundingMode.options}"/>
+            </apex:selectList>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__ContractStartDate__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__ContractEndDate__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__BillSplitInterval__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__MonthlyPrice__c}"/>
+        <apex:inputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__BillDate__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Additional}" columns="2"
+            rendered="{!hasAdditionalEditFields}">
+        <!-- <apex:repeat value="{!additionalEditFields}" var="field"> -->
+        <apex:repeat value="{!$ObjectType.OPROARTS050__QuoteLine__c.FieldSets.OPROARTS050__CustomFields}" var="field">
+            <apex:inputField value="{!OPROARTS050__QuoteLine__c[field]}" required="{!field.Required}" rendered="{!NOT(CONTAINS(field.fieldPath,'__r'))}"/>
+        </apex:repeat>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_NotEditable}" columns="2">
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__UnitPrice__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Pricebook__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__TotalPrice__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__ListPrice__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Tax__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__PriceRate__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__TotalCost__c}"/>
+        <apex:pageBlockSectionItem id="pbsi51"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__CostTax__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Purchase__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__Delivery__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__FirstMonthPrice__c}"/>
+        <apex:outputField value="{!OPROARTS050__QuoteLine__c.OPROARTS050__NumberOFMonths__c}"/>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+<apex:variable var="quoteLinePriceRoundingMode" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__PriceRoundingMode__c}"/>
+<apex:variable var="quoteLineTaxRoundingMode" value="{!OPROARTS050__QuoteLine__c.OPROARTS050__TaxRoundingMode__c}"/>
+</apex:page>

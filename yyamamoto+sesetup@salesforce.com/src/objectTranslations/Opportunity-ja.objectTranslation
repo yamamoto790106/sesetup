@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>案件</value>
+    </caseValues>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>弁護費用金額</value>
+        </caseValues>
+        <name>amount_opportunity</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <plural>false</plural>
+            <value>案件種別</value>
+        </caseValues>
+        <name>type_opportunity</name>
+    </fields>
+    <fields>
+        <label><!-- 経過日数 --></label>
+        <name>Field14__c</name>
+    </fields>
+    <fields>
+        <label><!-- 未活動日数 --></label>
+        <name>Field15__c</name>
+    </fields>
+    <fields>
+        <help><!-- 予算は確保しているか？ --></help>
+        <label><!-- 予算確認 --></label>
+        <name>Field17__c</name>
+    </fields>
+    <fields>
+        <label><!-- 予算チェック日 --></label>
+        <name>Field21__c</name>
+    </fields>
+    <fields>
+        <label><!-- 案件日数 --></label>
+        <name>Field28__c</name>
+    </fields>
+    <fields>
+        <label><!-- 案件作成日 --></label>
+        <name>Field29__c</name>
+    </fields>
+    <fields>
+        <label><!-- 案件経過日数 --></label>
+        <name>Field30__c</name>
+    </fields>
+    <fields>
+        <label><!-- 会計月 --></label>
+        <name>Field32__c</name>
+    </fields>
+    <fields>
+        <label><!-- 案件概要 --></label>
+        <name>Field33__c</name>
+    </fields>
+    <fields>
+        <label><!-- 顧客想定予算 --></label>
+        <name>Field35__c</name>
+    </fields>
+    <fields>
+        <label><!-- 面談結果 --></label>
+        <name>Field36__c</name>
+    </fields>
+    <fields>
+        <label><!-- 顧問契約有無 --></label>
+        <name>Field37__c</name>
+    </fields>
+    <fields>
+        <label><!-- 受任契約種別 --></label>
+        <name>Field38__c</name>
+        <picklistValues>
+            <masterLabel>セットフィー</masterLabel>
+            <translation><!-- セットフィー --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>タイムチャージ</masterLabel>
+            <translation><!-- タイムチャージ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>タイムチャージ（固定）</masterLabel>
+            <translation><!-- タイムチャージ（固定） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>着手金・報酬金</masterLabel>
+            <translation><!-- 着手金・報酬金 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 推奨案件フラグ --></label>
+        <name>Field3_flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- 請求金額 --></label>
+        <name>Field51__c</name>
+    </fields>
+    <fields>
+        <label><!-- 実費 --></label>
+        <name>Field53__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムシート作成済みフラグ --></label>
+        <name>Field56__c</name>
+    </fields>
+    <fields>
+        <label><!-- 総活動時間 --></label>
+        <name>Field57__c</name>
+    </fields>
+    <fields>
+        <label><!-- 実稼働時間 --></label>
+        <name>Field58__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ金額 --></label>
+        <name>Field59__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ固定単価 --></label>
+        <name>Field60__c</name>
+    </fields>
+    <fields>
+        <label><!-- 相談分類 --></label>
+        <name>Field61__c</name>
+        <picklistValues>
+            <masterLabel>会社経営</masterLabel>
+            <translation><!-- 会社経営 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>個人相談</masterLabel>
+            <translation><!-- 個人相談 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>再生・事業承継</masterLabel>
+            <translation><!-- 再生・事業承継 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>労働問題</masterLabel>
+            <translation><!-- 労働問題 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>商取引</masterLabel>
+            <translation><!-- 商取引 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約</masterLabel>
+            <translation><!-- 契約 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>知的財産</masterLabel>
+            <translation><!-- 知的財産 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 分類詳細 --></label>
+        <name>Field62__c</name>
+        <picklistValues>
+            <masterLabel>M&amp;A</masterLabel>
+            <translation><!-- M&amp;A --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>その他</masterLabel>
+            <translation><!-- その他 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>システム開発</masterLabel>
+            <translation><!-- システム開発 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ストックオプションの導入</masterLabel>
+            <translation><!-- ストックオプションの導入 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ネットトラブル（名誉・信用毀損）</masterLabel>
+            <translation><!-- ネットトラブル（名誉・信用毀損） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ネットトラブル（名誉毀損、プライバシー侵害、詐欺）</masterLabel>
+            <translation><!-- ネットトラブル（名誉毀損、プライバシー侵害、詐欺） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>不動産取引・明渡し</masterLabel>
+            <translation><!-- 不動産取引・明渡し --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>不動産取引（売買、賃貸借）</masterLabel>
+            <translation><!-- 不動産取引（売買、賃貸借） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>不祥事対応・調査</masterLabel>
+            <translation><!-- 不祥事対応・調査 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>事業再生</masterLabel>
+            <translation><!-- 事業再生 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>交通事故</masterLabel>
+            <translation><!-- 交通事故 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>企業買収・防衛</masterLabel>
+            <translation><!-- 企業買収・防衛 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>会社更生</masterLabel>
+            <translation><!-- 会社更生 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>保全・執行</masterLabel>
+            <translation><!-- 保全・執行 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>債務整理</masterLabel>
+            <translation><!-- 債務整理 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>債権回収</masterLabel>
+            <translation><!-- 債権回収 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>内部統制システム・コンプライアンス（社外取締役・監査役、内部通報制度外部窓口）</masterLabel>
+            <translation><!-- 内部統制システム・コンプライアンス（社外取締役・監査役、内部通報制度外部窓口） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>刑事事件</masterLabel>
+            <translation><!-- 刑事事件 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>労働審判・交渉・訴訟（使用者側、労働者側）</masterLabel>
+            <translation><!-- 労働審判・交渉・訴訟（使用者側、労働者側） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>動産売買</masterLabel>
+            <translation><!-- 動産売買 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>営業秘密</masterLabel>
+            <translation><!-- 営業秘密 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>国際商取引</masterLabel>
+            <translation><!-- 国際商取引 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約書作成・チェック</masterLabel>
+            <translation><!-- 契約書作成・チェック --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約締結交渉</masterLabel>
+            <translation><!-- 契約締結交渉 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>就業規則作成</masterLabel>
+            <translation><!-- 就業規則作成 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>役員の解任</masterLabel>
+            <translation><!-- 役員の解任 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>情報漏えい対策</masterLabel>
+            <translation><!-- 情報漏えい対策 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>担保設定</masterLabel>
+            <translation><!-- 担保設定 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>新株発行</masterLabel>
+            <translation><!-- 新株発行 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>株主代表訴訟</masterLabel>
+            <translation><!-- 株主代表訴訟 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>株主総会指導</masterLabel>
+            <translation><!-- 株主総会指導 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>民事再生</masterLabel>
+            <translation><!-- 民事再生 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>海外進出</masterLabel>
+            <translation><!-- 海外進出 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>消費者取引</masterLabel>
+            <translation><!-- 消費者取引 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>清算</masterLabel>
+            <translation><!-- 清算 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>特許・商標（ライセンス契約、紛争対応）</masterLabel>
+            <translation><!-- 特許・商標（ライセンス契約、紛争対応） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>相続・遺留分</masterLabel>
+            <translation><!-- 相続・遺留分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>破産</masterLabel>
+            <translation><!-- 破産 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>破産・個人再生</masterLabel>
+            <translation><!-- 破産・個人再生 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>組織再編・M&amp;A（合併、分割、事業譲渡、デューディリジェンス）</masterLabel>
+            <translation><!-- 組織再編・M&amp;A（合併、分割、事業譲渡、デューディリジェンス） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>航空・海上運送</masterLabel>
+            <translation><!-- 航空・海上運送 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>著作権（使用許諾、紛争対応）</masterLabel>
+            <translation><!-- 著作権（使用許諾、紛争対応） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>親族内外承継</masterLabel>
+            <translation><!-- 親族内外承継 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>設立（定款・規則作成）</masterLabel>
+            <translation><!-- 設立（定款・規則作成） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>財務リストラクチャリング</masterLabel>
+            <translation><!-- 財務リストラクチャリング --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>貸金・債権回収</masterLabel>
+            <translation><!-- 貸金・債権回収 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>遺言書作成・執行</masterLabel>
+            <translation><!-- 遺言書作成・執行 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>金商法対応</masterLabel>
+            <translation><!-- 金商法対応 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>金銭貸付</masterLabel>
+            <translation><!-- 金銭貸付 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>離婚</masterLabel>
+            <translation><!-- 離婚 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>電子商取引</masterLabel>
+            <translation><!-- 電子商取引 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>顧問契約</masterLabel>
+            <translation><!-- 顧問契約 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>高齢者の財産管理（任意・成年後見）</masterLabel>
+            <translation><!-- 高齢者の財産管理（任意・成年後見） --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 案件合計金額 --></label>
+        <name>Field63__c</name>
+    </fields>
+    <fields>
+        <label><!-- 請求登録 --></label>
+        <name>Field64__c</name>
+    </fields>
+    <fields>
+        <label><!-- 翌月末 --></label>
+        <name>Field65__c</name>
+    </fields>
+    <fields>
+        <label><!-- 当月末日 --></label>
+        <name>Field66__c</name>
+    </fields>
+    <fields>
+        <label><!-- 今月締め日 --></label>
+        <name>Field67__c</name>
+    </fields>
+    <fields>
+        <label><!-- 値引き金額 --></label>
+        <name>Field68__c</name>
+    </fields>
+    <fields>
+        <label><!-- 消費税 --></label>
+        <name>Field69__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ請求稼動時間 --></label>
+        <name>Field70__c</name>
+    </fields>
+    <fields>
+        <label><!-- タイムチャージ超過時間 --></label>
+        <name>Field71__c</name>
+    </fields>
+    <fields>
+        <label><!-- 超過 --></label>
+        <name>Field72__c</name>
+    </fields>
+    <fields>
+        <label><!-- 入金済み金額 --></label>
+        <name>Field73__c</name>
+    </fields>
+    <fields>
+        <label><!-- 未入金残額 --></label>
+        <name>Field74__c</name>
+    </fields>
+    <fields>
+        <label><!-- 案件成功 --></label>
+        <name>Field75__c</name>
+    </fields>
+    <fields>
+        <label><!-- 未請求あり --></label>
+        <name>Field76__c</name>
+    </fields>
+    <fields>
+        <label><!-- 経済的利益 --></label>
+        <name>Field77__c</name>
+    </fields>
+    <fields>
+        <label><!-- 訪問作成 --></label>
+        <name>Field8__c</name>
+    </fields>
+    <fields>
+        <name>LeadSource</name>
+        <picklistValues>
+            <masterLabel>PWC（プライスウォーターハウス）</masterLabel>
+            <translation><!-- PWC（プライスウォーターハウス） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation><!-- Web --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>その他</masterLabel>
+            <translation><!-- その他 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>セミナー</masterLabel>
+            <translation><!-- セミナー --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>弁護士ドットコム</masterLabel>
+            <translation><!-- 弁護士ドットコム --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>紹介（従業員）</masterLabel>
+            <translation><!-- 紹介（従業員） --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>雑誌広告/記事</masterLabel>
+            <translation><!-- 雑誌広告/記事 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>顧客紹介</masterLabel>
+            <translation><!-- 顧客紹介 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 見積・受注の合計 --></label>
+        <name>OPROARTS050__QuoteAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- 見積・受注の段階 --></label>
+        <name>OPROARTS050__QuoteStageName__c</name>
+    </fields>
+    <fields>
+        <label><!-- 見積・受注の段階値 --></label>
+        <name>OPROARTS050__QuoteStage__c</name>
+    </fields>
+    <fields>
+        <name>StageName</name>
+        <picklistValues>
+            <masterLabel>コンタクト</masterLabel>
+            <translation><!-- コンタクト --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>依頼取り消し</masterLabel>
+            <translation><!-- 依頼取り消し --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約成立</masterLabel>
+            <translation><!-- 契約成立 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>契約面談</masterLabel>
+            <translation><!-- 契約面談 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>正式依頼</masterLabel>
+            <translation><!-- 正式依頼 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>活動中</masterLabel>
+            <translation><!-- 活動中 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>活動完了</masterLabel>
+            <translation><!-- 活動完了 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>着手金入金待ち</masterLabel>
+            <translation><!-- 着手金入金待ち --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>見積</masterLabel>
+            <translation><!-- 見積 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>面談</masterLabel>
+            <translation><!-- 面談 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <name>Type</name>
+        <picklistValues>
+            <masterLabel>受任契約</masterLabel>
+            <translation><!-- 受任契約 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>書面鑑定</masterLabel>
+            <translation><!-- 書面鑑定 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>法律相談</masterLabel>
+            <translation><!-- 法律相談 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>顧問契約</masterLabel>
+            <translation><!-- 顧問契約 --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>依頼案件レイアウト</layout>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+        <sections>
+            <label><!-- システム情報 --></label>
+            <section>システム情報</section>
+        </sections>
+        <sections>
+            <label><!-- フェーズ --></label>
+            <section>フェーズ</section>
+        </sections>
+        <sections>
+            <label><!-- 商談情報 --></label>
+            <section>商談情報</section>
+        </sections>
+        <sections>
+            <label><!-- 案件情報 --></label>
+            <section>案件情報</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>活動中案件レイアウト</layout>
+        <sections>
+            <label><!-- Useful Links --></label>
+            <section>Useful Links</section>
+        </sections>
+        <sections>
+            <label><!-- システム情報 --></label>
+            <section>システム情報</section>
+        </sections>
+        <sections>
+            <label><!-- フェーズ --></label>
+            <section>フェーズ</section>
+        </sections>
+        <sections>
+            <label><!-- 入金情報 --></label>
+            <section>入金情報</section>
+        </sections>
+        <sections>
+            <label><!-- 商談情報 --></label>
+            <section>商談情報</section>
+        </sections>
+        <sections>
+            <label><!-- 案件情報 --></label>
+            <section>案件情報</section>
+        </sections>
+        <sections>
+            <label><!-- 案件結果 --></label>
+            <section>案件結果</section>
+        </sections>
+        <sections>
+            <label><!-- 活動情報 --></label>
+            <section>活動情報</section>
+        </sections>
+        <sections>
+            <label><!-- 請求情報 --></label>
+            <section>請求情報</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- 活動案件 --></label>
+        <name>ActivityOpps</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 依頼案件 --></label>
+        <name>RequestOpps</name>
+    </recordTypes>
+    <webLinks>
+        <label><!-- CustomLink1 --></label>
+        <name>CustomLink1</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink2 --></label>
+        <name>CustomLink2</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink3 --></label>
+        <name>CustomLink3</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink4 --></label>
+        <name>CustomLink4</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink5 --></label>
+        <name>CustomLink5</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink6 --></label>
+        <name>CustomLink6</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink7 --></label>
+        <name>CustomLink7</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink8 --></label>
+        <name>CustomLink8</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink9 --></label>
+        <name>CustomLink9</name>
+    </webLinks>
+</CustomObjectTranslation>

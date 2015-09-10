@@ -1,0 +1,126 @@
+<apex:page standardController="OPROARTS050__Purchase__c" extensions="OPROARTS050.PurchaseEdit" id="purchase"
+        sidebar="false" title="{!$Label.oproarts050__PurchaseEdit_Title}: {!IF(ISBLANK(OPROARTS050__Purchase__c.Name),$Label.oproarts050__PurchaseNew_Subtitle,OPROARTS050__Purchase__c.Name)}">
+<apex:stylesheet value="{!URLFOR($Resource.OPROARTS050__QBStatic,'css/oqbo-v1.css')}"/>
+<apex:sectionHeader title="{!$Label.oproarts050__PurchaseEdit_Title}" subtitle="{!IF(ISBLANK(OPROARTS050__Purchase__c.Name),$Label.oproarts050__PurchaseNew_Subtitle,OPROARTS050__Purchase__c.Name)}"/>
+<apex:includeScript value="{!URLFOR($Resource.OPROARTS050__QBStatic,'js/oqbo-v1.js')}"/>
+<script type="text/javascript">function setFocusOnLoad() {}</script>
+<apex:form id="f1">
+<apex:pageBlock id="pb1" mode="edit" title="{!$Label.oproarts050__PurchaseEdit_Title}" rendered="{!NOT(isEditable)}">
+    <apex:pageMessage severity="warn" strength="1" summary="{!$Label.oproarts050__Message_PurchaseNotEditable}"/>
+</apex:pageBlock>
+<apex:pageBlock id="pb2" mode="edit" rendered="{!AND(isEditable,NOT(hasQuote))}">
+    <apex:pageMessage severity="info" strength="1" summary="{!$Label.oproarts050__Message_PurchaseEdit_NoQuote}"/>
+    <apex:pageBlockButtons location="top">
+        <apex:commandButton value="{!$Label.oproarts050__Button_Next}" action="{!nextEdit}"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancelEdit}" immediate="true"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__Quote__c}"/>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+<apex:pageBlock id="pb3" mode="edit" rendered="{!AND(isEditable,hasQuote)}">
+    <apex:pageMessages id="m1"/>
+    <apex:pageBlockButtons location="top">
+        <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!saveEdit}" rendered="{!hasQuoteLines}"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_SaveAndNew}" action="{!saveEditAndNew}" rendered="{!AND(isNew,hasQuoteLines)}"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancelEdit}"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Information}" columns="2">
+        <apex:outputField value="{!OPROARTS050__Purchase__c.Name}" rendered="{!NOT(isNew)}"/>
+        <apex:outputField value="{!OPROARTS050__Purchase__c.OwnerId}" rendered="{!NOT(isNew)}"/>
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__Account__c}" required="false"/>
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__PurchaseDate__c}"/>
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__Contact__c}"/>
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__DesiredShipDate__c}"/>
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__ShipToAccount__c}"/>
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__TaxRate__c}"/>
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__ShipToContact__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!OPROARTS050__Purchase__c.OPROARTS050__PurchaseRemarks__c}" style="width: 30em;"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Additional}" columns="2"
+            rendered="{!hasAdditionalEditFields}">
+        <!-- <apex:repeat value="{!additionalEditFields}" var="field"> -->
+        <apex:repeat value="{!$ObjectType.OPROARTS050__Purchase__c.FieldSets.OPROARTS050__CustomFields}" var="field">
+            <apex:inputField value="{!OPROARTS050__Purchase__c[field]}" required="{!field.Required}" rendered="{!NOT(CONTAINS(field.fieldPath,'__r'))}"/>
+        </apex:repeat>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="2">
+        <apex:outputField value="{!OPROARTS050__Purchase__c.OPROARTS050__Quote__c}"/>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+<apex:pageBlock id="pb4" mode="edit" title="{!$Label.oproarts050__PurchaseEdit_QuoteLines}" rendered="{!AND(isEditable,hasQuote)}">
+    <apex:pageMessage severity="warn" strength="1" summary="{!$Label.oproarts050__Message_PurchaseEdit_NoQuoteLines}" rendered="{!NOT(hasQuoteLines)}"/>
+    <apex:pageMessage severity="info" strength="1" summary="{!$Label.oproarts050__Message_PurchaseEdit_QuoteLines}" rendered="{!hasQuoteLines}"/>
+    <apex:pageBlockTable value="{!quoteLines}" var="quoteLine" id="quoteLineTable" rendered="{!hasQuoteLines}">
+        <apex:column style="width: 2em;" styleClass="inputCheck"
+                headerClass="lineTable inputCheck" headerValue="{!$Label.oproarts050__Column_Select}">
+            <apex:inputCheckbox id="selectCheck" value="{!quoteLine.selected}"/>
+        </apex:column>
+        <apex:column style="width: 2em;" styleClass="inputCheck"
+                headerClass="lineTable inputCheck" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Purchasable__c.Label}">
+            <apex:outputField id="purchasable" value="{!quoteLine.so.OPROARTS050__Purchasable__c}"/>
+        </apex:column>
+        <apex:column style="width: 8%;" styleClass="outputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ProductFamily__c.Label}">
+            <apex:outputField id="productFamily" value="{!quoteLine.so.OPROARTS050__ProductFamily__c}"/>
+        </apex:column>
+        <apex:column style="width: 8%;" styleClass="outputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ProductCode__c.Label}">
+            <apex:outputField id="productCode" value="{!quoteLine.so.OPROARTS050__ProductCode__c}"/>
+        </apex:column>
+        <apex:column style="" styleClass="outputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__ProductName__c.Label}">
+            <apex:outputField id="productName" value="{!quoteLine.so.OPROARTS050__ProductName__c}"/>
+        </apex:column>
+        <!--<apex:repeat value="{!additionalEditFieldsInTable}" var="field">-->
+        <apex:repeat value="{!$ObjectType.OPROARTS050__QuoteLine__c.FieldSets.OPROARTS050__CustomFieldsPurchaseList}" var="field">
+            <apex:column headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields[field].Label}" rendered="{!NOT(CONTAINS(field.fieldPath,'__r'))}">
+                <apex:inputField value="{!quoteLine.so[field]}"/>
+            </apex:column>
+        </apex:repeat>
+        <apex:column style="width: 6%;" styleClass="outputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Quantity__c.Label}">
+            <apex:outputText id="quantity" value="{0,number,integer}">
+                <apex:param value="{!quoteLine.quantity}"/>
+            </apex:outputText>
+        </apex:column>
+        <apex:column style="width: 6%;" styleClass="inputNumber"
+                headerClass="lineTable" headerValue="{!$Label.oproarts050__PurchaseEdit_Column_QuantityEdit}">
+            <apex:inputField id="quantityEdit" value="{!quoteLine.so.OPROARTS050__Quantity__c}">
+                <apex:actionSupport event="onchange" reRender="totalCost"/>
+            </apex:inputField>
+        </apex:column>
+        <apex:column style="width: 3em;" styleClass="outputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__Unit__c.Label}">
+            <apex:outputField id="unit" value="{!quoteLine.so.OPROARTS050__Unit__c}"/>
+        </apex:column>
+        <apex:column style="width: 8%;" styleClass="outputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__UnitPrice__c.Label}">
+            <apex:outputField id="unitPrice" value="{!quoteLine.so.OPROARTS050__UnitPrice__c}"/>
+        </apex:column>
+        <apex:column style="width: 8%;" styleClass="inputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__UnitCost__c.Label}">
+            <apex:inputField id="unitCost" value="{!quoteLine.so.OPROARTS050__UnitCost__c}">
+                <apex:actionSupport event="onchange" reRender="totalCost"/>
+            </apex:inputField>
+        </apex:column>
+        <apex:column style="width: 8%;" styleClass="outputNumber"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__TotalCost__c.Label}">
+            <apex:outputText id="totalCost" value="{0,number,integer}">
+                <apex:param value="{!quoteLine.totalCost}"/>
+            </apex:outputText>
+        </apex:column>
+        <apex:column style="width: 12%;" styleClass="outputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__PurchaseAcount__c.Label}">
+            <apex:outputField id="purchaseAcount" value="{!quoteLine.so.OPROARTS050__PurchaseAcount__c}"/>
+        </apex:column>
+        <apex:column style="width: 12%;" styleClass="inputText"
+                headerClass="lineTable" headerValue="{!$ObjectType.OPROARTS050__QuoteLine__c.Fields.OPROARTS050__PurchaseNote__c.Label}">
+            <apex:inputField id="purchaseNote" value="{!quoteLine.so.OPROARTS050__PurchaseNote__c}"/>
+        </apex:column>
+    </apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,76 @@
+<apex:page controller="OPROARTS050.ProductsView" tabStyle="Product2" id="product"
+        showHeader="false" sidebar="false" title="{!$Label.oproarts050__ProductsView_ProductSelect}: {!$Label.oproarts050__ProductsView_SearchTitle}">
+<apex:stylesheet value="{!URLFOR($Resource.OPROARTS050__QBStatic,'css/oqbo-v1.css')}"/>
+<apex:sectionHeader title="{!$Label.oproarts050__ProductsView_ProductSelect}" subtitle="{!$Label.oproarts050__ProductsView_SearchTitle}"/>
+<apex:includeScript value="{!URLFOR($Resource.OPROARTS050__QBStatic,'js/oqbo-v1.js')}"/>
+<script type="text/javascript">
+OQBO.setComponents({ productTable: '{!$Component.f1.pb1.productTable}' });
+</script>
+<apex:form id="f1">
+<apex:actionFunction name="searchEntries" action="{!searchEntries}" status="searchStatus" reRender="pb1"/>
+<apex:outputPanel styleClass="bOverviewSearch" layout="block">
+    <apex:panelGrid columns="3" styleClass="searchGrid">
+        <apex:panelGroup id="pg11">
+            <apex:outputLabel value="{!$ObjectType.Pricebook2.Fields.Name.Label}"/>:&nbsp;
+            <apex:selectList value="{!pricebookId}" size="1" onchange="searchEntries(); return false;"><apex:selectOptions value="{!pricebookOptions}"/></apex:selectList>
+        </apex:panelGroup>
+        <apex:panelGroup id="pg12">
+            <apex:outputLabel value="{!$ObjectType.Product2.Fields.Family.Label}"/>:&nbsp;
+            <apex:selectList value="{!productFamily}" size="1" onchange="searchEntries(); return false;"><apex:selectOptions value="{!productFamilyOptions}"/></apex:selectList>
+        </apex:panelGroup>
+        <apex:panelGroup id="pg13"/>
+        <apex:panelGroup id="pg21">
+            <apex:outputLabel value="{!$ObjectType.Product2.Fields.ProductCode.Label}"/>:&nbsp;
+            <apex:inputText value="{!productCode}"/>
+        </apex:panelGroup>
+        <apex:panelGroup id="pg22">
+            <apex:outputLabel value="{!$ObjectType.Product2.Fields.Name.Label}"/>:&nbsp;
+            <apex:inputText value="{!productName}"/>
+        </apex:panelGroup>
+        <apex:panelGroup id="pg23">
+            <apex:commandButton value="{!$Label.oproarts050__Button_Search}" onclick="searchEntries(); return false;"/>
+        </apex:panelGroup>
+    </apex:panelGrid>
+</apex:outputPanel>
+<apex:pageBlock title="{!$ObjectType.Product2.Label}" id="pb1">
+    <apex:pageBlockButtons location="both">
+        <apex:commandButton value="{!$Label.oproarts050__ProductsView_Button_AddToDetail}"
+                onclick="OQBO.addSelectedProducts();"/>
+    </apex:pageBlockButtons>
+    <apex:actionStatus id="searchStatus">
+        <apex:facet name="start"><apex:pageMessage severity="info" strength="0"
+                summary="{!$Label.oproarts050__ProductsView_Searching}"/></apex:facet>
+    </apex:actionStatus>
+    <apex:pageMessages id="m1"/>
+    <apex:pageBlockTable value="{!entries}" var="entry" id="productTable">
+        <apex:column headerValue="{!$Label.oproarts050__Column_Select}" style="width: 2em;">
+            <input type="checkbox" name="entryId" value="{!entry.Id}"/>
+        </apex:column>
+        <apex:column style="width: 6em;">
+            <apex:facet name="header"><a id="th_productCode"
+                    onclick="OQBO.sortProductEntries(this); return false;"
+                    href="{!$Page.ProductsView}">{!$ObjectType.Product2.Fields.ProductCode.Label}</a></apex:facet>
+            <apex:outputField value="{!entry.Product2.ProductCode}" id="productCode"/>
+        </apex:column>
+        <apex:column style="">
+            <apex:facet name="header"><a id="th_productName"
+                    onclick="OQBO.sortProductEntries(this); return false;"
+                    href="{!$Page.ProductsView}">{!$ObjectType.Product2.Fields.Name.Label}</a></apex:facet>
+            <apex:outputField value="{!entry.Product2.Name}" id="productName"/>
+        </apex:column>
+        <apex:repeat value="{!$ObjectType.Product2.FieldSets.OPROARTS050__ProductsViewFields}" var="f">
+            <apex:column style="">
+                <apex:facet name="header">{!f.Label}</apex:facet>
+                <apex:outputField value="{!entry.Product2[f]}"/>
+            </apex:column>
+        </apex:repeat>
+        <apex:column style="width: 6em; text-align: right;">
+            <apex:facet name="header"><a id="numeric_th_unitPrice"
+                    onclick="OQBO.sortProductEntries(this); return false;"
+                    href="{!$Page.ProductsView}">{!$ObjectType.PricebookEntry.Fields.UnitPrice.Label}</a></apex:facet>
+            <apex:outputField value="{!entry.UnitPrice}" id="unitPrice"/>
+        </apex:column>
+    </apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,52 @@
+<apex:page standardController="OPROARTS050__Quote__c" extensions="OPROARTS050.QuoteClone" id="quote"
+        title="{!$Label.oproarts050__QuoteClone_Title}: {!OPROARTS050__Quote__c.Name}">
+<apex:stylesheet value="{!URLFOR($Resource.OPROARTS050__QBStatic,'css/oqbo-v1.css')}"/>
+<apex:sectionHeader title="{!$Label.oproarts050__QuoteClone_Title}" subtitle="{!OPROARTS050__Quote__c.Name}"/>
+<apex:includeScript value="{!URLFOR($Resource.OPROARTS050__QBStatic,'js/oqbo-v1.js')}"/>
+<script type="text/javascript">function setFocusOnLoad() {}</script>
+<apex:form id="f1">
+<apex:pageBlock id="pb1" mode="edit" title="{!$Label.oproarts050__QuoteClone_Title}" rendered="{!NOT(isClonable)}">
+    <apex:pageMessage severity="warn" strength="1" summary="{!$Label.oproarts050__Message_QuoteNotClonable}"/>
+</apex:pageBlock>
+<apex:pageBlock id="pb2" mode="edit" title="{!$Label.oproarts050__QuoteClone_Title}" rendered="{!isClonable}">
+    <apex:pageMessages id="m1"/>
+    <apex:pageBlockButtons location="both">
+        <apex:commandButton value="{!$Label.oproarts050__Button_Save}" action="{!saveClone}"/>
+        <apex:commandButton value="{!$Label.oproarts050__Button_Cancel}" action="{!cancelClone}"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Information}" columns="2">
+        <apex:outputField value="{!OPROARTS050__Quote__c.OPROARTS050__Account__c}"/>
+        <apex:outputField value="{!OPROARTS050__Quote__c.OPROARTS050__Opportunity__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__Subject__c}" required="true"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__IsActive__c}"/>
+        <apex:pageBlockSectionItem id="pbsi1">
+            <apex:outputLabel value="{!$Label.oproarts050__QuoteClone_CloneLines}" for="cloneLines"/>
+            <apex:inputCheckbox value="{!cloneLines}" id="cloneLines" disabled="{!NOT(isLineClonable)}"/>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Quote}" columns="1">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__QuoteDate__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__QuoteExpiry__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__DeliveryTerm__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__DeliveryPlace__c}"/>
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__Transaction__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__QuoteRemarks__c}" style="width: 30em;"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Order}" columns="2">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__OrderDate__c}"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!OPROARTS050__Quote__c.OPROARTS050__OrderRemarks__c}" style="width: 30em;"/>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection title="{!$Label.oproarts050__Section_Additional}" columns="2"
+            rendered="{!hasAdditionalCloneFields}">
+        <!-- <apex:repeat value="{!additionalCloneFields}" var="field"> -->
+          <apex:repeat value="{!$ObjectType.OPROARTS050__Quote__c.FieldSets.OPROARTS050__CustomFields}" var="field">
+            <apex:inputField value="{!OPROARTS050__Quote__c[field]}" required="{!field.Required}" rendered="{!NOT(CONTAINS(field.fieldPath,'__r'))}"/>
+        </apex:repeat>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

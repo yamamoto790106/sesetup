@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>LABEL_ACTION</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_ACTION</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_ADD_BUTTON</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_ADD_BUTTON</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_DELETE_BUTTON</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_DELETE_BUTTON</shortDescription>
+        <value>Del</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_DESIGN</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_DESIGN</shortDescription>
+        <value>Design</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_EDIT_BUTTON</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_EDIT_BUTTON</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_NUMBER_OF_USERS</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_NUMBER_OF_USERS</shortDescription>
+        <value>Number of Users</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_OPROARTS_TAB_SUBTITLE</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_OPROARTS_TAB_SUBTITLE</shortDescription>
+        <value>Authentication Information</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_OPROARTS_TAB_TITLE</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_OPROARTS_TAB_TITLE</shortDescription>
+        <value>OPROARTS Connector</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_OPROARTS_VIEW_BREADCRUMB</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LABEL_OPROARTS_VIEW_BREADCRUMB</shortDescription>
+        <value>Back to List</value>
+    </labels>
+    <labels>
+        <fullName>LABEL_OUTPUT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LABEL_OUTPUT</shortDescription>
+        <value>Output</value>
+    </labels>
+    <labels>
+        <fullName>LANGUAGE_CODE</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LANGUAGE_CODE</shortDescription>
+        <value>en_US</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_CONFIRM_DELETE</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_CONFIRM_DELETE</shortDescription>
+        <value>Are you sure?</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_NOT_ALL_RECORDS_DISPLAYED</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_NOT_ALL_RECORDS_DISPLAYED</shortDescription>
+        <value>Too many {0} records. Some records are not displayed.</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_NO_MORE_RECORDS_CAN_BE_ADDED</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_NO_MORE_RECORDS_CAN_BE_ADDED</shortDescription>
+        <value>Too many {0} records. No more records can be added.</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_OPROARTS_TAB_DESCRIPTION</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_OPROARTS_TAB_DESCRIPTION</shortDescription>
+        <value>To activate OPROARTS Connector application, you need your Authentication Information for it.</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_OPROARTS_TAB_DESCRIPTION_HELPLINK</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_OPROARTS_TAB_DESCRIPTION_HELPLINK</shortDescription>
+        <value>Please read the Help and obtain that Authentication Information.</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_OPROARTS_TAB_NO_LICENSE</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_OPROARTS_TAB_NO_LICENSE</shortDescription>
+        <value>Please register your Authentication Information to start the OPROARTS Designer.</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_OPROARTS_TAB_STARTLINK</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_OPROARTS_TAB_STARTLINK</shortDescription>
+        <value>You can start the Designer in a new window!</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_OPROARTS_TAB_STEPS_D</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_OPROARTS_TAB_STEPS_D</shortDescription>
+        <value>&lt;p&gt;To register the Authentication Information for template design, please follow the steps below.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Select &quot;Design (LAD)&quot; in the dropdown list in the OPROARTS column.&lt;/li&gt;
+&lt;li&gt;Enter the obtained CID value to the text edit in the CID column.&lt;/li&gt;
+&lt;li&gt;Click the Add button.&lt;/li&gt;
+&lt;li&gt;Click the &quot;LAD&quot; link in the OPROARTS column of the second table, and open the OPROARTS Detail page.&lt;/li&gt;
+&lt;li&gt;Click the button at the right side of the text edit in the User column, and select a Salesforce user.&lt;/li&gt;
+&lt;li&gt;Enter the obtained UID value to the text edit in the UID column.&lt;/li&gt;
+&lt;li&gt;Enter the obtained Password value to the text edit in the UPW column.&lt;/li&gt;
+&lt;li&gt;Click the Add button.&lt;/li&gt;
+&lt;li&gt;Repeat the steps from 5. to 8. for users to be allowed to design templates.&lt;/li&gt;
+&lt;li&gt;Edit the Profile of each User, and give them the Custom Object Permissions of Read Access to OPROARTS object and OPROARTS Users object.&lt;/li&gt;
+&lt;/ol&gt;</value>
+    </labels>
+    <labels>
+        <fullName>MESSAGE_OPROARTS_TAB_STEPS_R</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MESSAGE_OPROARTS_TAB_STEPS_R</shortDescription>
+        <value>&lt;p&gt;To register the Authentication Information for document output, please follow the steps below.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Select &quot;Output (LA)&quot; in the dropdown list in the OPROARTS column.&lt;/li&gt;
+&lt;li&gt;Enter the obtained CID value to the text edit in the CID column.&lt;/li&gt;
+&lt;li&gt;Click the Add button.&lt;/li&gt;
+&lt;li&gt;Click the &quot;LA&quot; link in the OPROARTS column of the second table, and open the OPROARTS Detail page.&lt;/li&gt;
+&lt;li&gt;Click the button at the right side of the text edit in the User column, and select a Salesforce user.&lt;/li&gt;
+&lt;li&gt;Enter the obtained UID value to the text edit in the UID column.&lt;/li&gt;
+&lt;li&gt;Enter the obtained Password value to the text edit in the UPW column.&lt;/li&gt;
+&lt;li&gt;Click the Add button.&lt;/li&gt;
+&lt;li&gt;Repeat the steps from 5. to 8. for users to be allowed to output documents.&lt;/li&gt;
+&lt;li&gt;Edit the Profile of each User, and give them the Custom Object Permissions of Read Access to OPROARTS object and OPROARTS Users object.&lt;/li&gt;
+&lt;/ol&gt;</value>
+    </labels>
+</CustomLabels>
